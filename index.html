@@ -1,0 +1,1216 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light" data-lang="en">
+<head>
+<meta charset="utf-8" />
+<script>
+/* theme + language resolved before first paint (no flash). Saved choice > URL > system/browser preference */
+(function(){var d=document.documentElement,t=null,l=null;try{t=localStorage.getItem('ka-theme');l=localStorage.getItem('ka-lang');}catch(e){}
+var q=location.search.match(/[?&]lang=(fa|en)\b/);if(q)l=q[1];if(location.hash==='#fa')l='fa';
+if(t!=='dark'&&t!=='light')t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+if(l!=='fa'&&l!=='en')l=(((navigator.languages&&navigator.languages[0])||navigator.language||'en').toLowerCase().indexOf('fa')===0)?'fa':'en';
+d.setAttribute('data-theme',t);d.setAttribute('data-lang',l);if(l==='fa'){d.lang='fa';d.dir='rtl';}})();
+</script>
+<title>Kiarash Akbari · AI, engineered.</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)" />
+<meta name="description" content="Kiarash Akbari, AI software engineer. Backend systems and AI-integrated applications: RAG pipelines, graph/vector backends, and ML systems that hold up in production." />
+<meta name="author" content="Kiarash Akbari" />
+<meta property="og:type" content="profile" />
+<meta property="og:title" content="Kiarash Akbari · AI, engineered." />
+<meta property="og:description" content="AI software engineer focused on backend systems and AI-integrated applications. Open to remote roles." />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="fa_IR" />
+<meta name="twitter:card" content="summary" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20shape-rendering%3D%22crispEdges%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%230A0A0A%22/%3E%3Cg%20fill%3D%22%23d8ff00%22%3E%3Crect%20x%3D%223%22%20y%3D%226%22%20width%3D%222%22%20height%3D%2212%22/%3E%3Crect%20x%3D%225%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%222%22/%3E%3Crect%20x%3D%227%22%20y%3D%229%22%20width%3D%222%22%20height%3D%222%22/%3E%3Crect%20x%3D%227%22%20y%3D%2213%22%20width%3D%222%22%20height%3D%222%22/%3E%3Crect%20x%3D%229%22%20y%3D%226%22%20width%3D%222%22%20height%3D%223%22/%3E%3Crect%20x%3D%229%22%20y%3D%2215%22%20width%3D%222%22%20height%3D%223%22/%3E%3Crect%20x%3D%2213%22%20y%3D%228%22%20width%3D%222%22%20height%3D%2210%22/%3E%3Crect%20x%3D%2219%22%20y%3D%228%22%20width%3D%222%22%20height%3D%2210%22/%3E%3Crect%20x%3D%2215%22%20y%3D%226%22%20width%3D%224%22%20height%3D%222%22/%3E%3Crect%20x%3D%2215%22%20y%3D%2212%22%20width%3D%224%22%20height%3D%222%22/%3E%3C/g%3E%3C/svg%3E" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Kiarash Akbari","alternateName":"کیارش اکبری","jobTitle":"AI Software Engineer","description":"AI software engineer focused on backend systems and AI-integrated applications.","email":"mailto:Kiarash.Akbari.Contact@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Mashhad","addressCountry":"IR"},"alumniOf":{"@type":"CollegeOrUniversity","name":"Eqbal University"},"sameAs":["https://github.com/KiarashAkbari"],"knowsAbout":["Retrieval-augmented generation","FastAPI","Neo4j","ChromaDB","TensorFlow","Keras","Python","Docker"],"knowsLanguage":["en","fa"]}
+</script>
+<style>
+@font-face{font-family:"Host Grotesk";src:url(data:font/woff2;base64,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) format("woff2");font-weight:300 800;font-display:swap;}
+/* Persian face: external + unicode-range, so it is only downloaded when Persian glyphs are actually rendered */
+@font-face{font-family:"Vazirmatn";src:url("fonts/Vazirmatn-arabic.woff2") format("woff2");font-weight:300 700;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFC;}
+:root{
+  --paper:#FFFFFF; --ink:#0A0A0A; --body:#2a2a2a; --muted:#8b8b8b;
+  --navy:#1c2541; --blue:#3b5bd9; --yellow:#f5c518; --red:#e0492a; --neon:#d8ff00;
+  --line:rgba(10,10,10,.12); --hair:#f0f0f0; --paper-a:rgba(255,255,255,.84);
+  --grid:#f3f3f3; --tile-bg:#0A0A0A; --tile-grid:#121212; --navy-px:#1c2541;
+  --cell:14px; --gutter:56px; --maxw:1176px;
+  --sans:"Host Grotesk","Vazirmatn","Helvetica Neue",Helvetica,Arial,Tahoma,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --px-lg:polygon(10px 0, calc(100% - 10px) 0, calc(100% - 10px) 5px, calc(100% - 5px) 5px, calc(100% - 5px) 10px, 100% 10px, 100% calc(100% - 10px), calc(100% - 5px) calc(100% - 10px), calc(100% - 5px) calc(100% - 5px), calc(100% - 10px) calc(100% - 5px), calc(100% - 10px) 100%, 10px 100%, 10px calc(100% - 5px), 5px calc(100% - 5px), 5px calc(100% - 10px), 0 calc(100% - 10px), 0 10px, 5px 10px, 5px 5px, 10px 5px);
+  --px-md:polygon(8px 0, calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 8px, 100% 8px, 100% calc(100% - 8px), calc(100% - 4px) calc(100% - 8px), calc(100% - 4px) calc(100% - 4px), calc(100% - 8px) calc(100% - 4px), calc(100% - 8px) 100%, 8px 100%, 8px calc(100% - 4px), 4px calc(100% - 4px), 4px calc(100% - 8px), 0 calc(100% - 8px), 0 8px, 4px 8px, 4px 4px, 8px 4px);
+  --px-sm:polygon(6px 0, calc(100% - 6px) 0, calc(100% - 6px) 3px, calc(100% - 3px) 3px, calc(100% - 3px) 6px, 100% 6px, 100% calc(100% - 6px), calc(100% - 3px) calc(100% - 6px), calc(100% - 3px) calc(100% - 3px), calc(100% - 6px) calc(100% - 3px), calc(100% - 6px) 100%, 6px 100%, 6px calc(100% - 3px), 3px calc(100% - 3px), 3px calc(100% - 6px), 0 calc(100% - 6px), 0 6px, 3px 6px, 3px 3px, 6px 3px);
+  color-scheme:light;
+}
+/* ===== dark theme: same system, inverted paper/ink, lifted navy so the pixels still read ===== */
+[data-theme="dark"]{
+  --paper:#0B0B0C; --ink:#EDEDED; --body:#BDBDBD; --muted:#7f7f7f;
+  --navy:#2a3768; --line:rgba(255,255,255,.13); --hair:#1f1f22; --paper-a:rgba(11,11,12,.84);
+  --grid:#151517; --tile-bg:#121316; --tile-grid:#1a1b1f; --navy-px:#2b3a70;
+  color-scheme:dark;
+}
+@media(max-width:680px){ :root{--gutter:28px;} }
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html{overscroll-behavior:none; background:var(--paper);}
+body{margin:0; background:var(--paper); color:var(--ink); overflow-x:hidden; font-family:var(--sans); font-weight:400; line-height:1.5; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+a{color:inherit;}
+::selection{background:var(--neon); color:#0A0A0A;}
+.mono{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);}
+.skip{position:fixed; top:8px; inset-inline-start:8px; z-index:300; padding:10px 16px; background:var(--ink); color:var(--paper); font-weight:500; text-decoration:none; clip-path:var(--px-md); transform:translateY(-160%);}
+.skip:focus{transform:none;}
+:focus-visible{outline:2px solid var(--blue); outline-offset:3px;}
+html.theme-anim, html.theme-anim *{transition:background-color .36s steps(4), color .36s steps(4), border-color .36s steps(4), fill .36s steps(4) !important;}
+
+/* ===== page-wide pixel field ===== */
+#field{position:fixed; inset:0; width:100%; height:100%; display:block; z-index:0; pointer-events:none;}
+main{position:relative; z-index:2;}
+
+/* ===== fixed corner tab ===== */
+.toplink{position:fixed; top:0; inset-inline-end:0; z-index:60; display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 18px; font-family:var(--mono); font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink); text-decoration:none; background:var(--paper); border:1px solid var(--hair); border-top:0; border-inline-end:0; transform:translateY(-100%); pointer-events:none; transition:transform .45s steps(5), border-color .2s;}
+.toplink.show{transform:none; pointer-events:auto;}
+.toplink:hover{border-color:var(--ink);}
+.toplink svg{width:13px; height:13px;}
+
+/* ===== display settings (theme + language), same chrome as the reference pixel panel ===== */
+.pxctl{position:fixed; inset-inline-start:16px; bottom:16px; z-index:200; display:flex; align-items:center; gap:5px; padding:7px 9px; background:var(--paper-a); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border:1px solid var(--line); border-radius:10px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); transition:opacity .35s steps(4), transform .35s steps(4);}
+.pxctl .lbl{color:var(--muted); margin:0 3px;}
+.pxctl .sep{width:1px; height:16px; background:var(--line); margin:0 4px;}
+.pxctl button{font:inherit; letter-spacing:0; min-width:24px; height:24px; padding:0 5px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:6px; cursor:pointer; transition:background .15s, border-color .15s, color .15s;}
+.pxctl button:hover{border-color:var(--ink);}
+.pxctl button.on{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+.pxctl button svg{width:13px; height:13px; display:block;}
+.pxctl button[data-lang-set="fa"]{font-family:"Vazirmatn",var(--sans); font-size:12px; text-transform:none;}
+.pxctl.hide, .pxctl.tuck{opacity:0; transform:translateY(8px); pointer-events:none;}
+@media(max-width:680px){ .pxctl{inset-inline-start:10px; bottom:10px; padding:5px 7px;} .pxctl .lbl{display:none;} }
+
+/* ===== hero ===== */
+.hero{position:relative; min-height:100vh; z-index:1;}
+.hhead{position:relative; z-index:5; background:var(--paper); padding:0 var(--gutter);}
+.hhead::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:1px; background:var(--line); transform-origin:left; transform:scaleX(0); animation:growX .9s cubic-bezier(.16,1,.3,1) .5s both;}
+.hgrid{max-width:var(--maxw); margin:0 auto; padding:calc(var(--cell)*2) 0 calc(var(--cell)*2 + 2px); display:grid; grid-template-columns:1fr; gap:calc(var(--cell)*3);}
+@media(min-width:900px){ .hgrid{grid-template-columns:1.6fr 1fr;} }
+.hl{margin:0; font-weight:400; text-transform:uppercase; font-size:clamp(40px,5.6vw,88px); line-height:.9; letter-spacing:-.04em;}
+.ln{display:block; overflow:hidden; padding-bottom:.08em; margin-bottom:-.08em;}
+.hhead .ln > span{display:block; transform:translateY(115%); animation:lineUp .95s steps(6) both;}
+.hl .ln:nth-child(1) > span{animation-delay:.1s;} .hl .ln:nth-child(2) > span{animation-delay:.21s;}
+.hdesc .ln:nth-child(1) > span{animation-delay:.36s;} .hdesc .ln:nth-child(2) > span{animation-delay:.44s;}
+.htag{animation:fadeUp .9s steps(6) .58s both;}
+.hfoot .mark{animation:fadeUp .9s steps(6) .78s both;}
+@keyframes lineUp{from{transform:translateY(115%);} to{transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+@keyframes growX{to{transform:scaleX(1);}}
+@keyframes growY{to{transform:scaleY(1);}}
+.hcol{position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:calc(var(--cell)*2);}
+@media(min-width:900px){
+  .hcol{padding-inline-start:calc(var(--cell)*3);}
+  .hcol::before{content:""; position:absolute; inset-inline-start:0; top:calc(var(--cell)*-2); bottom:calc(var(--cell)*-2); width:1px; background:var(--line); transform-origin:top; transform:scaleY(0); animation:growY .85s cubic-bezier(.16,1,.3,1) .42s both;}
+}
+.hdesc{margin:0; text-transform:uppercase; font-size:clamp(13px,1.45vw,20px); line-height:1.18; letter-spacing:-.01em;}
+.hdesc span{display:block; text-align:justify; text-align-last:justify; -webkit-text-align-last:justify;}
+.hfoot{display:flex; align-items:flex-start; justify-content:space-between; gap:14px; perspective:900px;}
+.mark{display:inline-block; flex:none; margin-top:3px; transform-origin:50% 50%; color:var(--ink);}
+.mark svg{display:block; width:44px; height:auto;}
+@keyframes spinY{from{transform:rotateY(0);} to{transform:rotateY(360deg);}}
+.mark:hover svg, .mark.spin svg{animation:spinY .9s steps(18);}
+.htag{margin:0; font-size:13px; line-height:1.45; max-width:34ch; text-align:end;}
+.hstatus{display:inline-flex; align-items:center; gap:8px; margin-top:6px; color:var(--muted); font-size:10px;}
+.hstatus i{width:7px; height:7px; background:var(--neon); box-shadow:0 0 0 1px var(--ink); animation:blinkDot 1.2s steps(2) infinite;}
+@keyframes blinkDot{50%{opacity:.25;}}
+
+/* ===== intro lead ===== */
+.intro{position:relative; z-index:2; padding:calc(var(--cell)*7) var(--gutter) 0; margin-top:-24vh;}
+.wrap{max-width:var(--maxw); margin:0 auto;}
+.lead{font-size:clamp(26px,3.4vw,46px); line-height:1.08; letter-spacing:-.025em; margin:0; opacity:0;}
+.lead.ready{opacity:1;}
+.lead .m{color:var(--muted);}
+.lead .ln > span{display:block; transform:translateY(115%); transition:transform .85s steps(6);}
+.lead.in .ln > span{transform:none;}
+
+/* ===== editorial sections ===== */
+section.ed{position:relative; padding:calc(var(--cell)*9) var(--gutter);}
+.ed .wrap{display:flex; flex-direction:column; gap:calc(var(--cell)*2);}
+@media(min-width:860px){ .ed .wrap{display:grid; grid-template-columns:.82fr 1.18fr; column-gap:calc(var(--cell)*6); align-items:start;} }
+.ed .kick, .kick{color:var(--muted); margin:14px 0 0; font-size:10px; line-height:1.5; text-align:start;}
+.ed h2, .sec-h{font-size:clamp(28px,3.4vw,46px); line-height:1.06; letter-spacing:-.025em; font-weight:400; margin:0; max-width:16ch;}
+.ed p{font-size:clamp(15px,1.15vw,18px); line-height:1.62; margin:0 0 1.05em; color:var(--body); text-align:justify; text-align-last:start;}
+.ed p:last-child{margin-bottom:0;}
+.ed strong{font-weight:500; color:var(--ink);}
+.ed p.s{color:var(--muted);}
+
+/* smileys */
+.two{display:grid; grid-template-columns:1fr; gap:calc(var(--cell)*2); margin:calc(var(--cell)*3.5) 0;}
+@media(min-width:560px){ .two{grid-template-columns:1fr 1fr;} }
+.two .c{text-align:center; position:relative;}
+.two .c .l{color:var(--muted); margin-bottom:7px;}
+.ed .two .c p{font-size:14px; margin:0 auto; max-width:30ch; text-align:center; text-align-last:center; text-wrap:balance;}
+.smiley{display:block; width:128px; height:128px; margin:2px auto 18px; fill:var(--ink); cursor:pointer; transition:transform .3s steps(3);}
+.smiley .eyes{transition:transform .2s steps(2);}
+.smiley.blink .eyes rect{transform:scaleY(.2); transform-box:fill-box; transform-origin:center;}
+.smiley.jump{animation:smJump .62s steps(8);}
+.smiley.shy{transform:scale(.92) translateY(3px);}
+@keyframes smJump{0%{transform:translateY(0)}28%{transform:translateY(-18px)}52%{transform:translateY(0)}68%{transform:translateY(-7px)}100%{transform:translateY(0)}}
+.sm-heart{position:absolute; z-index:6; pointer-events:none; width:28px; height:24px; animation:smHeart 1s steps(10) forwards;}
+@keyframes smHeart{0%{opacity:0; transform:translate(-50%,0) scale(.5)}14%{opacity:1}100%{opacity:0; transform:translate(-50%,-72px) scale(1.1)}}
+
+/* ruled lists */
+.pts{list-style:none; margin:calc(var(--cell)*2) 0 0; padding:0;}
+.pts li{display:grid; grid-template-columns:130px 1fr; gap:var(--cell); align-items:baseline; padding:calc(var(--cell)*1.2) 0; border-top:1px solid var(--line); font-size:15px; line-height:1.55; color:var(--body);}
+.pts li:last-child{border-bottom:1px solid var(--line);}
+.pts .n{color:var(--muted); font-size:10px; white-space:nowrap;}
+.pts b{font-weight:500; color:var(--ink);}
+.pts .role{display:block; color:var(--ink); font-weight:500; font-size:16px; letter-spacing:-.01em;}
+.pts .org{display:block; color:var(--muted); font-size:13.5px; margin:1px 0 6px;}
+.pts .chips{display:flex; flex-wrap:wrap; gap:7px; margin-top:2px;}
+@media(max-width:560px){ .pts li{grid-template-columns:1fr; gap:6px;} }
+
+/* pixel chips (stack tags) */
+.chip{font-family:var(--mono); font-size:10px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; line-height:1; padding:7px 13px; background:var(--c,var(--navy)); color:var(--tc,#fff); clip-path:var(--px-sm); display:inline-block;}
+.c-blue{--c:var(--blue);} .c-navy{--c:var(--navy);} .c-ink{--c:var(--ink); --tc:var(--paper);}
+.c-yellow{--c:var(--yellow); --tc:#0A0A0A;} .c-red{--c:var(--red);} .c-neon{--c:var(--neon); --tc:#0A0A0A;}
+
+/* ===== buttons ===== */
+.btn{position:relative; display:inline-flex; align-items:center; justify-content:center; gap:10px; text-decoration:none; font-size:clamp(15px,1.2vw,18px); font-weight:500; letter-spacing:-.01em; padding:16px 36px; background:var(--ink); color:var(--paper); border:0; cursor:pointer; font-family:inherit; clip-path:var(--px-lg); transition:background .2s, color .2s;}
+.btn:hover{background:var(--blue); color:#fff;}
+.btn .lbl{position:relative; z-index:2;}
+.btn canvas.pxfx{position:absolute; inset:0; z-index:1; pointer-events:none; width:100%; height:100%;}
+.btn.ghost{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink);}
+
+/* ===== carousels ===== */
+.caro{position:relative; padding:calc(var(--cell)*7) var(--gutter);}
+.caro .ch{max-width:var(--maxw); margin:0 auto calc(var(--cell)*1); display:flex; justify-content:space-between; align-items:baseline; gap:var(--cell);}
+.caro .ch .hint{color:var(--muted); white-space:nowrap; font-size:10px;}
+.track-wrap{position:relative; overflow:hidden; margin:0 calc(-1 * var(--gutter)); padding:calc(var(--cell)*3) 0; touch-action:pan-y; user-select:none; -webkit-user-select:none; cursor:grab; direction:ltr;}
+.track-wrap.drag, .track-wrap.drag *{cursor:grabbing !important;}
+.track-wrap a{-webkit-user-drag:none;}
+.track{display:flex; gap:28px; width:max-content; padding:0 max(var(--gutter), calc((100vw - var(--maxw)) / 2)); will-change:transform;}
+html[dir="rtl"] .slide{direction:rtl;}
+.slide{flex:0 0 auto; width:min(86vw,420px); display:flex; flex-direction:column; align-items:center; text-align:center; text-decoration:none; color:inherit; padding:0 0 26px;}
+.csm{position:relative; width:100%; height:350px; overflow:hidden; background:var(--tile-bg);}
+.csm canvas{position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none;}
+.csm .badge{position:absolute; inset-inline-start:12px; top:12px; z-index:3; font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(10,10,10,.75); padding:6px 9px; clip-path:var(--px-sm);}
+.slide .t{font-size:clamp(22px,2.2vw,30px); font-weight:500; letter-spacing:-.02em; margin:20px 0 0; line-height:1.2;}
+.slide .d{color:var(--body); font-size:14.5px; line-height:1.5; margin:9px 26px 0; max-width:34ch;}
+.slide .tags{display:flex; flex-wrap:wrap; justify-content:center; gap:7px; margin:14px 22px 0;}
+.reveal-cta{display:none; position:absolute; inset:0; z-index:2; pointer-events:none; transform:translateY(100%); transition:transform .5s steps(4);
+  background:linear-gradient(to top, rgba(10,10,10,.82) 0 14px, rgba(10,10,10,.55) 14px 28px, rgba(10,10,10,.3) 28px 42px, rgba(10,10,10,.12) 42px 56px, transparent 56px);}
+.rc-clip{display:none; position:absolute; left:0; right:0; bottom:16px; z-index:3; overflow:hidden; line-height:1.3; text-align:center; color:#fff; font-size:13px; font-weight:500; pointer-events:none;}
+.rc-i{display:inline-block; transform:translateY(130%); transition:transform .5s steps(5);}
+.slide:hover .reveal-cta, .slide:focus-visible .reveal-cta{transform:none;}
+.slide:hover .rc-i, .slide:focus-visible .rc-i{transform:none;}
+.slide:focus-visible{outline:2px solid var(--blue); outline-offset:6px;}
+@media(hover:hover) and (pointer:fine){ .reveal-cta, .rc-clip{display:block;} .track-wrap .slide, .track-wrap .slide *{cursor:pointer;} }
+.sl-arrow{position:absolute; top:calc(var(--cell)*3 + 175px); transform:translateY(-50%); z-index:6; width:42px; height:42px; border:0; background:var(--ink); color:var(--paper); display:none; align-items:center; justify-content:center; padding:0; cursor:pointer; clip-path:var(--px-lg); transition:background .2s, opacity .25s;}
+.sl-arrow.prev{left:16px;} .sl-arrow.next{right:16px;}
+.sl-arrow svg{width:18px; height:18px;}
+.sl-arrow:hover{background:var(--blue); color:#fff;}
+.sl-arrow[disabled]{opacity:0; pointer-events:none;}
+@media(hover:hover) and (pointer:fine){ .sl-arrow{display:flex;} }
+
+/* ===== process flow ===== */
+.proc{position:relative; padding:calc(var(--cell)*7) var(--gutter);}
+.proc .ph{display:flex; flex-direction:column; align-items:flex-start; gap:calc(var(--cell)*2); margin-bottom:calc(var(--cell)*3);}
+.proc .pd{color:var(--body); font-size:clamp(15px,1.15vw,18px); line-height:1.62; max-width:46ch; margin:0;}
+.procflow{width:100%; aspect-ratio:3/1; margin-bottom:clamp(14px,2.4vh,26px);}
+.procflow canvas{width:100%; height:100%; display:block;}
+.steps{display:grid; grid-template-columns:repeat(2,1fr); gap:14px 28px;}
+@media(min-width:840px){ .steps{grid-template-columns:repeat(4,1fr);} }
+.step{position:relative; display:flex; flex-direction:column; gap:13px; transition:opacity .3s steps(3);}
+.dl{display:flex; align-items:center; gap:9px; line-height:1.25;}
+.dn{display:inline-grid; place-items:center; width:22px; height:22px; flex:none; background:var(--navy); color:#fff; font-family:var(--mono); font-size:9px; letter-spacing:.04em; clip-path:var(--px-sm);}
+.dt{font-size:15px; font-weight:500;}
+.dd{margin:0; font-size:13.5px; line-height:1.5; color:var(--body);}
+@media(hover:hover){
+  .steps:hover .step{opacity:.42;} .steps .step:hover{opacity:1;}
+  .steps .step{cursor:none; padding-bottom:17px;}
+  .pxline{position:absolute; left:0; right:0; bottom:0; height:8px; opacity:0; transition:opacity .25s steps(3); pointer-events:none;}
+  .step:hover .pxline{opacity:1;}
+  .pxline::before{content:""; position:absolute; inset:0; background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 9px);}
+  .pxline i{position:absolute; top:0; left:0; width:62px; height:8px; background:repeating-linear-gradient(90deg,var(--ink) 0 8px,transparent 8px 9px); transform:translateX(var(--lx,0px));}
+}
+
+/* ===== contact ===== */
+.cta{position:relative; padding:calc(var(--cell)*10) var(--gutter) calc(var(--cell)*11);}
+.cta .wrap{text-align:center;}
+.marquee{height:126px; margin:0 calc(-1 * var(--gutter));}
+.cta .ctabtn{margin-top:calc(var(--cell)*3);}
+.cta .meta{margin:30px auto 0; font-size:clamp(15px,1.2vw,19px); line-height:1.6; max-width:46ch; color:var(--muted); text-wrap:balance;}
+.cta .meta.near{margin-top:16px;}
+.cta .meta a{color:var(--ink); text-decoration:none; background:repeating-linear-gradient(90deg,var(--ink) 0 4px,transparent 4px 7px) left bottom/0% 3px no-repeat; transition:background-size .45s steps(6); padding-bottom:2px;}
+.cta .meta a:hover{background-size:100% 3px;}
+.cta .links{display:flex; justify-content:center; flex-wrap:wrap; gap:10px 24px; margin-top:28px;}
+.cta .links a{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; color:var(--ink); display:inline-flex; gap:6px; align-items:center; border-bottom:1px solid transparent; padding-bottom:3px; transition:border-color .2s;}
+.cta .links a:hover{border-color:var(--ink);}
+.cta .links svg{width:12px; height:12px;}
+
+/* ===== footer: tetris skyline ===== */
+footer{position:relative; z-index:2; height:calc(var(--cell)*9); overflow:hidden; cursor:pointer; transition:height .55s steps(8);}
+footer.playing{height:min(52vh,390px); cursor:default;}
+#footcity{position:absolute; left:0; bottom:0; width:100%; height:100%; display:block; pointer-events:none; z-index:2;}
+.tt-teaser{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:4; padding:13px 30px; font-size:15px; transition:opacity .35s steps(4), background .2s;}
+footer.playing .tt-teaser{opacity:0; pointer-events:none;}
+.tt-teaser canvas{display:block;}
+#tetris{position:absolute; inset:0; z-index:3; display:none; pointer-events:none; font-family:var(--mono);}
+footer.playing #tetris{display:block;}
+.tt-score{position:absolute; top:18px; inset-inline-start:22px; font-size:clamp(15px,2vw,22px); letter-spacing:.08em; background:var(--paper-a); padding:2px 6px;}
+.tt-hint{position:absolute; left:50%; top:22px; transform:translateX(-50%); text-align:center; font-size:11px; line-height:1.7; color:var(--muted); background:var(--paper-a); padding:2px 8px; white-space:nowrap;}
+.tt-pad{position:absolute; inset-inline-end:20px; bottom:20px; display:grid; grid-template-columns:repeat(2,44px); gap:8px; pointer-events:auto; direction:ltr;}
+.tt-pad button, .tt-close{border:0; background:var(--paper); color:var(--ink); cursor:pointer; display:grid; place-items:center; pointer-events:auto; box-shadow:0 2px 12px rgba(10,10,10,.14); clip-path:var(--px-md); transition:background .15s, color .15s; width:44px; height:44px; padding:0;}
+.tt-pad button:hover, .tt-close:hover{background:var(--ink); color:var(--paper);}
+.tt-pad svg, .tt-close svg{width:18px; height:18px; display:block;}
+.tt-close{position:absolute; top:14px; inset-inline-end:20px; width:38px; height:38px; z-index:6;}
+.tt-over{position:absolute; inset:0; z-index:5; display:none; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-align:center; pointer-events:auto; background:var(--paper-a); backdrop-filter:blur(3px);}
+#tetris.over .tt-over{display:flex;}
+.tt-over .ttl{font-family:var(--sans); font-size:clamp(22px,3.2vw,34px); letter-spacing:-.02em; line-height:1.2;}
+.tt-over .btn{font-size:14px; padding:13px 30px;}
+@media(max-width:680px){
+  .tt-teaser{font-size:13px; padding:11px 22px;}
+  footer.playing{height:min(58vh,460px);}
+  .tt-hint{display:none;}
+  .tt-pad{left:50%; right:auto; bottom:18px; transform:translateX(-50%); grid-template-columns:repeat(4,52px);}
+  .tt-pad button{width:52px; height:52px;}
+}
+.foot-note{position:relative; z-index:2; text-align:center; padding:0 var(--gutter) 18px; color:var(--muted); font-size:10px;}
+
+/* ===== reveals ===== */
+.reveal{transform:translateY(18px); transition:transform .8s steps(6);}
+.reveal.in{transform:none;}
+
+@media(max-width:720px){
+  .ed p{text-align:start;}
+  .hdesc span{text-align:start; text-align-last:start; -webkit-text-align-last:start;}
+  .hfoot{flex-direction:column; gap:10px;}
+  .htag{text-align:start; max-width:none;}
+  .intro{margin-top:-30vh;}
+  section.ed{padding:calc(var(--cell)*5) var(--gutter);}
+  .proc, .caro{padding:calc(var(--cell)*4) var(--gutter);}
+  .cta{padding:calc(var(--cell)*6) var(--gutter);}
+}
+
+/* ===== Persian (RTL): Arabic script must never be letter-spaced or uppercased, and needs taller lines ===== */
+html[lang="fa"] body *{letter-spacing:0 !important;}
+html[lang="fa"] body .chip{letter-spacing:.06em !important;}
+html[lang="fa"] .mono, html[lang="fa"] .kick, html[lang="fa"] .pts .n, html[lang="fa"] .badge, html[lang="fa"] .tt-hint, html[lang="fa"] .tt-score, html[lang="fa"] .cta .links a, html[lang="fa"] .toplink, html[lang="fa"] .pxctl .lbl{font-family:"Vazirmatn",var(--sans); text-transform:none;}
+html[lang="fa"] .kick, html[lang="fa"] .pts .n, html[lang="fa"] .hstatus, html[lang="fa"] .two .c .l{font-size:12.5px;}
+html[lang="fa"] .badge{font-size:11px;}
+html[lang="fa"] .toplink, html[lang="fa"] .cta .links a{font-size:13px;}
+html[lang="fa"] .hl{line-height:1.12; font-weight:500; font-size:clamp(40px,5.4vw,84px);}
+html[lang="fa"] .hhead .ln, html[lang="fa"] .lead .ln{padding-bottom:.24em; margin-bottom:-.24em;}
+html[lang="fa"] .hdesc{line-height:1.6; font-size:clamp(14px,1.4vw,19px);}
+html[lang="fa"] .hdesc span{text-align:start; text-align-last:start; -webkit-text-align-last:start;}
+html[lang="fa"] .htag{line-height:1.85; font-size:13.5px;}
+html[lang="fa"] .lead{line-height:1.5; font-size:clamp(23px,2.9vw,40px);}
+html[lang="fa"] .ed h2, html[lang="fa"] .sec-h{line-height:1.4; font-weight:500; font-size:clamp(26px,3vw,42px);}
+html[lang="fa"] .ed p, html[lang="fa"] .proc .pd{line-height:2;}
+html[lang="fa"] .dd, html[lang="fa"] .slide .d, html[lang="fa"] .pts li, html[lang="fa"] .cta .meta{line-height:1.9;}
+html[lang="fa"] .slide .t{font-weight:600;}
+html[lang="fa"] .dt, html[lang="fa"] .pts .role{font-weight:600;}
+html[lang="fa"] .rc-clip{font-size:13.5px;}
+html[dir="rtl"] .toplink svg, html[dir="rtl"] .cta .links svg{transform:scaleX(-1);}
+
+@media(prefers-reduced-motion:reduce){
+  .hhead .ln > span, .lead .ln > span, .reveal{transform:none !important; animation:none !important; transition:none !important;}
+  .htag, .hfoot .mark{animation:none;} .hhead::after{animation:none; transform:scaleX(1);} .hcol::before{animation:none; transform:scaleY(1);}
+  .lead{opacity:1;}
+}
+</style>
+<noscript><style>.lead{opacity:1}.reveal,.lead .ln>span{transform:none}#field,.pxctl,.tt-teaser{display:none}</style></noscript>
+</head>
+<body>
+<a class="skip" href="#work" data-i18n="skip">Skip to work</a>
+<canvas id="field" aria-hidden="true"></canvas>
+
+<a class="toplink" id="toplink" href="https://github.com/KiarashAkbari" target="_blank" rel="noopener"><span data-i18n="gh">GitHub</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+
+<div class="pxctl" id="pxctl" role="group" aria-label="Display settings" data-i18n-aria="ctl.group">
+  <span class="lbl" data-i18n="ctl.theme">Theme</span>
+  <button data-theme-set="light" aria-label="Light mode" data-i18n-aria="ctl.light" aria-pressed="false"><svg viewBox="0 0 13 13" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="5" y="0" width="3" height="2"/><rect x="5" y="11" width="3" height="2"/><rect x="0" y="5" width="2" height="3"/><rect x="11" y="5" width="2" height="3"/><rect x="1" y="1" width="2" height="2"/><rect x="10" y="1" width="2" height="2"/><rect x="1" y="10" width="2" height="2"/><rect x="10" y="10" width="2" height="2"/><rect x="4" y="3" width="5" height="7"/><rect x="3" y="4" width="7" height="5"/></svg></button>
+  <button data-theme-set="dark" aria-label="Dark mode" data-i18n-aria="ctl.dark" aria-pressed="false"><svg viewBox="0 0 13 13" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="4" y="1" width="5" height="2"/><rect x="2" y="2" width="4" height="2"/><rect x="1" y="4" width="4" height="5"/><rect x="2" y="9" width="5" height="2"/><rect x="4" y="10" width="6" height="2"/><rect x="8" y="8" width="4" height="3"/><rect x="5" y="8" width="3" height="2"/></svg></button>
+  <span class="sep" aria-hidden="true"></span>
+  <span class="lbl" data-i18n="ctl.lang">Lang</span>
+  <button data-lang-set="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+  <button data-lang-set="fa" lang="fa" aria-label="فارسی" aria-pressed="false">فا</button>
+</div>
+
+<main id="top">
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hhead">
+      <div class="hgrid">
+        <h1 class="hl"><span class="ln"><span data-i18n="h1a">Kiarash</span></span><span class="ln"><span data-i18n="h1b">Akbari.</span></span></h1>
+        <div class="hcol">
+          <p class="hdesc"><span class="ln"><span data-i18n="hd1">AI software engineer for</span></span><span class="ln"><span data-i18n="hd2">backend &amp; AI-integrated systems</span></span></p>
+          <div class="hfoot">
+            <span class="mark" id="mark" aria-label="KA">
+              <svg viewBox="0 0 44 20" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true">
+                <rect x="0" y="0" width="4" height="20"/><rect x="16" y="0" width="4" height="4"/><rect x="12" y="4" width="4" height="4"/><rect x="4" y="8" width="8" height="4"/><rect x="12" y="12" width="4" height="4"/><rect x="16" y="16" width="4" height="4"/>
+                <rect x="28" y="0" width="12" height="4"/><rect x="24" y="4" width="4" height="16"/><rect x="40" y="4" width="4" height="16"/><rect x="28" y="8" width="12" height="4"/>
+              </svg>
+            </span>
+            <div>
+              <p class="htag" data-i18n="htag">RAG pipelines, graph/vector backends and ML systems, built to hold up in production.</p>
+              <p class="htag"><span class="hstatus mono"><i></i><span data-i18n="status">Open to remote roles</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTRO ===== -->
+  <section class="intro" id="intro">
+    <div class="wrap">
+      <p class="lead" data-safe data-i18n="lead">I build the parts of AI products that have to be right: retrieval that cites its sources, backends that answer real questions, and models that catch what rules miss. <span class="m">Here's some work:</span></p>
+    </div>
+  </section>
+
+  <!-- ===== WORK ===== -->
+  <section class="caro" id="work" aria-label="Selected projects" data-i18n-aria="aria.work">
+    <div class="track-wrap" data-slider>
+      <button class="sl-arrow prev" aria-label="Previous project"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M11 4 6 9l5 5"/></svg></button>
+      <button class="sl-arrow next" aria-label="Next project"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 4l5 5-5 5"/></svg></button>
+      <div class="track">
+        <a class="slide" href="mailto:Kiarash.Akbari.Contact@gmail.com?subject=BIM-Intellect-V2%20codebase%20request">
+          <div class="csm"><canvas data-viz="bim"></canvas><span class="badge" data-i18n="b1">Private · Team</span><div class="reveal-cta"></div><div class="rc-clip"><span class="rc-i" data-i18n="r1">Request the codebase</span></div></div>
+          <p class="t">BIM-Intellect-V2</p>
+          <p class="d" data-i18n="d1">Backend and RAG engineering for a hybrid graph/vector AI system that answers regulatory questions about BIM data.</p>
+          <div class="tags"><span class="chip c-blue">Python</span><span class="chip c-ink">FastAPI</span><span class="chip c-navy">Neo4j</span><span class="chip c-yellow">ChromaDB</span><span class="chip c-red">Docker</span></div>
+        </a>
+        <a class="slide" href="https://github.com/KiarashAkbari/NIDS-Forensic-Tool" target="_blank" rel="noopener">
+          <div class="csm"><canvas data-viz="nids"></canvas><span class="badge" data-i18n="b2">Open source</span><div class="reveal-cta"></div><div class="rc-clip"><span class="rc-i" data-i18n="r2">View source ↗</span></div></div>
+          <p class="t" data-i18n="t2">Network Intrusion Detection</p>
+          <p class="d" data-i18n="d2">Zero-day DDoS detection: flow-based features, an autoencoder that learns normal traffic, and a deployed Streamlit interface.</p>
+          <div class="tags"><span class="chip c-blue">Python</span><span class="chip c-red">TensorFlow</span><span class="chip c-navy">Keras</span><span class="chip c-ink">Streamlit</span></div>
+        </a>
+        <a class="slide" href="https://github.com/KiarashAkbari/CLONE-1" target="_blank" rel="noopener">
+          <div class="csm"><canvas data-viz="clone"></canvas><span class="badge" data-i18n="b3">Open source</span><div class="reveal-cta"></div><div class="rc-clip"><span class="rc-i" data-i18n="r3">View source ↗</span></div></div>
+          <p class="t">CLONE-1</p>
+          <p class="d" data-i18n="d3">A web archiving and mirroring tool with stealth-mode scraping, deep asset extraction, and a custom desktop GUI.</p>
+          <div class="tags"><span class="chip c-blue">Python</span><span class="chip c-neon">Playwright</span><span class="chip c-navy">PyQt6</span><span class="chip c-yellow">SQLite</span></div>
+        </a>
+        <a class="slide" href="#experience">
+          <div class="csm"><canvas data-viz="vino"></canvas><span class="badge" data-i18n="b4">Client · 2026</span><div class="reveal-cta"></div><div class="rc-clip"><span class="rc-i" data-i18n="r4">See the role</span></div></div>
+          <p class="t">VINO</p>
+          <p class="d" data-i18n="d4">A smart home product platform: a multi-page catalogue with data-driven product logic, built and delivered end to end.</p>
+          <div class="tags"><span class="chip c-yellow">JavaScript</span><span class="chip c-red">HTML</span><span class="chip c-blue">CSS</span><span class="chip c-ink">Git</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="ed" id="about">
+    <div class="wrap">
+      <div class="head reveal"><h2 data-arrow data-i18n="a.h2">Based in Mashhad. Working remotely, everywhere.</h2><p class="kick mono" data-i18n="a.k">Where I come from</p></div>
+      <div class="reveal">
+        <p data-i18n="a.p1">I'm an AI software engineer focused on backend systems and AI-integrated applications. I studied computer engineering at Eqbal University, and I do applied ML research at the <strong>Dotin Financial Technologies Laboratory</strong> at Ferdowsi University of Mashhad.</p>
+        <p data-i18n="a.p2">Most of my work sits where models meet real data: a production product platform I shipped end to end, backend and RAG engineering for a hybrid graph/vector system over BIM data, and a full ML pipeline that flags network attacks nobody has seen before.</p>
+        <p class="s" data-i18n="a.p3">I've worked remotely with distributed engineering teams since 2025, and I'm open to remote AI software engineering roles.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOCUS ===== -->
+  <section class="ed" id="focus">
+    <div class="wrap">
+      <div class="head reveal"><h2 data-arrow data-i18n="f.h2">Models are fluent. Being right is the hard part.</h2><p class="kick mono" data-i18n="f.k">What I focus on</p></div>
+      <div class="reveal">
+        <p data-i18n="f.p1">A language model will answer almost anything, in a confident voice. Connecting it to the right data, and making it show where each answer came from, is engineering work.</p>
+        <div class="two">
+          <div class="c">
+            <svg class="smiley" data-val="0.97" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><g class="eyes"><rect x="4" y="5" width="2" height="2"/><rect x="10" y="5" width="2" height="2"/></g><g><rect x="4" y="10" width="1" height="1"/><rect x="11" y="10" width="1" height="1"/><rect x="5" y="11" width="6" height="1"/></g></svg>
+            <div class="l mono" data-i18n="f.l1">Brilliant at</div>
+            <p data-i18n="f.c1">Writing a fluent, confident answer to almost any question, in seconds.</p>
+          </div>
+          <div class="c">
+            <svg class="smiley" data-val="0.58" data-shy viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><g class="eyes"><rect x="4" y="5" width="2" height="2"/><rect x="10" y="5" width="2" height="2"/></g><g><rect x="5" y="10" width="6" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="11" y="11" width="1" height="1"/></g></svg>
+            <div class="l mono" data-i18n="f.l2">Hopeless at</div>
+            <p data-i18n="f.c2">Knowing which document that answer came from, unless the pipeline makes it cite one.</p>
+          </div>
+        </div>
+        <p class="s" data-i18n="f.s">That gap is where I spend my time: retrieval, orchestration and grounded citations, behind APIs that stay up.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="proc" id="process">
+    <div class="wrap">
+      <div class="ph reveal">
+        <h2 class="sec-h" data-arrow data-i18n="p.h2">Ingest. Retrieve.<br/>Ground. Ship.</h2>
+        <p class="pd" data-i18n="p.pd">Messy data comes in on the left, and answers you can check come out on the right. Here's how I get from one to the other.</p>
+      </div>
+      <div class="procflow reveal"><canvas id="flow" aria-hidden="true"></canvas></div>
+      <div class="steps reveal">
+        <div class="step"><div class="dl"><span class="dn" data-i18n="n1">01</span><span class="dt" data-i18n="s1t">Ingest</span></div><p class="dd" data-i18n="s1d">Parse the messy source, whether that's IFC building models, network flows or product data, into something structured.</p><span class="pxline" aria-hidden="true"><i></i></span></div>
+        <div class="step"><div class="dl"><span class="dn" data-i18n="n2">02</span><span class="dt" data-i18n="s2t">Retrieve</span></div><p class="dd" data-i18n="s2d">Graph and vector together: Cypher for the relationships, ChromaDB for the meaning, with dynamic filtering on top.</p><span class="pxline" aria-hidden="true"><i></i></span></div>
+        <div class="step"><div class="dl"><span class="dn" data-i18n="n3">03</span><span class="dt" data-i18n="s3t">Ground</span></div><p class="dd" data-i18n="s3d">Every answer cites its source. If the citation doesn't hold up, the answer doesn't ship.</p><span class="pxline" aria-hidden="true"><i></i></span></div>
+        <div class="step"><div class="dl"><span class="dn" data-i18n="n4">04</span><span class="dt" data-i18n="s4t">Ship</span></div><p class="dd" data-i18n="s4d">FastAPI endpoints, health checks, Docker and CI/CD, so it keeps working after the demo.</p><span class="pxline" aria-hidden="true"><i></i></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STACK ===== -->
+  <section class="ed" id="stack">
+    <div class="wrap">
+      <div class="head reveal"><h2 data-arrow data-i18n="st.h2">The stack.</h2><p class="kick mono" data-i18n="st.k">Core skills</p></div>
+      <div class="reveal">
+        <p data-i18n="st.p">Python first, with the backend and ML tooling to take a model from a notebook to a service.</p>
+        <ul class="pts">
+          <li><span class="n mono" data-i18n="st.l1">Languages</span><span class="chips"><span class="chip c-blue">Python</span><span class="chip c-yellow">JavaScript</span><span class="chip c-red">HTML</span><span class="chip c-navy">CSS</span></span></li>
+          <li><span class="n mono" data-i18n="st.l2">Backend</span><span class="chips"><span class="chip c-ink">FastAPI</span><span class="chip c-navy">Neo4j / Cypher</span><span class="chip c-yellow">ChromaDB</span><span class="chip c-blue">REST APIs</span><span class="chip c-red">Docker</span><span class="chip c-ink">Git / GitHub</span><span class="chip c-navy">GitHub Actions</span></span></li>
+          <li><span class="n mono" data-i18n="st.l3">AI &amp; ML</span><span class="chips"><span class="chip c-neon">RAG pipelines</span><span class="chip c-blue" data-i18n="chip.nn">Neural networks</span><span class="chip c-navy">Autoencoders</span><span class="chip c-yellow">Scikit-learn</span><span class="chip c-red">TensorFlow</span><span class="chip c-ink">Keras</span><span class="chip c-blue">NumPy</span></span></li>
+          <li><span class="n mono" data-i18n="st.l4">Automation</span><span class="chips"><span class="chip c-neon">Playwright</span><span class="chip c-navy">BeautifulSoup</span><span class="chip c-yellow">Folium</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCE ===== -->
+  <section class="ed" id="experience">
+    <div class="wrap">
+      <div class="head reveal"><h2 data-arrow data-i18n="ex.h2">Where I've worked.</h2><p class="kick mono" data-i18n="ex.k">Experience &amp; education</p></div>
+      <div class="reveal">
+        <ul class="pts" style="margin-top:0">
+          <li><span class="n mono" data-i18n="e1n">06.2026 – Now</span><span><span class="role" data-i18n="e1r">Full-Stack Developer &amp; Project Owner</span><span class="org" data-i18n="e1o">VINO, smart home product platform · Remote</span><span class="desc" data-i18n="e1d">Architected a multi-page product catalogue end to end with data-driven product logic (dynamic dropdowns, data-driven rendering). Owned delivery on my own: a Git feature-branch and PR workflow, client revisions and invoicing, all on real timelines.</span></span></li>
+          <li><span class="n mono" data-i18n="e2n">2025 – Now</span><span><span class="role" data-i18n="e2r">AI &amp; Data Science Researcher</span><span class="org" data-i18n="e2o">Dotin Financial Technologies Lab, Ferdowsi University of Mashhad</span><span class="desc" data-i18n="e2d">Data-driven, AI-oriented fintech research at the lab established through Dotin (FANAP Group), a core-banking software provider for major Iranian banks and insurers.</span></span></li>
+          <li><span class="n mono" data-i18n="e3n">01 – 12.2025</span><span><span class="role" data-i18n="e3r">Software Engineering Associate</span><span class="org" data-i18n="e3o">TELUS (Canada) · Remote</span><span class="desc" data-i18n="e3d">Worked with distributed engineering teams on enterprise software tasks, applying Git-based version control and backend best practices in production.</span></span></li>
+          <li><span class="n mono" data-i18n="e4n">Education</span><span><span class="role" data-i18n="e4r">B.Sc. Computer Engineering</span><span class="org" data-i18n="e4o">Eqbal University</span><span class="desc" data-i18n="e4d">Certifications: Python and Machine Learning (Jadi Mirmirani), 100 Days of Code (Angela Yu), Modern JavaScript (Brad Traversy), Cybersecurity (Cybrary).</span></span></li>
+        </ul>
+        <p style="margin-top:calc(var(--cell)*2.5)"><a class="btn" href="assets/Kiarash_Akbari_Resume.pdf" target="_blank" rel="noopener"><span class="lbl" data-i18n="ex.btn">Download résumé</span></a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="cta" id="contact">
+    <h2 class="sr" data-i18n="c.h">Contact</h2>
+    <div class="marquee" data-marquee="OPEN TO REMOTE AI ROLES  /  LET'S BUILD SOMETHING  /  " aria-hidden="true"></div>
+    <div class="wrap">
+      <a class="btn ctabtn" href="mailto:Kiarash.Akbari.Contact@gmail.com"><span class="lbl" data-i18n="c.btn">Get in touch</span></a>
+      <p class="meta" data-i18n="c.meta">I'm based in Mashhad, Iran, and I work remotely with teams across time zones. Happiest with a hard retrieval problem and a backend that has to stay up.</p>
+      <p class="meta near" id="tz" aria-live="polite"></p>
+      <p class="meta" style="margin-top:22px"><a href="mailto:Kiarash.Akbari.Contact@gmail.com" dir="ltr">Kiarash.Akbari.Contact@gmail.com</a></p>
+      <div class="links">
+        <a href="https://github.com/KiarashAkbari" target="_blank" rel="noopener"><span data-i18n="l.gh">GitHub</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+        <a href="assets/Kiarash_Akbari_Resume.pdf" target="_blank" rel="noopener"><span data-i18n="l.cv">Résumé PDF</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+        <a href="https://github.com/KiarashAkbari/NIDS-Forensic-Tool" target="_blank" rel="noopener">NIDS <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+        <a href="https://github.com/KiarashAkbari/CLONE-1" target="_blank" rel="noopener">CLONE-1 <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="foot" aria-label="Footer game" data-i18n-aria="aria.foot">
+  <canvas id="footcity" aria-hidden="true"></canvas>
+  <button class="btn tt-teaser" id="ttplay" aria-label="Play Tetris" data-i18n-aria="aria.play"><span class="lbl" data-i18n="tt.play">play</span><span class="lbl"><canvas id="ttpiece" width="20" height="16"></canvas></span></button>
+  <div id="tetris">
+    <div class="tt-score">0000</div>
+    <div class="tt-hint" data-i18n="tt.hint">← → move · ↑ rotate · ↓ soft drop · space drop · esc exit</div>
+    <button class="tt-close" aria-label="Close game" data-i18n-aria="aria.close"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4l10 10M14 4 4 14"/></svg></button>
+    <div class="tt-pad">
+      <button data-k="rot" aria-label="Rotate" data-i18n-aria="aria.rot"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 9a5 5 0 1 1-1.6-3.7M14 3v3h-3"/></svg></button>
+      <button data-k="drop" aria-label="Drop" data-i18n-aria="aria.drop"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 3v10M5 9l4 4 4-4M4 15h10"/></svg></button>
+      <button data-k="left" aria-label="Left" data-i18n-aria="aria.left"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M11 4 6 9l5 5"/></svg></button>
+      <button data-k="right" aria-label="Right" data-i18n-aria="aria.right"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 4l5 5-5 5"/></svg></button>
+    </div>
+    <div class="tt-over"><div class="ttl" data-i18n="tt.over">Game over</div><div class="mono tt-final" style="color:var(--muted)">Score 0</div><button class="btn tt-again"><span class="lbl" data-i18n="tt.again">Play again</span></button></div>
+  </div>
+</footer>
+<div class="foot-note mono" data-i18n="foot">© 2026 Kiarash Akbari · Built on a 9px grid</div>
+
+<script>
+/* ============================================================
+   Kiarash Akbari portfolio: pixel-grid engine
+   All effects are vanilla JS + Canvas 2D, no dependencies.
+   v2: dark theme, Persian (RTL) locale, and a leaner render loop.
+   ============================================================ */
+(function(){
+  var html=document.documentElement;
+  var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var TOUCH = matchMedia('(hover: none)').matches || matchMedia('(pointer: coarse)').matches;
+  var COLORS = ['#1c2541','#3b5bd9','#f5c518','#e0492a','#d8ff00'];
+  function bandIdx(v){ return v<0.30?-1 : v<0.46?0 : v<0.62?1 : v<0.78?2 : v<0.90?3 : 4; }
+  function hash(a,b,s){ var n=Math.sin(a*127.1+b*311.7+(s||0)*74.7)*43758.5453; return n-Math.floor(n); }
+  function clamp(x,a,b){ return x<a?a:(x>b?b:x); }
+  function smooth(a,b,x){ var t=clamp((x-a)/(b-a),0,1); return t*t*(3-2*t); }
+  var FD='۰۱۲۳۴۵۶۷۸۹'; function faNum(s){ return String(s).replace(/[0-9]/g,function(d){ return FD[+d]; }); }
+  var H={};                                                      /* tiny event bus: 'theme', 'lang', 'layout' */
+  function on(ev,fn){ (H[ev]=H[ev]||[]).push(fn); }
+  function emit(ev,a){ (H[ev]||[]).forEach(function(fn){ try{ fn(a); }catch(e){ console.error(e); } }); }
+  var KA = window.KA = {RM:RM, TOUCH:TOUCH, COLORS:COLORS, bandIdx:bandIdx, hash:hash, clamp:clamp, smooth:smooth, CELL:9, faNum:faNum, on:on, emit:emit, T:{},
+    theme:html.getAttribute('data-theme')||'light', lang:html.getAttribute('data-lang')||'en'};
+  KA.rtl=KA.lang==='fa';
+  /* canvas colours come from the CSS tokens, so both themes stay in one place */
+  KA.readTheme=function(){ var cs=getComputedStyle(html); function v(n,d){ return (cs.getPropertyValue(n)||'').trim()||d; }
+    KA.T={grid:v('--grid','#f3f3f3'), tileBg:v('--tile-bg','#0A0A0A'), tileGrid:v('--tile-grid','#121212'), paper:v('--paper','#fff'), ink:v('--ink','#0A0A0A')};
+    COLORS[0]=v('--navy-px','#1c2541'); };
+  KA.readTheme();
+})();
+
+/* ===== 0a. language: English is read from the DOM, Persian lives here ===== */
+(function(){
+  var K=window.KA, html=document.documentElement;
+  var FA={
+    'skip':'رفتن به نمونه‌کارها',
+    'gh':'گیت‌هاب',
+    'ctl.group':'تنظیمات نمایش', 'ctl.theme':'پوسته', 'ctl.light':'حالت روشن', 'ctl.dark':'حالت تیره', 'ctl.lang':'زبان',
+    'h1a':'کیارش', 'h1b':'اکبری.',
+    'hd1':'مهندس نرم‌افزار هوش مصنوعی،', 'hd2':'متمرکز بر بک‌اند و سیستم‌های مجهز به AI',
+    'htag':'پایپ‌لاین‌های RAG، بک‌اندهای گرافی و برداری، و سیستم‌های یادگیری ماشین؛ ساخته‌شده برای اینکه در محیط واقعی هم دوام بیاورند.',
+    'status':'آماده‌ی همکاری دورکاری',
+    'lead':'من آن بخش‌هایی از محصولات هوش مصنوعی را می‌سازم که حق اشتباه ندارند: بازیابی‌ای که منبعش را نشان می‌دهد، بک‌اندی که به سؤال‌های واقعی جواب می‌دهد، و مدل‌هایی که چیزهایی را می‌بینند که قانون‌ها از قلم می‌اندازند. <span class="m">چند نمونه از کارهایم:</span>',
+    'aria.work':'پروژه‌های منتخب',
+    'b1':'خصوصی · تیمی', 'r1':'درخواست دسترسی به کد',
+    'd1':'مهندسی بک‌اند و RAG برای یک سیستم هوش مصنوعی ترکیبی گراف/بردار که به پرسش‌های مقرراتی درباره‌ی داده‌های BIM پاسخ می‌دهد.',
+    'b2':'متن‌باز', 'r2':'دیدن کد ↖', 't2':'تشخیص نفوذ شبکه',
+    'd2':'تشخیص حمله‌های DDoS روز صفر: ویژگی‌های مبتنی بر جریان ترافیک، یک خودرمزگذار (Autoencoder) که رفتار عادی شبکه را یاد می‌گیرد، و یک رابط Streamlit که روی وب منتشر شده است.',
+    'b3':'متن‌باز', 'r3':'دیدن کد ↖',
+    'd3':'ابزاری برای آرشیو و آینه‌سازی وب‌سایت‌ها، با اسکرپینگ مخفیانه، استخراج عمیق فایل‌ها و منابع، و یک رابط دسکتاپ اختصاصی.',
+    'b4':'پروژه‌ی کارفرما · ۲۰۲۶', 'r4':'جزئیات این نقش',
+    'd4':'پلتفرم محصولات خانه‌ی هوشمند: کاتالوگی چندصفحه‌ای با منطق داده‌محور برای محصولات، که از صفر تا تحویل ساختمش.',
+    'a.h2':'ساکن مشهد. دورکار، برای هر جای دنیا.', 'a.k':'از کجا می‌آیم',
+    'a.p1':'مهندس نرم‌افزار هوش مصنوعی هستم و تمرکزم روی سیستم‌های بک‌اند و اپلیکیشن‌هایی است که هوش مصنوعی در دلشان کار می‌کند. مهندسی کامپیوتر را در دانشگاه اقبال خوانده‌ام و در <strong>آزمایشگاه فناوری‌های مالی داتین</strong> در دانشگاه فردوسی مشهد، روی پژوهش‌های کاربردی یادگیری ماشین کار می‌کنم.',
+    'a.p2':'بیشتر کارهایم جایی است که مدل‌ها با داده‌ی واقعی روبه‌رو می‌شوند: پلتفرم محصولی که از صفر تا انتشار خودم ساختم، مهندسی بک‌اند و RAG برای یک سیستم ترکیبی گراف/بردار روی داده‌های BIM، و یک پایپ‌لاین کامل یادگیری ماشین که حمله‌های شبکه‌ای تازه و ناشناخته را تشخیص می‌دهد.',
+    'a.p3':'از سال ۲۰۲۵ به‌صورت دورکاری با تیم‌های مهندسی توزیع‌شده کار کرده‌ام و برای موقعیت‌های دورکاری مهندسی نرم‌افزار هوش مصنوعی آماده‌ام.',
+    'f.h2':'مدل‌ها روان حرف می‌زنند. درست گفتن، بخش سخت ماجراست.', 'f.k':'روی چه چیزی تمرکز دارم',
+    'f.p1':'یک مدل زبانی تقریباً به هر سؤالی جواب می‌دهد، آن هم با لحنی کاملاً مطمئن. وصل کردنش به داده‌ی درست، و واداشتنش به اینکه نشان بدهد هر جواب از کجا آمده، کار مهندسی است.',
+    'f.l1':'در این عالی است', 'f.c1':'نوشتن جوابی روان و مطمئن برای تقریباً هر سؤالی، در چند ثانیه.',
+    'f.l2':'در این ناامیدکننده است', 'f.c2':'اینکه بداند آن جواب از کدام سند آمده؛ مگر اینکه پایپ‌لاین مجبورش کند منبع بیاورد.',
+    'f.s':'من دقیقاً روی همین فاصله کار می‌کنم: بازیابی، هماهنگ‌سازی (orchestration) و استناد دقیق به منبع، پشت APIهایی که از دسترس خارج نمی‌شوند.',
+    'p.h2':'دریافت. بازیابی.<br/>استناد. تحویل.',
+    'p.pd':'داده‌ی نامرتب از سمت راست وارد می‌شود و جواب‌هایی که می‌شود درستی‌شان را سنجید، از سمت چپ بیرون می‌آیند. مسیر من از این سر تا آن سر این‌طور است.',
+    'n1':'۰۱', 'n2':'۰۲', 'n3':'۰۳', 'n4':'۰۴',
+    's1t':'دریافت', 's1d':'منبع نامرتب را، چه مدل‌های ساختمانی IFC باشد، چه جریان‌های شبکه یا داده‌ی محصولات، به چیزی ساختاریافته تبدیل می‌کنم.',
+    's2t':'بازیابی', 's2d':'گراف و بردار در کنار هم: Cypher برای رابطه‌ها، ChromaDB برای معنا، و فیلترهای پویا روی هر دو.',
+    's3t':'استناد', 's3d':'هر جوابی منبعش را نشان می‌دهد. اگر منبع پای حرفش نایستد، آن جواب منتشر نمی‌شود.',
+    's4t':'تحویل', 's4d':'اندپوینت‌های FastAPI، بررسی سلامت سرویس‌ها، Docker و CI/CD؛ تا بعد از دموی اول هم کار کند.',
+    'st.h2':'استک فنی.', 'st.k':'مهارت‌های اصلی',
+    'st.p':'اول پایتون؛ همراه با ابزارهای بک‌اند و یادگیری ماشین که یک مدل را از نوت‌بوک به یک سرویس واقعی می‌رسانند.',
+    'st.l1':'زبان‌ها', 'st.l2':'بک‌اند', 'st.l3':'هوش مصنوعی و ML', 'st.l4':'اتوماسیون',
+    'ex.h2':'جاهایی که کار کرده‌ام.', 'ex.k':'سوابق کاری و تحصیلی',
+    'e1n':'ژوئن ۲۰۲۶ تا امروز', 'e1r':'توسعه‌دهنده‌ی فول‌استک و مالک پروژه', 'e1o':'VINO، پلتفرم محصولات خانه‌ی هوشمند · دورکاری',
+    'e1d':'یک کاتالوگ چندصفحه‌ای محصولات را از صفر تا تحویل طراحی و پیاده‌سازی کردم؛ با منطق داده‌محور (منوهای کشویی پویا و رندر بر اساس داده). مسئولیت کامل تحویل با خودم بود: گردش کار Git با برنچ‌های فیچر و Pull Request، اعمال بازخوردهای کارفرما و صدور فاکتور، همه در چارچوب زمان‌بندی واقعی پروژه.',
+    'e2n':'۲۰۲۵ تا امروز', 'e2r':'پژوهشگر هوش مصنوعی و علم داده', 'e2o':'آزمایشگاه فناوری‌های مالی داتین، دانشگاه فردوسی مشهد',
+    'e2d':'پژوهش داده‌محور و مبتنی بر هوش مصنوعی در حوزه‌ی فین‌تک، در آزمایشگاهی که با همکاری داتین (از گروه فناپ) راه‌اندازی شده؛ داتین نرم‌افزار بانکداری متمرکز (Core Banking) بانک‌ها و بیمه‌های بزرگ ایران را تأمین می‌کند.',
+    'e3n':'ژانویه تا دسامبر ۲۰۲۵', 'e3r':'کارشناس مهندسی نرم‌افزار', 'e3o':'TELUS (کانادا) · دورکاری',
+    'e3d':'در کنار تیم‌های مهندسی توزیع‌شده روی وظایف نرم‌افزاری سازمانی کار کردم و کنترل نسخه با Git و اصول درست توسعه‌ی بک‌اند را در محیط عملیاتی به کار بستم.',
+    'e4n':'تحصیلات', 'e4r':'کارشناسی مهندسی کامپیوتر', 'e4o':'دانشگاه اقبال',
+    'e4d':'گواهینامه‌ها: پایتون و یادگیری ماشین (جادی میرمیرانی)، ۱۰۰ روز کدنویسی (Angela Yu)، جاوااسکریپت مدرن (Brad Traversy)، امنیت سایبری (Cybrary).',
+    'ex.btn':'دانلود رزومه',
+    'c.h':'تماس', 'c.btn':'بیایید حرف بزنیم',
+    'c.meta':'ساکن مشهد هستم و از راه دور با تیم‌هایی در منطقه‌های زمانی مختلف کار می‌کنم. بیشترین لذت را وقتی می‌برم که یک مسئله‌ی سخت بازیابی جلویم باشد و بک‌اندی که نباید از کار بیفتد.',
+    'l.gh':'گیت‌هاب', 'l.cv':'رزومه (PDF)',
+    'aria.foot':'بازی تتریس پایین صفحه', 'aria.play':'شروع بازی تتریس', 'aria.close':'بستن بازی', 'aria.rot':'چرخاندن', 'aria.drop':'رها کردن', 'aria.left':'چپ', 'aria.right':'راست',
+    'tt.play':'بازی', 'tt.hint':'← → حرکت · ↑ چرخش · ↓ پایین آوردن · Space رها کردن · Esc خروج', 'tt.over':'بازی تمام شد', 'tt.again':'یک دست دیگر',
+    'foot':'© ۲۰۲۶ کیارش اکبری · ساخته‌شده روی شبکه‌ای ۹ پیکسلی',
+    /* strings used from JS */
+    '$title':'کیارش اکبری · هوش مصنوعی، مهندسی‌شده.',
+    '$desc':'کیارش اکبری، مهندس نرم‌افزار هوش مصنوعی. سیستم‌های بک‌اند و اپلیکیشن‌های مبتنی بر هوش مصنوعی: پایپ‌لاین‌های RAG، بک‌اندهای گرافی و برداری و سیستم‌های یادگیری ماشین که در محیط واقعی دوام می‌آورند.',
+    '$mq':'آماده‌ی همکاری دورکاری  /  بیایید چیزی بسازیم  /  ',
+    '$prev':'پروژه‌ی قبلی', '$next':'پروژه‌ی بعدی', '$score':'امتیاز'
+  };
+  var EN={'$prev':'Previous project', '$next':'Next project', '$score':'Score'};
+  var els=[].slice.call(document.querySelectorAll('[data-i18n]')), ael=[].slice.call(document.querySelectorAll('[data-i18n-aria]'));
+  var meta=document.querySelector('meta[name="description"]'), mqEl=document.querySelector('[data-marquee]');
+  els.forEach(function(el){ EN[el.getAttribute('data-i18n')]=el.innerHTML; });
+  ael.forEach(function(el){ EN['@'+el.getAttribute('data-i18n-aria')]=el.getAttribute('aria-label'); });
+  EN.$title=document.title; EN.$desc=meta?meta.content:''; EN.$mq=mqEl?mqEl.getAttribute('data-marquee'):'';
+  K.t=function(key){ var D=K.lang==='fa'?FA:EN; return D[key]!=null?D[key]:EN[key]; };
+  function apply(lang){ K.lang=lang; K.rtl=lang==='fa'; var D=K.rtl?FA:EN;
+    html.lang=lang; html.dir=K.rtl?'rtl':'ltr'; html.setAttribute('data-lang',lang);
+    els.forEach(function(el){ var k=el.getAttribute('data-i18n'), v=D[k]!=null?D[k]:EN[k]; if(el.innerHTML!==v) el.innerHTML=v; });
+    ael.forEach(function(el){ var k=el.getAttribute('data-i18n-aria'); el.setAttribute('aria-label', FA[k]!=null&&K.rtl?FA[k]:EN['@'+k]); });
+    document.title=D.$title; if(meta) meta.content=D.$desc; if(mqEl) mqEl.setAttribute('data-marquee',D.$mq);
+    if(K.rtl && document.fonts && document.fonts.load){ K.faFont=Promise.all([document.fonts.load('500 20px Vazirmatn','آزمون'),document.fonts.load('700 20px Vazirmatn','آزمون')]); } }
+  K.setLang=function(lang,save){ if(lang!=='fa') lang='en'; if(save){ try{ localStorage.setItem('ka-lang',lang); }catch(e){} }
+    if(lang===K.lang&&!K._first) return; apply(lang); K.emit('lang',lang); K.emit('layout'); };
+  if(K.lang==='fa') apply('fa');                                 /* before anything measures text */
+})();
+
+/* ===== 0b. theme + settings panel ===== */
+(function(){
+  var K=window.KA, html=document.documentElement, panel=document.getElementById('pxctl');
+  var mt=[].slice.call(document.querySelectorAll('meta[name="theme-color"]'));
+  var saved=null; try{ saved=localStorage.getItem('ka-theme'); }catch(e){}
+  function paint(){ if(!panel) return;
+    [].forEach.call(panel.querySelectorAll('[data-theme-set]'), function(b){ var on=b.getAttribute('data-theme-set')===K.theme; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
+    [].forEach.call(panel.querySelectorAll('[data-lang-set]'), function(b){ var on=b.getAttribute('data-lang-set')===K.lang; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); }); }
+  function setTheme(t,save){ if(t!=='dark') t='light'; if(save){ saved=t; try{ localStorage.setItem('ka-theme',t); }catch(e){} }
+    if(t===K.theme) return paint();
+    if(!K.RM){ html.classList.add('theme-anim'); clearTimeout(setTheme.tm); setTheme.tm=setTimeout(function(){ html.classList.remove('theme-anim'); },420); }
+    html.setAttribute('data-theme',t); K.theme=t; mt.forEach(function(m){ m.setAttribute('content', t==='dark'?'#0B0B0C':'#FFFFFF'); m.removeAttribute('media'); });
+    K.readTheme(); K.emit('theme',t); paint(); }
+  K.setTheme=setTheme;
+  if(saved) mt.forEach(function(m){ m.setAttribute('content', K.theme==='dark'?'#0B0B0C':'#FFFFFF'); m.removeAttribute('media'); });
+  /* follow the OS while the visitor hasn't picked a theme */
+  var mq=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)');
+  if(mq){ var fn=function(e){ if(!saved) setTheme(e.matches?'dark':'light'); }; if(mq.addEventListener) mq.addEventListener('change',fn); else if(mq.addListener) mq.addListener(fn); }
+  if(panel){
+    panel.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return;
+      if(b.hasAttribute('data-theme-set')) setTheme(b.getAttribute('data-theme-set'),true);
+      else if(b.hasAttribute('data-lang-set')){ K.setLang(b.getAttribute('data-lang-set'),true); paint(); } });
+    var foot=document.getElementById('foot');
+    if(foot) new IntersectionObserver(function(es){ panel.classList.toggle('hide', es[0].isIntersecting); }).observe(foot);
+    /* small screens: tuck the panel away while reading downward, bring it back on any upward scroll */
+    var lastY=scrollY, tucked=false, small=matchMedia('(max-width:680px)');
+    addEventListener('scroll', function(){ var y=scrollY, dy=y-lastY; if(Math.abs(dy)<6) return; lastY=y;
+      var t=small.matches && dy>0 && y>innerHeight*.5; if(t!==tucked){ tucked=t; panel.classList.toggle('tuck',t); } }, {passive:true});
+  }
+  K.on('lang',paint); paint();
+})();
+
+/* ===== 1. page-wide heat field: grid, hero clouds, cursor states, CTA marquee ===== */
+(function(){
+  var K=window.KA, CELL=K.CELL, hash=K.hash, clamp=K.clamp, bandIdx=K.bandIdx, COLORS=K.COLORS, TOUCH=K.TOUCH, RM=K.RM;
+  var cv=document.getElementById('field'), ctx=cv.getContext('2d'); if(!ctx) return;
+  var hhead=document.querySelector('.hhead'), about=document.getElementById('about');
+  var safeEls=[].slice.call(document.querySelectorAll('[data-safe]'));
+  var heads=[].slice.call(document.querySelectorAll('[data-arrow]'));
+  var smileys=[].slice.call(document.querySelectorAll('.smiley')).map(function(el){ return {el:el, val:parseFloat(el.dataset.val)||0.9}; });
+  var mqEl=document.querySelector('[data-marquee]');
+  var DPR=1, W=0, H=0, cols=0, rows=0, heat=null, r0=0, SEED=Math.random()*100;
+  var mx=-1, my=-1, pmx=-1, pmy=-1, hov=false, lastMove=performance.now()/1000, t=0, introT=RM?9:0;
+  var B=[[],[],[],[],[]];                        /* per-colour batches of cell coords */
+  var edgeOff=null, baseBuf=null, baseR0=-1e9, baseTick=0, gridCv=null;
+  var hb0=0, hb1=-1, hc0=0, hc1=-1;              /* bounding box (buffer rows/cols) of live heat */
+
+  /* grid pre-rendered once per size/theme, then blitted with the scroll offset (was ~260 path segments every frame) */
+  function buildGrid(){ gridCv=gridCv||document.createElement('canvas'); gridCv.width=cv.width; gridCv.height=Math.round((H+CELL*2)*DPR);
+    var g=gridCv.getContext('2d'); g.setTransform(DPR,0,0,DPR,0,0); g.clearRect(0,0,W,H+CELL*2); g.strokeStyle=K.T.grid; g.lineWidth=1; g.beginPath();
+    for(var gx=0;gx<=W;gx+=CELL){ g.moveTo(gx+.5,0); g.lineTo(gx+.5,H+CELL*2); }
+    for(var gy=0;gy<=H+CELL*2;gy+=CELL){ g.moveTo(0,gy+.5); g.lineTo(W,gy+.5); } g.stroke(); }
+  function size(){
+    DPR=Math.min(window.devicePixelRatio||1,2); W=innerWidth; H=innerHeight;
+    cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0);
+    cols=Math.ceil(W/CELL)+1; rows=Math.ceil(H/CELL)+2; heat=new Float32Array(cols*rows); r0=Math.floor(scrollY/CELL); hb1=-1;
+    baseBuf=new Float32Array(cols*rows); baseR0=-1e9;
+    /* the ragged lower edge of the hero clouds only depends on the column: precompute it */
+    edgeOff=new Float32Array(cols); for(var c=0;c<cols;c++) edgeOff[c]=Math.sin(c*.21+SEED)*H*.05+Math.sin(c*.057+SEED*2)*H*.07+(hash(Math.floor(c/3),7,SEED)-.5)*CELL*7;
+    buildGrid(); dirty=true; force=true;
+  }
+  var lastW=-1, dirty=true, force=true; function onResize(){ if(TOUCH && innerWidth===lastW) return; lastW=innerWidth; size(); }
+  onResize(); addEventListener('resize', onResize);
+  K.on('theme', function(){ buildGrid(); force=true; });
+
+  /* element rects cached in document coordinates; refreshed on layout changes and once a second, not every frame */
+  var R={heads:[], smileys:[], safes:[], about:null, mq:null, hb:0}, rectAge=0;
+  function docRect(el){ var r=el.getBoundingClientRect(), sy=scrollY; return {l:r.left, r:r.right, t:r.top+sy, b:r.bottom+sy, w:r.width, h:r.height}; }
+  function measure(){ R.heads=heads.map(docRect); R.smileys=smileys.map(function(s){ return docRect(s.el); }); R.safes=safeEls.map(docRect);
+    R.about=about?docRect(about):null; R.mq=mqEl?docRect(mqEl):null; R.hb=docRect(hhead).b; dirty=false; rectAge=0; }
+  if(window.ResizeObserver){ var ro=new ResizeObserver(function(){ dirty=true; }); ro.observe(document.body); ro.observe(hhead); }
+  K.on('layout', function(){ dirty=true; force=true; }); K.on('lang', function(){ dirty=true; });
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ dirty=true; });
+
+  /* heat buffer is document-aligned: shift it when the page scrolls by whole rows */
+  function syncRows(){ var n=Math.floor(scrollY/CELL), d=n-r0; if(!d) return;
+    if(Math.abs(d)>=rows){ heat.fill(0); hb1=-1; }
+    else if(d>0){ heat.copyWithin(0,d*cols); heat.fill(0,(rows-d)*cols); }
+    else { heat.copyWithin(-d*cols,0,(rows+d)*cols); heat.fill(0,0,-d*cols); }
+    if(hb1>=0){ hb0=Math.max(0,hb0-d); hb1=Math.min(rows-1,hb1-d); if(hb1<hb0) hb1=-1; }
+    r0=n; }
+  function grow(c,r){ if(hb1<0){ hb0=hb1=r; hc0=hc1=c; return; } if(r<hb0) hb0=r; if(r>hb1) hb1=r; if(c<hc0) hc0=c; if(c>hc1) hc1=c; }
+
+  addEventListener('pointermove', function(e){ if(e.pointerType==='touch') return; mx=e.clientX; my=e.clientY; hov=true; lastMove=performance.now()/1000; }, {passive:true});
+  document.documentElement.addEventListener('mouseleave', function(){ hov=false; pmx=-1; });
+
+  /* gaussian splat of heat, in viewport px */
+  function dep(x,y,amt,Rr){ var cc=x/CELL, cr=(y+scrollY)/CELL-r0, rad=Math.ceil(Rr*1.9), k=1.6/(Rr*Rr);
+    var c0=Math.floor(cc), rr0=Math.floor(cr), any=false;
+    for(var dr=-rad;dr<=rad;dr++){ var r=rr0+dr; if(r<0||r>=rows) continue; for(var dc=-rad;dc<=rad;dc++){ var c=c0+dc; if(c<0||c>=cols) continue;
+      var dx=c+.5-cc, dy=r+.5-cr, w=Math.exp(-(dx*dx+dy*dy)*k); if(w<.03) continue; var id=r*cols+c, v=heat[id]+amt*w; heat[id]=v>1?1:v; any=true; } }
+    if(any){ grow(clamp(c0-rad,0,cols-1),clamp(rr0-rad,0,rows-1)); grow(clamp(c0+rad,0,cols-1),clamp(rr0+rad,0,rows-1)); } }
+  function stamp(c,r,v){ if(c<0||r<0||c>=cols||r>=rows) return; var id=r*cols+c; if(v>heat[id]){ heat[id]=v; grow(c,r); } }
+  function follow(x,y,Rr){ if(pmx<0){pmx=x;pmy=y;} var dx=x-pmx, dy=y-pmy, steps=Math.max(1,Math.min(48,Math.round(Math.hypot(dx,dy)/(CELL*.8))));
+    for(var s=1;s<=steps;s++){ var f=s/steps; dep(pmx+dx*f, pmy+dy*f, .17, Rr); } pmx=x; pmy=y; }
+
+  /* shape stamps: arrow, heart, disk, pac-man */
+  function cellOf(x,y){ return [x/CELL, (y+scrollY)/CELL-r0]; }
+  function stampArrow(x,y,ang,ns){ var p=cellOf(x,y), cc=p[0], cr=p[1], ca=Math.cos(ang), sa=Math.sin(ang), Rr=9;
+    for(var dr=-Rr;dr<=Rr;dr++) for(var dc=-Rr;dc<=Rr;dc++){ var c=Math.floor(cc)+dc, r=Math.floor(cr)+dr, px=c+.5-cc, py=r+.5-cr;
+      var u=px*ca+py*sa, v=-px*sa+py*ca;
+      var inside=(u>=-6.5&&u<=1.5&&Math.abs(v)<=1.15) || (u>1.5&&u<=7&&Math.abs(v)<=(7-u)*.95);
+      if(inside){ var pulse=.5+.5*Math.sin(u*.9-ns*7); stamp(c,r,.5+pulse*.47); } } }
+  function stampHeart(x,y,ns){ var p=cellOf(x,y), cc=p[0], cr=p[1], S=7.2*(1+.07*Math.max(0,Math.sin(ns*6))), Rr=11;
+    for(var dr=-Rr;dr<=Rr;dr++) for(var dc=-Rr;dc<=Rr;dc++){ var c=Math.floor(cc)+dc, r=Math.floor(cr)+dr;
+      var hx=(c+.5-cc)/S, hy=-(r+.5-cr)/S+.25, a=hx*hx+hy*hy-1, f=a*a*a-hx*hx*hy*hy*hy;
+      if(f<=0){ var core=hx*hx+(hy-.15)*(hy-.15)<.13; stamp(c,r, core?.96:(f>-.05?.8:.86)); } } }
+  function stampDisk(x,y,rad,val,ns){ var p=cellOf(x,y), cc=p[0], cr=p[1], Rr=rad/CELL, n=Math.ceil(Rr);
+    for(var dr=-n;dr<=n;dr++) for(var dc=-n;dc<=n;dc++){ var c=Math.floor(cc)+dc, r=Math.floor(cr)+dr, d=Math.hypot(c+.5-cc,r+.5-cr)/Rr; if(d>1) continue;
+      stamp(c,r, val-d*.32+.03*Math.sin(c*.7+r*.7-ns*4)); } }
+  var pac={on:false,x:0,y:0,dir:1,start:0,age:0};
+  function wander(ns){ var rad=34;
+    if(!pac.on){ pac.on=true; pac.dir=(mx>0&&mx<W*.5)||mx<0?1:-1; pac.x=mx>0?mx:-rad; pac.y=my>0?my:H*.55; pac.start=pac.x; pac.age=0; }
+    pac.age++; pac.x+=pac.dir*2.6;
+    if(pac.x>W+rad+12||pac.x<-rad-12){ pac.dir=Math.random()<.5?1:-1; pac.y=70+Math.random()*(H-140); pac.x=pac.dir>0?-rad:W+rad; pac.start=pac.x; pac.age=0; }
+    var pr=Math.floor((pac.y+scrollY)/CELL)-r0;
+    for(var k=1;k<=80;k++){ var px=pac.start+pac.dir*rad*k; if(px<-20||px>W+20) continue; if(pac.dir*(px-pac.x)>rad*.7) stamp(Math.floor(px/CELL),pr,.72); }
+    var mouth=.05+.6*Math.abs(Math.sin(pac.age*.16)), ang=pac.dir>0?0:Math.PI, p=cellOf(pac.x,pac.y), cc=p[0], cr=p[1], Rr=rad/CELL, n=Math.ceil(Rr);
+    for(var dr=-n;dr<=n;dr++) for(var dc=-n;dc<=n;dc++){ var c=Math.floor(cc)+dc, r=Math.floor(cr)+dr, dx=c+.5-cc, dy=r+.5-cr; if(dx*dx+dy*dy>Rr*Rr) continue;
+      var da=Math.abs((((Math.atan2(dy,dx)-ang)%(2*Math.PI))+3*Math.PI)%(2*Math.PI)-Math.PI); if(da<mouth) continue;
+      var eye = (Math.abs(dx-(pac.dir>0?.5:-.5))<.8 && Math.abs(dy+Rr*.5)<.8); stamp(c,r, eye?.35:.72); } }
+
+  /* sparks (heart burst) */
+  var sparks=[];
+  function boom(x,y){ for(var i=0;i<28;i++){ var a=Math.random()*Math.PI*2, s=2+Math.random()*5; sparks.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1.5,life:1,c:Math.random()<.5?3:(Math.random()<.5?4:2)}); } }
+
+  function nearestHead(sy){ var best=null, bd=190;
+    for(var i=0;i<R.heads.length;i++){ var r=R.heads[i], top=r.t-sy, bot=r.b-sy; if(bot<0||top>H||r.w<2) continue;
+      var dx=Math.max(r.l-mx,0,mx-r.r), dy=Math.max(top-my,0,my-bot), d=Math.hypot(dx,dy);
+      if(d>0 && d<bd){ bd=d; best={x:clamp(mx,r.l,r.r), y:clamp(my,top,bot)}; } }
+    return best; }
+  function inRect(r,x,y,sy){ return !!r && x>=r.l&&x<=r.r&&y>=r.t-sy&&y<=r.b-sy; }
+
+  /* hovered project tile -> one-cell outline of hero-coloured pixels (measured live: it moves with the carousel) */
+  var hoverMedia=null;
+  [].forEach.call(document.querySelectorAll('.slide'), function(s){ var m=s.querySelector('.csm');
+    s.addEventListener('mouseenter', function(){ hoverMedia=m; }); s.addEventListener('mouseleave', function(){ if(hoverMedia===m) hoverMedia=null; }); });
+
+  /* CTA marquee rasterised into grid cells (coverage-sampled). Persian: taller cells, RTL shaping, no letter-spacing, reversed scroll */
+  var mq=null, mqSeq=0;
+  function buildMarquee(){ if(!mqEl) return; var seq=++mqSeq, fa=K.lang==='fa';
+    var go=function(){ if(seq!==mqSeq) return;
+      var txt=mqEl.getAttribute('data-marquee'), MH=fa?19:13, S=6, fs=MH*(fa?1.08:1.3)*S, c=document.createElement('canvas'), x=c.getContext('2d');
+      var font=(fa?'700 ':'500 ')+fs+'px '+(fa?'Vazirmatn, Tahoma, sans-serif':'"Host Grotesk", Helvetica, sans-serif');
+      var ls=fa?'0px':(S*1.2)+'px';
+      x.font=font; if('letterSpacing' in x) x.letterSpacing=ls; var w=Math.ceil(x.measureText(txt).width/S)+4, h=MH+(fa?9:5);
+      c.width=w*S; c.height=h*S; x.font=font; if('letterSpacing' in x) x.letterSpacing=ls; x.fillStyle='#000'; x.textBaseline='alphabetic';
+      if(fa){ x.direction='rtl'; x.textAlign='right'; x.fillText(txt,w*S-2*S,(MH+1)*S); } else x.fillText(txt,0,MH*S);
+      var big=x.getImageData(0,0,w*S,h*S).data, data=new Uint8Array(w*h);
+      for(var cy=0;cy<h;cy++) for(var cx=0;cx<w;cx++){ var sum=0; for(var yy=0;yy<S;yy++){ var row=((cy*S+yy)*w*S+cx*S)*4+3; for(var xx=0;xx<S;xx++) sum+=big[row+xx*4]; }
+        data[cy*w+cx]=sum/(S*S); }
+      mq={w:w,h:h,data:data,dir:fa?-1:1,th:fa?78:96}; mqEl.style.height=(h*CELL)+'px'; dirty=true; };
+    var p=fa&&K.faFont?K.faFont:(document.fonts&&document.fonts.ready?document.fonts.ready:null);
+    if(p) p.then(go,go); else go(); }
+  buildMarquee(); K.on('lang', buildMarquee);
+
+  /* hero cloud field */
+  function base(nx,ny,tt){ var s=SEED; nx+=Math.sin(ny*4.2+tt*.45+s)*.06; ny+=Math.cos(nx*4.8-tt*.38)*.06;
+    var v=Math.sin(nx*5.1+s*1.3+tt*.28)*Math.cos(ny*4.3-s*.7+tt*.2)+Math.sin((nx*1.3+ny*1.8)*3.9-s+tt*.15)+.55*Math.sin(ny*8.7+s*2.1+nx*2.9-tt*.1)+.3*Math.sin(nx*12.3-s*1.7+tt*.06);
+    return .5+.5*(v/2.6); }
+
+  var wasHeart=false, last=0, autoX=-1, autoY=-1, lastSy=-1, lastDyn=true, safes=[];
+  function frame(ts){
+    requestAnimationFrame(frame);
+    var d=Math.min(50, ts-(last||ts)); last=ts;
+    if(document.hidden) return;
+    t+=d; introT+=d/1000; var tt=t*.001, ns=ts/1000;
+    syncRows();
+    if(dirty||++rectAge>60) measure();
+    var sy=scrollY, i;
+
+    /* decay, only while there is heat; recompute the live bounding box as we go */
+    if(hb1>=0){ var k=TOUCH?.86:.878, nb0=-1, nb1=-1, nc0=cols, nc1=-1;
+      for(var r=hb0;r<=hb1;r++){ var rowAny=false, o=r*cols; for(var c=hc0;c<=hc1;c++){ var hv=heat[o+c]; if(hv){ hv*=k; if(hv<.004) hv=0; else { rowAny=true; if(c<nc0) nc0=c; if(c>nc1) nc1=c; } heat[o+c]=hv; } }
+        if(rowAny){ if(nb0<0) nb0=r; nb1=r; } }
+      if(nb0<0) hb1=-1; else { hb0=nb0; hb1=nb1; hc0=nc0; hc1=nc1; } }
+
+    /* ---- cursor brain ---- */
+    if(TOUCH){
+      var sp=sy, bx=W*.5+Math.sin(sp*.0026+.6)*W*.33, by=H*.55+Math.sin(sp*.0052)*H*.18;
+      if(autoX<0){autoX=bx; autoY=by;} autoX+=(bx-autoX)*.1; autoY+=(by-autoY)*.1; mx=autoX; my=autoY;
+      if(inRect(R.about,mx,my,sy)){ if(!wasHeart) boom(mx,my); stampHeart(mx,my,ns); wasHeart=true; pmx=mx; pmy=my; }
+      else { wasHeart=false; smileyFill(ns,sy); follow(mx,my,4); }
+    } else {
+      var idle=ns-lastMove;
+      if(idle>4.5){ wander(ns); pmx=-1; }
+      else if(hov){ pac.on=false;
+        var hd=nearestHead(sy);
+        if(hd){ stampArrow(mx,my,Math.atan2(hd.y-my,hd.x-mx),ns); pmx=mx; pmy=my; wasHeart=false; }
+        else if(inRect(R.about,mx,my,sy)){ if(!wasHeart) boom(mx,my); wasHeart=true; stampHeart(mx,my,ns); pmx=mx; pmy=my; }
+        else { wasHeart=false; smileyFill(ns,sy); follow(mx,my,4.4); }
+      }
+    }
+
+    var hb=R.hb-sy, span=Math.max(H*.48,300), heroOn=hb+span+H*.15>0;
+    var mqOn=mq&&R.mq&&R.mq.b-sy>0&&R.mq.t-sy<H;
+    /* nothing animating on screen and no scroll: keep the last frame */
+    var dyn=hb1>=0||heroOn||mqOn||!!hoverMedia||sparks.length>0;
+    if(!force && !dyn && !lastDyn && sy===lastSy) return;
+    force=false; lastSy=sy; lastDyn=dyn;
+
+    /* ---- draw ---- */
+    ctx.clearRect(0,0,W,H);
+    var off=sy-Math.floor(sy/CELL)*CELL;
+    ctx.drawImage(gridCv,0,-off,W,H+CELL*2);
+    for(var b=0;b<5;b++) B[b].length=0;
+
+    safes.length=0; for(i=0;i<R.safes.length;i++){ var s0=R.safes[i], st=s0.t-sy, sb=s0.b-sy; if(sb>0&&st<H) safes.push([s0.l-22,st-14,s0.r+22,sb+14]); }
+    var intro=introT/1.5, recompute=((baseTick++)&1)===0;
+    if(baseR0!==r0){ baseBuf.fill(NaN); baseR0=r0; recompute=true; }
+    var SF=CELL*2.2;
+
+    for(var r=0;r<rows;r++){
+      var dRow=r0+r, vy=dRow*CELL-sy; if(vy<-CELL||vy>H) continue;
+      var rowField=heroOn && vy>=hb-1, rowHeat=hb1>=0&&r>=hb0&&r<=hb1;
+      if(!rowField&&!rowHeat) continue;
+      var cA=rowField?0:hc0, cB=rowField?cols-1:hc1, ro=r*cols;
+      for(var c=cA;c<=cB;c++){
+        var v=heat[ro+c], vx=c*CELL;
+        if(rowField){
+          var te=(hb+span+edgeOff[c]-vy)/(CELL*10), keep=false;
+          if(te>=1) keep=true;
+          else if(te>=0) keep=hash(c,dRow,1)<.5+.5*te;
+          else if(te>-.7) keep=hash(c,dRow,2)<.16*(1+te/.7);
+          if(keep && intro<1) keep=hash(c,dRow,3)<intro;
+          if(keep){ for(var q=0;q<safes.length;q++){ var s=safes[q];
+              if(vx>s[0]-SF&&vx<s[2]+SF&&vy>s[1]-SF&&vy<s[3]+SF){ var f=hash(c,dRow,4)*SF; if(vx>s[0]-f&&vx<s[2]+f&&vy>s[1]-f&&vy<s[3]+f){ keep=false; break; } } } }
+          if(keep){ var id=ro+c, bv=baseBuf[id];
+            /* cloud noise is recomputed every other frame and cached in between (it drifts far slower than 30 fps) */
+            if(recompute||bv!==bv){ bv=.2+base(c*CELL/W, dRow*CELL/H, tt)*.8+(hash(c,dRow,5)-.5)*.08; baseBuf[id]=bv; }
+            if(bv>v) v=bv; }
+        }
+        var bi=bandIdx(v); if(bi>=0) B[bi].push(vx,vy);
+      }
+    }
+
+    /* CTA marquee */
+    if(mqOn){ var startRow=Math.ceil(R.mq.t/CELL), shift=Math.floor(t*.007)*mq.dir, tick=Math.floor(t/650), mw=mq.w, md=mq.data;
+      for(var ty=0;ty<mq.h;ty++){ var y2=(startRow+ty)*CELL-sy; if(y2<-CELL||y2>H) continue; var rowOff=ty*mw;
+        for(c=0;c<cols;c++){ var tx=((c+shift)%mw+mw)%mw; if(md[rowOff+tx]>mq.th){ var hh=hash(tx,ty,tick+(tx>>3)); var ci=hh<.42?2:hh<.62?1:hh<.76?3:hh<.9?0:4; B[ci].push(c*CELL,y2); } } } }
+
+    /* hovered tile outline */
+    if(hoverMedia){ var hr=hoverMedia.getBoundingClientRect(); if(hr.bottom>0&&hr.top<H){
+      var c0=Math.floor(hr.left/CELL)-1, c1=Math.ceil(hr.right/CELL), rt=Math.floor((hr.top+sy)/CELL)-1, rb=Math.ceil((hr.bottom+sy)/CELL);
+      var edgeCell=function(cc,rr){ var w=.5+.5*Math.sin((cc*.8+rr*.8)-t*.006), bi=bandIdx(.34+w*.56); if(bi>=0) B[bi].push(cc*CELL, rr*CELL-sy); };
+      for(c=c0;c<=c1;c++){ edgeCell(c,rt); edgeCell(c,rb); } for(var rr=rt+1;rr<rb;rr++){ edgeCell(c0,rr); edgeCell(c1,rr); } } }
+
+    /* sparks */
+    for(i=sparks.length-1;i>=0;i--){ var p=sparks[i]; p.x+=p.vx; p.y+=p.vy; p.vy+=.12; p.life-=.022; if(p.life<=0){ sparks.splice(i,1); continue; }
+      B[p.c].push(Math.floor(p.x/CELL)*CELL, Math.floor((p.y+off)/CELL)*CELL-off); }
+
+    for(b=0;b<5;b++){ var arr=B[b]; if(!arr.length) continue; ctx.fillStyle=COLORS[b]; for(i=0;i<arr.length;i+=2) ctx.fillRect(arr[i]+1,arr[i+1]+1,CELL-1,CELL-1); }
+  }
+  function smileyFill(ns,sy){ var best=null, bp=0;
+    for(var i=0;i<R.smileys.length;i++){ var r=R.smileys[i], top=r.t-sy; if(r.w<2||r.b-sy<-40||top>H+40) continue;
+      var cx=r.l+r.w/2, cy=top+r.h/2, p=1-Math.hypot(mx-cx,my-cy)/(r.w*1.9);
+      if(p>bp){ bp=p; best={cx:cx,cy:cy,rad:r.w*.47,val:smileys[i].val}; } }
+    if(best&&bp>.2) stampDisk(best.cx,best.cy,best.rad*Math.min(1,(bp-.2)*2.2),best.val,ns); }
+  requestAnimationFrame(frame);
+})();
+
+/* ===== 2. intro lead: split into rendered lines, reveal line by line ===== */
+(function(){
+  var K=window.KA, el=document.querySelector('.lead'); if(!el) return; var src=el.innerHTML, lastW=0;
+  function split(){ var w=el.clientWidth; if(!w) return false; if(w===lastW) return true; lastW=w; el.innerHTML=src;
+    var words=[]; [].slice.call(el.childNodes).forEach(function(n){ var muted=n.nodeType===1; (n.textContent||'').split(/(\s+)/).forEach(function(tk){ if(tk.trim()) words.push({t:tk,m:muted}); }); });
+    el.innerHTML=words.map(function(w){ return '<span class="w'+(w.m?' m':'')+'">'+w.t+'</span>'; }).join(' ');
+    var lines=[], top=null; [].forEach.call(el.querySelectorAll('.w'), function(s){ if(s.offsetTop!==top){ top=s.offsetTop; lines.push([]); } lines[lines.length-1].push(s.outerHTML); });
+    el.innerHTML=lines.map(function(l){ return '<span class="ln"><span>'+l.join(' ')+'</span></span>'; }).join(''); el.classList.add('ready'); return true; }
+  function init(){ if(!split()){ requestAnimationFrame(init); return; }
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ setTimeout(function(){ el.classList.add('in'); },200); io.disconnect(); } }); },{threshold:.2}); io.observe(el); }
+  var ready=(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve());
+  ready.then(function(){ return K.lang==='fa'&&K.faFont?K.faFont.catch(function(){}):null; }).then(init);
+  var rt; addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(function(){ var had=el.classList.contains('in'); split(); if(had) el.classList.add('in'); },150); });
+  /* language switch: the i18n layer wrote fresh copy into .lead; re-split once the right face is ready */
+  K.on('lang', function(){ src=el.innerHTML; lastW=0; var had=el.classList.contains('in');
+    var go=function(){ split(); if(had) el.classList.add('in'); K.emit('layout'); };
+    go(); if(K.lang==='fa'&&K.faFont) K.faFont.then(function(){ lastW=0; go(); },function(){}); });
+})();
+
+/* ===== 3. reveals, top tab, logo spin, timezone line ===== */
+(function(){
+  var K=window.KA;
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); setTimeout(function(){ K.emit('layout'); },850); } }); },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
+  [].forEach.call(document.querySelectorAll('.reveal'), function(el){ io.observe(el); });
+  var tl=document.getElementById('toplink'), shown=null; function onS(){ var s=scrollY>220; if(s!==shown){ shown=s; tl.classList.toggle('show', s); } } addEventListener('scroll', onS, {passive:true}); onS();
+  var mark=document.getElementById('mark');
+  if(mark && !K.RM){ var svg=mark.querySelector('svg'); svg.addEventListener('animationend', function(){ mark.classList.remove('spin'); });
+    setInterval(function(){ if(!document.hidden) mark.classList.add('spin'); }, 10000); }
+  /* local time in Mashhad (Asia/Tehran, UTC+3:30), no network call */
+  var tz=document.getElementById('tz');
+  var FW=['','یک','دو','سه','چهار','پنج','شش','هفت','هشت','نه','ده','یازده','دوازده','سیزده','چهارده'];
+  function faHours(h){ var whole=Math.floor(h+1e-6), frac=h-whole, half=Math.abs(frac-.5)<.01, quarter=Math.abs(frac-.75)<.01||Math.abs(frac-.25)<.01;
+    if(quarter) return K.faNum(Math.floor(h*60/60))+' ساعت و '+K.faNum(Math.round(frac*60))+' دقیقه';
+    if(whole===0&&half) return 'نیم ساعت';
+    return (FW[whole]||K.faNum(whole))+' ساعت'+(half?' و نیم':''); }
+  function upd(){ try{ var now=new Date(), fa=K.lang==='fa', tm=now.toLocaleTimeString(fa?'fa-IR':'en-GB',{timeZone:'Asia/Tehran',hour:'2-digit',minute:'2-digit',hour12:false});
+      var diff=(210+now.getTimezoneOffset())/60, txt, h=Math.abs(diff);
+      if(fa){ if(h<.01) txt='الان در مشهد ساعت '+tm+' است؛ دقیقاً همان ساعتی که شما هستید.';
+        else txt='الان در مشهد ساعت '+tm+' است؛ '+faHours(h)+(diff>0?' جلوتر از شما.':' عقب‌تر از شما.'); }
+      else { if(h<.01) txt="It's "+tm+" in Mashhad right now, the same time as where you are.";
+        else { var hs=(h%1===0?h:h.toFixed(1))+(h===1?' hour':' hours'); txt="It's "+tm+" in Mashhad right now, "+hs+(diff>0?' ahead of':' behind')+" you."; } }
+      if(tz.textContent!==txt) tz.textContent=txt; }catch(e){ tz.style.display='none'; } }
+  if(tz){ upd(); setInterval(upd,30000); K.on('lang',upd); }
+})();
+
+/* ===== 4. springy momentum carousel (track stays LTR; in Persian the order flips and it starts from the right) ===== */
+(function(){
+  var K=window.KA;
+  [].forEach.call(document.querySelectorAll('[data-slider]'), function(wrap){
+    var track=wrap.querySelector('.track'), prev=wrap.querySelector('.prev'), next=wrap.querySelector('.next');
+    var x=0, v=0, min=0, drag=false, lx=0, lt=0, moved=0, raf=0, downEl=null, target=null;
+    function bounds(){ min=Math.min(0, wrap.clientWidth-track.scrollWidth); arrows(); }
+    function apply(){ track.style.transform='translate3d('+x.toFixed(2)+'px,0,0)'; arrows(); }
+    function arrows(){ if(prev) prev.disabled=x>-4; if(next) next.disabled=x<min+4; }
+    function run(){ if(target!==null){ x+=(target-x)*.14; if(Math.abs(target-x)<.4){ x=target; target=null; } }
+      else if(!drag){ x+=v; v*=.94; if(x>0){ v*=.55; x+=(0-x)*.16; } else if(x<min){ v*=.55; x+=(min-x)*.16; } }
+      apply(); if(target!==null||Math.abs(v)>.05||x>.4||x<min-.4) raf=requestAnimationFrame(run); else raf=0; }
+    function kick(){ if(!raf) raf=requestAnimationFrame(run); }
+    wrap.addEventListener('pointerdown', function(e){ if(e.target.closest('.sl-arrow')||e.button>0) return; drag=true; target=null; lx=e.clientX; lt=performance.now(); moved=0; v=0; downEl=e.target; wrap.setPointerCapture(e.pointerId); });
+    wrap.addEventListener('pointermove', function(e){ if(!drag) return; var now=performance.now(), dx=e.clientX-lx, dt=Math.max(1,now-lt); lx=e.clientX; lt=now; moved+=Math.abs(dx);
+      if(moved>4) wrap.classList.add('drag'); v=dx/dt*16; x+=(x>0||x<min)?dx*.35:dx; apply(); });
+    function up(e){ if(!drag) return; drag=false; wrap.classList.remove('drag'); try{ wrap.releasePointerCapture(e.pointerId); }catch(_){}
+      if(moved<6 && downEl){ var a=downEl.closest('a'); if(a){ if(a.target==='_blank') window.open(a.href,'_blank','noopener'); else location.href=a.getAttribute('href'); } }
+      kick(); }
+    wrap.addEventListener('pointerup', up); wrap.addEventListener('pointercancel', up);
+    [].forEach.call(wrap.querySelectorAll('a'), function(a){ a.addEventListener('click', function(e){ if(e.detail!==0) e.preventDefault(); }); a.addEventListener('dragstart', function(e){ e.preventDefault(); }); });
+    wrap.addEventListener('wheel', function(e){ if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){ e.preventDefault(); target=null; x=Math.max(min-60,Math.min(60,x-e.deltaX)); v=-e.deltaX*.3; kick(); } }, {passive:false});
+    function step(dir){ var s=track.querySelector('.slide'); var w=s?s.offsetWidth+28:400; target=Math.max(min,Math.min(0,(target!==null?target:x)-dir*w)); kick(); }
+    if(prev) prev.addEventListener('click', function(){ step(-1); }); if(next) next.addEventListener('click', function(){ step(1); });
+    /* keyboard focus brings tile into view */
+    [].forEach.call(track.querySelectorAll('.slide'), function(s){ s.addEventListener('focus', function(){ var l=s.offsetLeft, pad=parseFloat(getComputedStyle(track).paddingLeft); target=Math.max(min,Math.min(0,-(l-pad))); wrap.scrollLeft=0; kick(); }); });
+    function dir(){ var rtl=K.lang==='fa'; track.style.flexDirection=rtl?'row-reverse':''; bounds(); target=null; v=0; x=rtl?min:0; apply();
+      /* the left button always moves the strip visually left-to-right; label it for what it reveals in this reading order */
+      if(prev) prev.setAttribute('aria-label', K.t?K.t(rtl?'$next':'$prev'):'Previous project'); if(next) next.setAttribute('aria-label', K.t?K.t(rtl?'$prev':'$next'):'Next project'); }
+    addEventListener('resize', function(){ bounds(); x=Math.max(min,Math.min(0,x)); apply(); });
+    K.on('lang', dir); dir();
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ var atEnd=x<=min+1; bounds(); if(K.lang==='fa'&&atEnd) x=min; x=Math.max(min,Math.min(0,x)); apply(); });
+  });
+})();
+
+/* ===== 5. project previews: generative pixel loops inside each tile ===== */
+(function(){
+  var K=window.KA, hash=K.hash, PC=7;
+  var C={navy:'#1c2541',blue:'#3b5bd9',yellow:'#f5c518',red:'#e0492a',neon:'#d8ff00',dim:'#161a26',grid:'#121212'};
+  function rnd(seed){ var s=seed; return function(){ s=(s*16807)%2147483647; return (s-1)/2147483646; }; }
+  function line(px,x0,y0,x1,y1,col){ x0|=0;y0|=0;x1|=0;y1|=0; var dx=Math.abs(x1-x0), dy=-Math.abs(y1-y0), sx=x0<x1?1:-1, sy=y0<y1?1:-1, e=dx+dy, n=0;
+    while(n++<400){ px(x0,y0,col); if(x0===x1&&y0===y1) break; var e2=2*e; if(e2>=dy){ e+=dy; x0+=sx; } if(e2<=dx){ e+=dx; y0+=sy; } } }
+
+  var VIZ={
+    bim:function(o,px,t){ var g=o.g; if(!g){ var R=rnd(7), nodes=[]; for(var i=0;i<16;i++) nodes.push({x:5+R()*(o.cw-10), y:6+R()*(o.ch-14), ph:R()*6});
+        var edges=[]; nodes.forEach(function(a,i){ var ds=nodes.map(function(b,j){ return {j:j,d:Math.hypot(a.x-b.x,a.y-b.y)}; }).sort(function(p,q){ return p.d-q.d; }); for(var k=1;k<=2;k++){ var j=ds[k].j; if(!edges.some(function(e){ return (e[0]===j&&e[1]===i); })) edges.push([i,j]); } });
+        var pts=[]; for(i=0;i<46;i++) pts.push({x:R()*o.cw, y:R()*o.ch, ph:R()*6});
+        g=o.g={nodes:nodes,edges:edges,pts:pts,path:null,pt:0}; }
+      var N=g.nodes.map(function(n){ return {x:Math.round(n.x+Math.sin(t*.0005+n.ph)*1.4), y:Math.round(n.y+Math.cos(t*.0004+n.ph)*1.2)}; });
+      g.pts.forEach(function(p){ var x=Math.round(p.x+Math.sin(t*.0003+p.ph)*2), y=Math.round(p.y+Math.cos(t*.00025+p.ph)*2); px(x,y,'rgba(59,91,217,.28)'); });
+      var cyc=Math.floor(t/3400), ph=(t%3400)/3400;
+      if(!g.path||g.cyc!==cyc){ g.cyc=cyc; var R2=rnd(cyc*31+5), s=Math.floor(R2()*16), path=[s], seen={}; seen[s]=1;
+        for(var k=0;k<4;k++){ var cur=path[path.length-1], nb=g.edges.filter(function(e){ return e[0]===cur||e[1]===cur; }).map(function(e){ return e[0]===cur?e[1]:e[0]; }).filter(function(n){ return !seen[n]; }); if(!nb.length) break; var nx=nb[Math.floor(R2()*nb.length)]; seen[nx]=1; path.push(nx); }
+        g.path=path; }
+      g.edges.forEach(function(e){ line(px,N[e[0]].x,N[e[0]].y,N[e[1]].x,N[e[1]].y,C.navy); });
+      var segs=g.path.length-1, prog=Math.min(1,ph/.7)*segs, done=Math.floor(prog);
+      for(var i=0;i<segs;i++){ var a=N[g.path[i]], b=N[g.path[i+1]]; if(i<done) line(px,a.x,a.y,b.x,b.y,C.blue);
+        else if(i===done&&prog<segs){ var f=prog-done, hx=a.x+(b.x-a.x)*f, hy=a.y+(b.y-a.y)*f; line(px,a.x,a.y,hx,hy,C.blue); px(Math.round(hx),Math.round(hy),C.yellow); px(Math.round(hx)+1,Math.round(hy),C.yellow); } }
+      N.forEach(function(n,i){ var on=g.path.indexOf(i)>=0; var col=on?C.blue:'#2a3560'; px(n.x,n.y,col); px(n.x+1,n.y,col); px(n.x,n.y+1,col); px(n.x+1,n.y+1,col); });
+      if(ph>.7){ var end=N[g.path[g.path.length-1]]; for(var dy=-1;dy<=2;dy++) for(var dx=-1;dx<=2;dx++) px(end.x+dx,end.y+dy,C.neon);
+        if(Math.floor(t/180)%2) { for(var q=0;q<4;q++){ px(end.x+4+q,end.y-3,C.red); px(end.x+4+q,end.y-2,C.red); } px(end.x+3,end.y-1,C.red); } }
+      var st=g.path[0]; px(N[st].x-1,N[st].y-1,C.yellow);
+    },
+    nids:function(o,px,t){ var g=o.g; if(!g){ g=o.g={bars:[],err:[],last:0,anom:0,next:40}; for(var i=0;i<o.cw;i++){ g.bars.push(4+Math.random()*6); g.err.push(0); } }
+      if(t-g.last>90){ g.last=t; g.bars.shift(); g.err.shift(); var a=false;
+        if(g.anom>0){ g.anom--; a=true; } else if(--g.next<=0){ g.anom=8+Math.floor(Math.random()*6); g.next=40+Math.floor(Math.random()*30); }
+        g.bars.push(a?{h:16+Math.random()*16,a:1}:4+Math.random()*7+Math.sin(t*.002)*2); g.err.push(a?.7+Math.random()*.3:Math.random()*.22); }
+      var base=o.ch-3, thr=11;
+      for(var c=0;c<o.cw;c+=2) px(c,thr,'rgba(245,197,24,.55)');
+      for(c=0;c<o.cw;c++){ var b=g.bars[c], an=typeof b==='object', h=Math.round(an?b.h:b);
+        for(var r=0;r<h;r++){ var col=an?(r>h-4?C.red:C.yellow):(r<h*.55?C.navy:C.blue); px(c,base-r,col); }
+        var ey=Math.round(18-g.err[c]*14); px(c,ey,an?C.red:'#3b5bd9');
+        if(an){ px(c,2,C.neon); px(c,3,C.neon); } }
+      for(c=0;c<o.cw;c++) px(c,base+1,'#222');
+    },
+    clone:function(o,px,t){ var L=6000, ph=(t%L)/L, H2=Math.min(o.ch-6,42), s=Math.floor(Math.min(1,ph/.78)*(H2+1)), lx=3, rx=Math.floor(o.cw/2)+2, top=4, pw=Math.min(24,Math.floor(o.cw/2)-5);
+      function page(c,r){ if(r===0||r===H2-1||c===0||c===pw-1) return '#2a3560';
+        if(r===2&&c>=2&&c<=5) return C.yellow; if(r===2&&c>=pw-10&&c<=pw-3&&c%3!==2) return C.blue;
+        if(r>=5&&r<=14&&c>=2&&c<=pw-3){ if((r===8&&c>=4&&c<=pw-8)||(r===10&&c>=4&&c<=pw-12)) return C.yellow; return C.blue; }
+        var cw=Math.floor((pw-6)/3); for(var k=0;k<3;k++){ var x0=2+k*(cw+1); if(c>=x0&&c<x0+cw&&r>=17&&r<=27) return r<=21?(k===1?C.red:C.yellow):C.navy; }
+        if((r===30||r===32||r===34)&&c>=2&&c<=pw-3-((r*7)%5)) return '#2a3560';
+        if(r>=H2-4&&r<=H2-3&&c>=2&&c<=pw-3) return C.navy; return null; }
+      for(var r=0;r<H2;r++) for(var c=0;c<pw;c++){ var col=page(c,r); if(col){ px(lx+c,top+r,col); if(r<s) px(rx+c,top+r,col); } }
+      if(ph<.8){ for(c=0;c<pw;c++){ px(lx+c,top+s,'rgba(216,255,0,.5)'); px(rx+c,top+s,C.neon); }
+        for(var k=0;k<5;k++){ var f=((t*.002+k*.2)%1), xx=Math.round(lx+pw+(rx-lx-pw)*f); px(xx-1,top+s+((k%3)-1),k%2?C.yellow:C.blue); } }
+      else if(Math.floor(t/250)%2){ for(c=0;c<6;c++) px(rx+pw-7+c,top+H2+1,C.neon); }
+      for(r=top;r<top+H2;r+=2) px(Math.floor(o.cw/2)-1,r,'#222');
+    },
+    vino:function(o,px,t){ var cat=Math.floor(t/2000)%4, x0=Math.max(2,Math.floor((o.cw-52)/2));
+      var G=[ ['.XXX.','X...X','X...X','.XXX.','..X..'], ['..X..','.X.X.','.X.X.','X.X.X','.XXX.'], ['.XXX.','.X.X.','XXXXX','XX.XX','XXXXX'], ['.X.X.','.X.X.','XXXXX','.XXX.','..X..'] ];
+      for(var i=0;i<4;i++){ for(var c=0;c<12;c++) for(var r=0;r<3;r++) px(x0+i*13+c,4+r, i===cat?C.yellow:C.navy); }
+      var ax=x0+cat*13+9, ay=7; px(ax,ay,'#fff'); px(ax,ay+1,'#fff'); px(ax+1,ay+1,'#fff'); px(ax,ay+2,'#fff'); px(ax+2,ay+2,'#fff');
+      var map=[0,1,2,3,2,0,3,1];
+      for(var k=0;k<8;k++){ var col=k%4, row=Math.floor(k/4), cx=x0+col*13, cy=11+row*18, on=map[k]===cat;
+        for(r=0;r<15;r++) for(c=0;c<12;c++){ var edge=r===0||r===14||c===0||c===11; if(edge) px(cx+c,cy+r,on?C.blue:'#1d2133'); else if(on&&r>=11) px(cx+c,cy+r,r===12&&c>=2&&c<=7?C.yellow:'#203070'); }
+        var gl=G[map[k]]; for(r=0;r<5;r++) for(c=0;c<5;c++) if(gl[r][c]==='X') px(cx+3+c,cy+3+r,on?C.neon:'#2a3560'); }
+    }
+  };
+  var items=[];
+  [].forEach.call(document.querySelectorAll('canvas[data-viz]'), function(cv){
+    var o={cv:cv, ctx:cv.getContext('2d'), fx:VIZ[cv.dataset.viz], vis:false, hov:false, ht:0, t:Math.random()*4000, g:null, bg:null, acc:99};
+    var slide=cv.closest('.slide'); if(slide){ slide.addEventListener('mouseenter', function(){ o.hov=true; }); slide.addEventListener('mouseleave', function(){ o.hov=false; }); }
+    /* background + 7px grid baked into an offscreen canvas once per size/theme (was ~110 fillRects per tile per frame) */
+    o.bake=function(){ if(!o.w) return; var d=o.d, b=o.bg||(o.bg=document.createElement('canvas')); b.width=o.cv.width; b.height=o.cv.height; var x=b.getContext('2d'); x.setTransform(d,0,0,d,0,0);
+      x.fillStyle=K.T.tileBg; x.fillRect(0,0,o.w,o.h); x.fillStyle=K.T.tileGrid; for(var c=0;c<=o.cw;c++) x.fillRect(c*PC-1,0,1,o.h); for(var r=0;r<=o.ch;r++) x.fillRect(0,r*PC-1,o.w,1); };
+    o.size=function(){ var r=cv.getBoundingClientRect(), d=Math.min(devicePixelRatio||1,2); o.d=d; o.w=r.width; o.h=r.height; cv.width=Math.round(r.width*d); cv.height=Math.round(r.height*d); o.ctx.setTransform(d,0,0,d,0,0); o.cw=Math.floor(o.w/PC); o.ch=Math.floor(o.h/PC); o.g=null; o.bake(); o.acc=99; };
+    items.push(o);
+  });
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ items.forEach(function(o){ if(o.cv===e.target) o.vis=e.isIntersecting; }); }); },{rootMargin:'100px'});
+  items.forEach(function(o){ o.size(); io.observe(o.cv); });
+  addEventListener('resize', function(){ items.forEach(function(o){ o.size(); }); });
+  K.on('theme', function(){ items.forEach(function(o){ o.bake(); o.acc=99; }); });
+  var last=0, FRAME=1000/30;                                       /* chunky 7px pixels: 30 fps is visually identical, half the work */
+  function loop(ts){ requestAnimationFrame(loop); var d=Math.min(50,ts-(last||ts)); last=ts; if(document.hidden) return;
+    items.forEach(function(o){ if(!o.vis||!o.w) return; o.acc+=d; if(o.acc<FRAME-2) return; var dd=Math.min(66,o.acc); o.acc=0;
+      o.t+=K.RM?0:dd; var x=o.ctx, cw=o.cw, ch=o.ch;
+      x.drawImage(o.bg,0,0,o.w,o.h);
+      var px=function(c,r,col){ if(c<0||r<0||c>=cw||r>=ch) return; x.fillStyle=col; x.fillRect(c*PC,r*PC,PC-1,PC-1); };
+      o.fx(o,px,o.t);
+      /* hover: chunky pixels crumble in from the corners */
+      o.ht=o.hov?Math.min(1,o.ht+dd/500):Math.max(0,o.ht-dd/300);
+      if(o.ht>0){ var st=Math.floor(o.ht*6)/6, B=2, tick=Math.floor(o.t/120);
+        for(var by=0;by<ch;by+=B) for(var bx=0;bx<cw;bx+=B){ var u=bx/cw, v=by/ch, dn=Math.min(Math.hypot(u,v),Math.hypot(1-u,v),Math.hypot(u,1-v),Math.hypot(1-u,1-v));
+          if(dn<st*.32 && hash(bx,by,tick)>dn/(st*.32)*.9){ x.fillStyle=hash(bx,by,9)<.5?'rgba(255,255,255,.18)':'rgba(255,255,255,.4)'; x.fillRect(bx*PC,by*PC,B*PC-1,B*PC-1); } } }
+    }); }
+  requestAnimationFrame(loop);
+})();
+
+/* ===== 6. process flow: blue chaos resolving into a clean yellow double helix (mirrored in RTL) ===== */
+(function(){
+  var K=window.KA, cv=document.getElementById('flow'); if(!cv) return; var ctx=cv.getContext('2d'), CELL=K.CELL;
+  var steps=[].slice.call(document.querySelectorAll('#process .step')), active=-1, vis=false;
+  steps.forEach(function(s,i){ s.addEventListener('mouseenter', function(){ active=i; }); s.addEventListener('mouseleave', function(){ active=-1; });
+    var line=s.querySelector('.pxline i'); s.addEventListener('mousemove', function(e){ if(!line) return; var r=s.getBoundingClientRect(), lx=Math.round((e.clientX-r.left-31)/9)*9; line.style.setProperty('--lx', Math.max(0,Math.min(r.width-62,lx))+'px'); }); });
+  var W=0,H=0, P=[], N=300, mx=-999, my=-999, inf=0, hovering=false, gcols=0, grows=0, occ=null, ox=0, oy=0, rectAge=99;
+  for(var i=0;i<N;i++) P.push({u:Math.random(), s:i%2?1:-1, j:Math.random()*2-1, k:Math.random(), sp:.00005+Math.random()*.00004});
+  function size(){ var r=cv.getBoundingClientRect(), d=Math.min(devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=Math.round(W*d); cv.height=Math.round(H*d); ctx.setTransform(d,0,0,d,0,0);
+    gcols=Math.ceil(W/CELL)+2; grows=Math.ceil(H/CELL)+2; occ=new Float32Array(gcols*grows); rectAge=99; }
+  size(); addEventListener('resize', size); K.on('layout', function(){ rectAge=99; });
+  cv.parentNode.addEventListener('pointermove', function(e){ var r=cv.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top; hovering=true; });
+  cv.parentNode.addEventListener('pointerleave', function(){ hovering=false; });
+  new IntersectionObserver(function(es){ vis=es[0].isIntersecting; rectAge=99; }).observe(cv);
+  var last=0, T=0;
+  function cellFill(x,y,col,a){ ctx.globalAlpha=a; ctx.fillStyle=col; ctx.fillRect(x+1,y+1,CELL-1,CELL-1); }
+  function loop(ts){ var d=Math.min(50,ts-(last||ts)); last=ts; requestAnimationFrame(loop); if(!vis||!W||document.hidden) return; if(!K.RM) T+=d;
+    inf+=((hovering?1:0)-inf)*.08;
+    /* the canvas' offset within the page grid only changes on layout, so measure it rarely */
+    if(++rectAge>30){ var r=cv.getBoundingClientRect(); ox=((r.left%CELL)+CELL)%CELL; oy=(((r.top+scrollY)%CELL)+CELL)%CELL; rectAge=0; }
+    var rtl=K.rtl;
+    ctx.clearRect(0,0,W,H); var cy=H/2, amp=H*.3; occ.fill(0);
+    /* typed-array occupancy instead of string-keyed object: no garbage per frame */
+    function put(x,y,col,a){ var gx=Math.floor((x+ox)/CELL), gy=Math.floor((y+oy)/CELL); if(gx<0||gy<0||gx>=gcols||gy>=grows) return; var id=gy*gcols+gx; if(occ[id]>=a) return; occ[id]=a; cellFill(gx*CELL-ox,gy*CELL-oy,col,a); }
+    /* rungs on the resolved side */
+    for(var u=.58;u<=.99;u+=1/36){ var ph=u*13-T*.0011, y1=cy+Math.sin(ph)*amp, y2=cy-Math.sin(ph)*amp, x=(rtl?1-u:u)*W, st=Math.min(3,Math.floor(u*4));
+      var a=(active>=0&&st!==active)?.1:.28; for(var yy=Math.min(y1,y2)+CELL; yy<Math.max(y1,y2)-CELL; yy+=CELL*2) put(x,yy,'#f5c518',a); }
+    for(i=0;i<N;i++){ var p=P[i]; p.u+=p.sp*d; if(p.u>1){ p.u-=1; p.j=Math.random()*2-1; }
+      var s=K.smooth(.18,.68,p.u), x2=(rtl?1-p.u:p.u)*W;
+      var chaos=cy+p.j*H*.46+Math.sin(p.k*40+T*.001)*H*.05;
+      var helix=cy+p.s*Math.sin(p.u*13-T*.0011)*amp*(.4+.6*s);
+      var y=chaos*(1-s)+helix*s;
+      var dx=x2-mx, dy=y-my, dd=Math.hypot(dx,dy); if(dd<100&&inf>.01) y+=(dy>=0?1:-1)*(100-dd)*.55*inf;
+      var yellow=K.hash(i,3)<s*1.15, col=yellow?'#f5c518':(p.k<.3?K.COLORS[0]:'#3b5bd9');
+      var al=yellow?(.55+.45*s):(.3+.5*p.k), stg=Math.min(3,Math.floor(p.u*4)); if(active>=0&&stg!==active) al*=.15;
+      put(x2,y,col,al); }
+    ctx.globalAlpha=1; }
+  requestAnimationFrame(loop);
+})();
+
+/* ===== 7. smileys: eyes follow the cursor, blink, react ===== */
+(function(){
+  var sm=[].slice.call(document.querySelectorAll('.smiley')); if(!sm.length) return; var mx=innerWidth/2, my=-200, moved=true, vis=false, raf=0;
+  var eyes=sm.map(function(s){ return s.querySelector('.eyes'); }), lastT=sm.map(function(){ return ''; });
+  addEventListener('pointermove', function(e){ mx=e.clientX; my=e.clientY; moved=true; }, {passive:true});
+  addEventListener('scroll', function(){ moved=true; }, {passive:true});
+  /* only track while the smileys are on screen, and only when the pointer or page actually moved */
+  function look(){ raf=vis?requestAnimationFrame(look):0; if(!moved) return; moved=false;
+    sm.forEach(function(s,i){ var r=s.getBoundingClientRect(); if(r.bottom<-50||r.top>innerHeight+50) return; var cx=r.left+r.width/2, cy=r.top+r.height/2, dx=mx-cx, dy=my-cy, d=Math.hypot(dx,dy)||1;
+      var k=Math.min(1,d/220), ex=Math.round(dx/d*k), ey=Math.round(dy/d*k), tr='translate('+ex+' '+ey+')'; if(tr!==lastT[i]){ lastT[i]=tr; eyes[i].setAttribute('transform',tr); }
+      if(s.hasAttribute('data-shy')) s.classList.toggle('shy', d<r.width*.6); }); }
+  new IntersectionObserver(function(es){ vis=es.some(function(e){ return e.isIntersecting; }) || sm.some(function(s){ var r=s.getBoundingClientRect(); return r.bottom>-150&&r.top<innerHeight+150; });
+    if(vis&&!raf){ moved=true; raf=requestAnimationFrame(look); } },{rootMargin:'150px'}).observe(sm[0].closest('.two')||sm[0]);
+  sm.forEach(function(s,i){ (function blink(){ setTimeout(function(){ s.classList.add('blink'); setTimeout(function(){ s.classList.remove('blink'); blink(); },140); }, 2200+Math.random()*3200+i*400); })();
+    s.addEventListener('click', function(){ s.classList.remove('jump'); void s.getBoundingClientRect(); s.classList.add('jump');
+      var h=document.createElementNS('http://www.w3.org/2000/svg','svg'); h.setAttribute('viewBox','0 0 7 6'); h.setAttribute('shape-rendering','crispEdges'); h.setAttribute('class','sm-heart');
+      h.innerHTML='<path fill="#e0492a" d="M1 0h2v1h1V0h2v1h1v2H6v1H5v1H4v1H3V5H2V4H1V3H0V1h1z"/>';
+      h.style.left='50%'; h.style.top='0px'; s.parentNode.appendChild(h); setTimeout(function(){ h.remove(); },1000); });
+    s.addEventListener('animationend', function(){ s.classList.remove('jump'); }); });
+})();
+
+/* ===== 8. buttons: random pixel flicker on hover ===== */
+(function(){
+  [].forEach.call(document.querySelectorAll('.btn'), function(b){ var cv=null, raf=0, on=false;
+    b.addEventListener('pointerenter', function(e){ if(e.pointerType==='touch') return; on=true; if(!cv){ cv=document.createElement('canvas'); cv.className='pxfx'; b.insertBefore(cv,b.firstChild); }
+      var r=b.getBoundingClientRect(); cv.width=Math.round(r.width); cv.height=Math.round(r.height); var x=cv.getContext('2d'), n=0, P=5;
+      function tick(){ if(!on){ x.clearRect(0,0,cv.width,cv.height); raf=0; return; } if(n++%3===0){ x.clearRect(0,0,cv.width,cv.height);
+          for(var yy=0;yy<cv.height;yy+=P) for(var xx=0;xx<cv.width;xx+=P){ var h=Math.random(); if(h<.07){ x.fillStyle=h<.015?'rgba(216,255,0,.75)':'rgba(255,255,255,.16)'; x.fillRect(xx,yy,P-1,P-1); } } }
+        raf=requestAnimationFrame(tick); }
+      if(!raf) raf=requestAnimationFrame(tick); });
+    b.addEventListener('pointerleave', function(){ on=false; });
+  });
+})();
+
+/* ===== 9. footer: auto-building Tetris skyline, playable across the full width ===== */
+(function(){
+  var K=window.KA, COLORS=K.COLORS;
+  var foot=document.getElementById('foot'), cv=document.getElementById('footcity'), ctx=cv.getContext('2d'), hud=document.getElementById('tetris');
+  var scoreEl=hud.querySelector('.tt-score'), finalEl=hud.querySelector('.tt-final');
+  var SH=[[[0,0],[1,0],[2,0],[3,0]],[[0,0],[1,0],[0,1],[1,1]],[[0,0],[1,0],[2,0],[1,1]],[[1,0],[2,0],[0,1],[1,1]],[[0,0],[1,0],[1,1],[2,1]],[[0,0],[0,1],[0,2],[1,2]],[[1,0],[1,1],[1,2],[0,2]]];
+  var W=0,H=0,DPR=1, mode='idle', cell=9, cols=0, rows=0, board=null, falling=[], lastSpawn=0, lastStep=0, score=0, pieces=[], dropMs=620, over=false, filled=0, built=false, near=false, visible=false;
+  function size(){ var r=cv.getBoundingClientRect(); DPR=Math.min(devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0); }
+  function newBoard(){ cols=Math.max(4,Math.floor(W/cell)); rows=Math.max(4,Math.floor(H/cell)); board=[]; for(var r=0;r<rows;r++){ board.push(new Array(cols).fill(-1)); } filled=0; }
+  function rot(cells){ var o=cells.map(function(p){ return [-p[1],p[0]]; }), mnx=Math.min.apply(null,o.map(function(p){return p[0];})), mny=Math.min.apply(null,o.map(function(p){return p[1];})); return o.map(function(p){ return [p[0]-mnx,p[1]-mny]; }); }
+  function fits(cells,x,y,self){ for(var i=0;i<cells.length;i++){ var cx=x+cells[i][0], cy=y+cells[i][1]; if(cx<0||cx>=cols||cy>=rows) return false; if(cy>=0&&board[cy][cx]>=0) return false;
+      for(var j=0;j<pieces.length;j++){ var q=pieces[j]; if(q===self||q.locked) continue; for(var k=0;k<q.c.length;k++) if(q.x+q.c[k][0]===cx&&q.y+q.c[k][1]===cy) return false; } } return true; }
+  /* ---- ambient skyline: the pre-build simulation is deferred until the footer is near (it used to run on page load) ---- */
+  function idleInit(){ cell=9; size(); newBoard(); falling=[]; built=false; if(near) build(); }
+  function build(){ if(built||mode!=='idle') return; built=true; var ft=0; for(var k=0;k<1400;k++){ ft+=35; idleTick(ft); } lastSpawn=0; lastStep=0; render(); }
+  function idleTick(ts){ if(ts-lastSpawn>260){ lastSpawn=ts; var c=SH[Math.floor(Math.random()*7)], best=null;
+      for(var k=0;k<3;k++){ var x=Math.floor(Math.random()*(cols-3)), h=0; for(var r=0;r<rows;r++){ if(board[r][x]>=0){ h=rows-r; break; } } if(!best||h<best.h) best={x:x,h:h}; }
+      falling.push({c:c,x:best.x,y:-3,col:Math.floor(Math.random()*5)}); }
+    if(ts-lastStep>70){ lastStep=ts;
+      for(var i=falling.length-1;i>=0;i--){ var f=falling[i]; if(fitsB(f.c,f.x,f.y+1)) f.y++; else { f.c.forEach(function(p){ var yy=f.y+p[1]; if(yy>=0&&board[yy][f.x+p[0]]<0){ board[yy][f.x+p[0]]=f.col; filled++; } }); falling.splice(i,1); } }
+      /* running filled-cell counter (was a full board scan every step) */
+      if(filled>cols*rows*.3){ var gone=board.pop(); for(var g=0;g<gone.length;g++) if(gone[g]>=0) filled--; board.unshift(new Array(cols).fill(-1)); } } }
+  function fitsB(c,x,y){ for(var i=0;i<c.length;i++){ var cx=x+c[i][0], cy=y+c[i][1]; if(cx<0||cx>=cols||cy>=rows) return false; if(cy>=0&&board[cy][cx]>=0) return false; } return true; }
+  /* ---- play mode: a batch of pieces falls at once, steered together ---- */
+  function spawnBatch(){ var n=Math.max(1,Math.round(cols/14)); pieces=[];
+    for(var i=0;i<n;i++){ var c=SH[Math.floor(Math.random()*7)]; var x=Math.floor((i+.5)*cols/n)-1; var p={c:c,x:x,y:-1,col:Math.floor(Math.random()*5),locked:false}; if(!fits(p.c,p.x,p.y,p)){ gameOver(); return; } pieces.push(p); } }
+  function lockPiece(p){ p.locked=true; p.c.forEach(function(q){ var yy=p.y+q[1]; if(yy<0){ over=true; return; } board[yy][p.x+q[0]]=p.col; }); score+=10; if(over){ gameOver(); return; } clearLines(); }
+  function clearLines(){ var n=0; for(var r=rows-1;r>=0;r--){ if(board[r].every(function(v){ return v>=0; })){ board.splice(r,1); board.unshift(new Array(cols).fill(-1)); n++; r++; } } if(n){ score+=[0,100,300,500,800][Math.min(4,n)]; dropMs=Math.max(160,dropMs-25); } }
+  function act(k){ if(mode!=='play'||over) return; var live=pieces.filter(function(p){ return !p.locked; });
+    if(k==='left'||k==='right'){ var dx=k==='left'?-1:1; live.sort(function(a,b){ return dx*(b.x-a.x); }).forEach(function(p){ if(fits(p.c,p.x+dx,p.y,p)) p.x+=dx; }); }
+    else if(k==='rot'){ live.forEach(function(p){ var rc=rot(p.c); if(fits(rc,p.x,p.y,p)) p.c=rc; else if(fits(rc,p.x-1,p.y,p)){ p.c=rc; p.x--; } }); }
+    else if(k==='down'){ gravity(); }
+    else if(k==='drop'){ live.sort(function(a,b){ return b.y-a.y; }).forEach(function(p){ while(fits(p.c,p.x,p.y+1,p)) p.y++; lockPiece(p); }); afterLock(); }
+    render(); }
+  function gravity(){ pieces.filter(function(p){ return !p.locked; }).sort(function(a,b){ return b.y-a.y; }).forEach(function(p){ if(fits(p.c,p.x,p.y+1,p)) p.y++; else lockPiece(p); }); afterLock(); }
+  function fmtScore(n){ var s=('0000'+n).slice(-Math.max(4,String(n).length)); return K.lang==='fa'?K.faNum(s):s; }
+  function afterLock(){ if(!over&&pieces.every(function(p){ return p.locked; })) spawnBatch(); scoreEl.textContent=fmtScore(score); }
+  function gameOver(){ over=true; hud.classList.add('over'); finalEl.textContent=(K.t?K.t('$score'):'Score')+' '+(K.lang==='fa'?K.faNum(score):score); }
+  function start(){ if(mode==='play') return; mode='play'; foot.classList.add('playing'); over=false; score=0; dropMs=620; hud.classList.remove('over'); scoreEl.textContent=fmtScore(0);
+    setTimeout(function(){ cell=innerWidth<680?16:18; size(); var padH=innerWidth<680?88:0; rows=Math.max(6,Math.floor((H-padH)/cell)); cols=Math.max(6,Math.floor(W/cell)); board=[]; for(var r=0;r<rows;r++) board.push(new Array(cols).fill(-1)); spawnBatch(); lastStep=performance.now(); render(); }, 580);
+    foot.scrollIntoView({behavior:'smooth', block:'end'}); }
+  function stop(){ mode='idle'; foot.classList.remove('playing'); hud.classList.remove('over'); setTimeout(idleInit, 600); }
+  /* ---- draw ---- */
+  function cellRect(x,y,col,cz,ox,oy){ ctx.fillStyle=COLORS[col]; ctx.fillRect(ox+x*cz+1,oy+y*cz+1,cz-1,cz-1); }
+  function render(){ ctx.clearRect(0,0,W,H); if(!board) return;
+    var ox=mode==='play'?Math.floor((W-cols*cell)/2):0, oy=mode==='play'?0:H-rows*cell;
+    if(mode==='play'){ ctx.strokeStyle=K.T.grid; ctx.beginPath(); for(var x=0;x<=cols;x++){ ctx.moveTo(ox+x*cell+.5,0); ctx.lineTo(ox+x*cell+.5,rows*cell); } for(var y=0;y<=rows;y++){ ctx.moveTo(ox,y*cell+.5); ctx.lineTo(ox+cols*cell,y*cell+.5); } ctx.stroke(); }
+    for(var r=0;r<rows;r++){ var row=board[r]; for(var c=0;c<cols;c++) if(row[c]>=0) cellRect(c,r,row[c],cell,ox,oy); }
+    var list=mode==='play'?pieces.filter(function(p){ return !p.locked; }):falling;
+    list.forEach(function(p){ p.c.forEach(function(q){ if(p.y+q[1]>=0) cellRect(p.x+q[0],p.y+q[1],p.col,cell,ox,oy); }); }); }
+  /* visibility from an observer instead of measuring the footer every frame */
+  new IntersectionObserver(function(es){ visible=es[0].isIntersecting; },{threshold:0}).observe(foot);
+  new IntersectionObserver(function(es){ if(es[0].isIntersecting){ near=true; build(); } },{rootMargin:'1200px 0px'}).observe(foot);
+  if('requestIdleCallback' in window) requestIdleCallback(function(){ near=true; build(); },{timeout:4000});
+  function loop(ts){ requestAnimationFrame(loop); if(!visible||document.hidden) return;
+    if(mode==='idle'&&board){ if(!built) build(); idleTick(ts); render(); }
+    else if(mode==='play'&&!over&&board&&pieces.length&&ts-lastStep>dropMs){ lastStep=ts; gravity(); render(); } }
+  idleInit(); requestAnimationFrame(loop);
+  addEventListener('resize', function(){ if(mode==='idle') idleInit(); else { size(); render(); } });
+  K.on('theme', function(){ render(); });
+  K.on('lang', function(){ scoreEl.textContent=fmtScore(score); if(over) gameOver(); });
+  foot.addEventListener('click', function(e){ if(mode==='idle') start(); });
+  hud.querySelector('.tt-close').addEventListener('click', function(e){ e.stopPropagation(); stop(); });
+  hud.querySelector('.tt-again').addEventListener('click', function(e){ e.stopPropagation(); mode='idle'; start(); });
+  [].forEach.call(hud.querySelectorAll('.tt-pad button'), function(b){ b.addEventListener('click', function(e){ e.stopPropagation(); act(b.dataset.k); }); });
+  addEventListener('keydown', function(e){ if(mode!=='play') return; var m={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'rot',ArrowDown:'down',' ':'drop'};
+    if(e.key==='Escape'){ stop(); return; } if(m[e.key]){ e.preventDefault(); act(m[e.key]); } });
+  /* teaser piece in the play button */
+  var tp=document.getElementById('ttpiece'), tx=tp.getContext('2d'), ti=0;
+  setInterval(function(){ if(document.hidden||!visible) return; tx.clearRect(0,0,20,16); var s=SH[ti%7]; tx.fillStyle=COLORS[ti%5]; s.forEach(function(p){ tx.fillRect(p[0]*4+1,p[1]*4+1,3,3); }); ti++; }, 650);
+  (function(){ var s=SH[0]; tx.fillStyle=COLORS[0]; s.forEach(function(p){ tx.fillRect(p[0]*4+1,p[1]*4+1,3,3); }); })();
+})();
+
+</script>
+</body>
+</html>
