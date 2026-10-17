@@ -65,15 +65,25 @@ hidden `access_key` instead of an address in the URL (250/month free), Formspree
 `action="https://formspree.io/f/ID"` (50/month, attachments paid). Drop the `/ajax/` rewrite if the new
 relay already answers JSON.
 
-## Deploying (Cloudflare Workers, and GitHub Pages)
+## Deploying (GitHub Pages primary, Cloudflare as mirror)
 
-`main` is the only branch that publishes. The repo is connected to a Cloudflare **Workers** service
-(`kiarashakbari-website`) with Git integration, and GitHub Pages still builds the same branch — both
-serve the folder as-is, no build step on either side.
+`main` is the only branch that publishes, and both hosts serve the folder as-is with no build step:
 
-New projects go to Workers rather than Pages: Cloudflare's own guidance since 2025 is to use Workers
-static assets, and for a folder of files the two behave the same. Workers Builds reads
-`wrangler.jsonc` from the repo instead of dashboard fields, so that file *is* the deploy config:
+- **GitHub Pages is the primary.** It requires a public repo (this one is), and `github.io` is the
+  hostname that keeps resolving for the audience this site is written for.
+- **The Cloudflare Workers service (`kiarashakbari-website`) is a mirror and a preview rig.** Every
+  branch pushed to GitHub gets a `https://<hash>.kiarashakbari-website.<subdomain>.workers.dev` build,
+  which is the comfortable way to review a change before merging it.
+
+That split exists because Cloudflare's free hostnames are collateral damage from proxy abuse:
+`*.workers.dev` and `*.pages.dev` are filtered in Iran, and blocked wholesale by a lot of corporate
+proxies elsewhere, so neither is a place to point a résumé link. The `<link rel="canonical">` in the head
+plus `X-Robots-Tag: noindex` in `_headers` (which only Workers reads) keep the mirror out of the search
+index. If the Worker ever becomes primary, flip both.
+
+New projects on Cloudflare go to Workers rather than Pages — Cloudflare's own guidance since 2025 is to
+use Workers static assets — and Workers Builds reads `wrangler.jsonc` from the repo instead of dashboard
+fields, so that file *is* the deploy config for the mirror:
 
 - `assets.directory = "./"` — the repo root is the site.
 - `not_found_handling = "none"` — a junk URL gets a real 404, not `index.html` with a 200 (SPA mode
@@ -83,22 +93,24 @@ static assets, and for a folder of files the two behave the same. Workers Builds
   20,000 files and 25 MiB per file as the ceilings. This site is 5 files and 162 KB.
 
 `.assetsignore` keeps repo-only files (`README.md`, `wrangler.jsonc`, `.nojekyll`, `.git`) out of the
-upload — Workers does not exclude them the way Pages did. `_headers` adds `nosniff`/referrer/permissions
-policy to every response and a year of immutable caching to the two font files and the PDF. There is no
-CSP on purpose: the page is one file of inline `<script>` and `<style>`, which any sane policy would
-block, so a `Content-Security-Policy` here would be decorative at best.
+upload — Workers does not exclude them the way Pages did. `_headers` adds `nosniff`, a referrer policy, a
+permissions policy and the `noindex` above to every response, plus a year of immutable caching on the two
+font files and the PDF. There is no CSP on purpose: the page is one file of inline `<script>` and
+`<style>` blocks, which any sane `script-src`/`style-src` policy would block.
 
-Custom domain, Workers-specific gotcha: **a Workers custom domain has to live in a Cloudflare zone on
-this account with Cloudflare nameservers** (Pages accepted an external DNS for subdomains; Workers does
-not, and CNAME/partial setup needs a Business plan). So: add the domain to Cloudflare → point the
-registrar at the two Cloudflare nameservers → Workers → your service → **Settings → Domains & Routes →
-Add → Custom domain**. Cloudflare creates the DNS records and the certificate; `workers.dev` stays up
-either way. Do not turn on **Access** for this site — that puts the whole page behind a Cloudflare
-login, which is for private dashboards, not portfolios.
+A custom domain reads better on a CV than `kiarashakbari.github.io`, and it can go on either host. **On
+GitHub Pages, keep Cloudflare out of the request path:** point the apex (`ALIAS`/flattened `CNAME`) and
+`www` (`CNAME`) at `KiarashAkbari.github.io` with the cloud **grey — DNS only** — then save the domain in
+Settings → Pages and GitHub issues the certificate. Cloudflare then only answers DNS, so a bad day for
+Cloudflare's IP ranges does not take the site down. Proxying it (orange cloud) — or using a Workers
+*custom domain*, which requires a Cloudflare zone on the account with Cloudflare nameservers, while
+Pages tolerates external DNS — puts Cloudflare's edge in front of every visitor, which is the path that
+gets throttled during filtering episodes. Do not enable **Access**: it hides the whole page behind a
+Cloudflare login, which is for private dashboards, not portfolios.
 
-Local loop, if you want it: `npx wrangler dev` serves the assets directory at `localhost:8787` and
-`npx wrangler deploy` publishes from your machine instead of from a push (needs `npx wrangler login`).
-Neither is required, and neither adds a dependency to the repo.
+Local loop, if you want it: `npx wrangler dev` serves the assets directory at `localhost:8787`, and
+`npx wrangler deploy` publishes the mirror from your machine instead of from a push (needs
+`npx wrangler login`). Neither is required, and neither adds a dependency to the repo.
 
 ## Notes
 
