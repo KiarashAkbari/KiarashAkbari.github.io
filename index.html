@@ -1408,10 +1408,11 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
 (function(){
   var K=window.KA, f=document.getElementById('sendbox'); if(!f) return;
   function q(n){ return f.querySelector('[name="'+n+'"]'); }
-  var N=q('name'), E=q('email'), M=q('message'), H=q('_honey'), NX=q('_next'),
+  var N=q('name'), E=q('email'), M=q('message'), H=q('_honey'), NX=q('_next'), SB=q('_subject'),
       btn=f.querySelector('button[type="submit"]'), lb=btn&&btn.querySelector('.lbl'), st=document.getElementById('f-state');
   var last='', kind='', done=false;
   if(NX) NX.value=location.href.split('#')[0];               /* the relay bounces back here, whatever host we are on */
+  if(SB) SB.value='New message from '+(location.hostname||'kiarashakbari.github.io');   /* pages.dev, workers.dev, the domain: name the one that sent it */
   try{ var mem=JSON.parse(localStorage.getItem('ka-who')||'null');   /* a returning visitor retypes nothing */
     if(mem){ if(mem.n&&!N.value) N.value=mem.n; if(mem.e&&!E.value) E.value=mem.e; } }catch(e){}
   function say(k,s){ last=k; kind=s||''; if(st){ st.setAttribute('data-s',kind); st.textContent=k?K.t(k):''; } }
@@ -1421,7 +1422,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     var ok1=flag(N,tr(N).length>1), ok2=flag(E,/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(tr(E))), ok3=flag(M,tr(M).length>9);
     return ok1&&ok2&&ok3; }
   [N,E,M].forEach(function(el){ el.addEventListener('input',function(){ if(el.hasAttribute('aria-invalid')) valid(); }); });
-  function data(){ var who=tr(N); var d={ name:who, email:tr(E), message:tr(M), _subject:'New message from '+(who||'a visitor')+' · kiarashakbari.github.io', _template:'table', _captcha:'false' };
+  function data(){ var who=tr(N); var d={ name:who, email:tr(E), message:tr(M), _subject:(SB&&SB.value||'New message from kiarashakbari.github.io')+' · '+(who||'a visitor'), _template:'table', _captcha:'false' };
     if(NX) d._next=NX.value; return d; }
   function sent(){ var d={n:tr(N),e:tr(E)}; try{ localStorage.setItem('ka-who',JSON.stringify(d)); }catch(e){}
     f.reset(); f.classList.add('done'); done=true; if(lb) lb.textContent=K.t('$fm.again'); say('$fm.ok','ok'); K.emit('layout'); }
