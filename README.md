@@ -38,10 +38,38 @@ forces the guard back on. From the console: `KA.guard.stats()`, `KA.guard.off()`
 When adding a stylesheet to the page, mark it `<style data-ka>` — the guard treats anything in the
 document without that marker as foreign and disables it.
 
+## Contact form
+
+`#sendbox` in the closing section posts to [FormSubmit](https://formsubmit.co), a relay that forwards the
+submission to the address already printed in the page. No server to run, no key to keep secret; the
+trade-off is that the inbox address sits in the markup (it is already a `mailto:` link twice over) and the
+**first visitor to submit hits an activation step** — click the link FormSubmit emails to that inbox once
+and every message after that arrives normally.
+
+Two paths, deliberately:
+
+- **JavaScript on** — the page posts JSON to the relay's `/ajax/` endpoint, keeps the visitor on the page
+  and reports through a status line (`role="status"`, politely announced). If the relay is unreachable,
+  blocked, or refuses the cross-origin read, the catch hands the form to `form.submit()`, which still
+  delivers.
+- **JavaScript off** — a real `action` and `method="POST"` mean the browser posts the form as plain HTML
+  and lands on `_next`, which the script rewrites to `location.href` so a custom domain or a preview
+  deploy returns to the right place.
+
+Spam handling is a honeypot (`_honey`, hidden with `.sr` rather than `display:none`, which bots read as a
+trap) plus `_captcha:false` to keep the relay's own Google reCAPTCHA out of the page. Name and email are
+remembered in `localStorage` so a returning visitor retypes nothing; nothing is stored on any server here.
+
+Swapping providers is one attribute: Web3Forms wants `action="https://api.web3forms.com/submit"` and a
+hidden `access_key` instead of an address in the URL (250/month free), Formspree wants
+`action="https://formspree.io/f/ID"` (50/month, attachments paid). Drop the `/ajax/` rewrite if the new
+relay already answers JSON.
+
 ## Notes
 
 - Chrome's Auto Dark Mode skips the page because `<meta name="color-scheme" content="light dark">`
   and `color-scheme` on the root declare that dark is already handled natively.
-- Nothing is fetched from a third party (both font faces are self-hosted), so ad/privacy blockers
-  have no request to cancel, and no class or id name collides with common cosmetic-filter selectors.
+- No third-party resource is *loaded* (both font faces are self-hosted), so ad/privacy blockers have no
+  request to cancel and no class or id name collides with common cosmetic-filter selectors. The single
+  outbound request is the form submission above, fired on submit, never on page load.
 - No build step. Open `index.html` or serve the folder: `python3 -m http.server 8000`.
