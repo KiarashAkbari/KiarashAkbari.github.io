@@ -272,7 +272,7 @@ footer.playing .tt-teaser{opacity:0; pointer-events:none;}
 footer.playing #tetris{display:block;}
 .tt-score{position:absolute; top:18px; inset-inline-start:22px; font-size:clamp(15px,2vw,22px); letter-spacing:.08em; background:var(--paper-a); padding:2px 6px;}
 .tt-hint{position:absolute; left:50%; top:22px; transform:translateX(-50%); text-align:center; font-size:11px; line-height:1.7; color:var(--muted); background:var(--paper-a); padding:2px 8px; white-space:nowrap;}
-.tt-pad{position:absolute; inset-inline-end:20px; bottom:20px; display:grid; grid-template-columns:repeat(2,44px); gap:8px; pointer-events:auto; direction:ltr;}
+.tt-pad{position:absolute; inset-inline-end:20px; bottom:20px; display:grid; grid-template-columns:repeat(3,44px); gap:8px; pointer-events:auto; direction:ltr;}
 .tt-pad button, .tt-close{border:0; background:var(--paper); color:var(--ink); cursor:pointer; display:grid; place-items:center; pointer-events:auto; box-shadow:0 2px 12px rgba(10,10,10,.14); clip-path:var(--px-md); transition:background .15s, color .15s; width:44px; height:44px; padding:0;}
 .tt-pad button:hover, .tt-close:hover{background:var(--ink); color:var(--paper);}
 .tt-pad svg, .tt-close svg{width:18px; height:18px; display:block;}
@@ -285,7 +285,7 @@ footer.playing #tetris{display:block;}
   .tt-teaser{font-size:13px; padding:11px 22px;}
   footer.playing{height:min(58vh,460px);}
   .tt-hint{display:none;}
-  .tt-pad{left:50%; right:auto; bottom:18px; transform:translateX(-50%); grid-template-columns:repeat(4,52px);}
+  .tt-pad{left:50%; right:auto; bottom:18px; transform:translateX(-50%); grid-template-columns:repeat(3,52px);}
   .tt-pad button{width:52px; height:52px;}
 }
 .foot-note{position:relative; z-index:2; text-align:center; padding:0 var(--gutter) 18px; color:var(--muted); font-size:10px;}
@@ -703,12 +703,14 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
   <button class="btn tt-teaser" id="ttplay" aria-label="Play Tetris" data-i18n-aria="aria.play"><span class="lbl" data-i18n="tt.play">play</span><span class="lbl"><canvas id="ttpiece" width="20" height="16"></canvas></span></button>
   <div id="tetris">
     <div class="tt-score">0000</div>
-    <div class="tt-hint" data-i18n="tt.hint">← → move · ↑ rotate · ↓ soft drop · space drop · esc exit</div>
+    <div class="tt-hint" data-i18n="tt.hint">← → move · ↑ rotate · ↓ soft · space drop · C hold · R restart</div>
     <button class="tt-close" aria-label="Close game" data-i18n-aria="aria.close"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4l10 10M14 4 4 14"/></svg></button>
     <div class="tt-pad">
+      <button data-k="hold" aria-label="Hold" data-i18n-aria="aria.hold"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 7h8l-2.4-2.4M13 11H5l2.4 2.4"/></svg></button>
       <button data-k="rot" aria-label="Rotate" data-i18n-aria="aria.rot"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 9a5 5 0 1 1-1.6-3.7M14 3v3h-3"/></svg></button>
       <button data-k="drop" aria-label="Drop" data-i18n-aria="aria.drop"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 3v10M5 9l4 4 4-4M4 15h10"/></svg></button>
       <button data-k="left" aria-label="Left" data-i18n-aria="aria.left"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M11 4 6 9l5 5"/></svg></button>
+      <button data-k="down" aria-label="Soft drop" data-i18n-aria="aria.down"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 3v7M6 7l3 3 3-3M4.5 14h9"/></svg></button>
       <button data-k="right" aria-label="Right" data-i18n-aria="aria.right"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 4l5 5-5 5"/></svg></button>
     </div>
     <div class="tt-over"><div class="ttl" data-i18n="tt.over">Game over</div><div class="mono tt-final" style="color:var(--muted)">Score 0</div><button class="btn tt-again"><span class="lbl" data-i18n="tt.again">Play again</span></button></div>
@@ -812,8 +814,8 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     '$fm.again':'ارسال پیام دیگر',
     'chip.nn':'شبکه‌های عصبی',
     'l.gh':'گیت‌هاب', 'l.cv':'رزومه (PDF)',
-    'aria.foot':'بازی تتریس پایین صفحه', 'aria.play':'شروع بازی تتریس', 'aria.close':'بستن بازی', 'aria.rot':'چرخاندن', 'aria.drop':'رها کردن', 'aria.left':'چپ', 'aria.right':'راست',
-    'tt.play':'بازی', 'tt.hint':'← → حرکت · ↑ چرخش · ↓ پایین آوردن · Space رها کردن · Esc خروج', 'tt.over':'بازی تمام شد', 'tt.again':'یک دست دیگر',
+    'aria.foot':'بازی تتریس پایین صفحه', 'aria.play':'شروع بازی تتریس', 'aria.close':'بستن بازی', 'aria.rot':'چرخاندن', 'aria.drop':'رها کردن', 'aria.left':'چپ', 'aria.right':'راست', 'aria.down':'آهسته پایین آوردن', 'aria.hold':'نگه‌داشتن قطعه',
+    'tt.play':'بازی', 'tt.hint':'← → حرکت · ↑ چرخش · ↓ آرام · Space رها · C نگه‌داشتن · R دوباره', 'tt.over':'بازی تمام شد', 'tt.again':'یک دست دیگر',
     'foot':'© ۲۰۲۶ کیارش اکبری · ساخته‌شده روی شبکه‌ای ۹ پیکسلی',
     /* strings used from JS */
     '$title':'کیارش اکبری · هوش مصنوعی، مهندسی‌شده.',
@@ -1336,18 +1338,21 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
   });
 })();
 
-/* ===== 9. footer: auto-building Tetris skyline, playable across the full width ===== */
+/* ===== 9. footer: auto-building Tetris skyline, and one falling piece at a time when you play ===== */
 (function(){
   var K=window.KA, COLORS=K.COLORS;
   var foot=document.getElementById('foot'), cv=document.getElementById('footcity'), ctx=cv.getContext('2d'), hud=document.getElementById('tetris');
   var scoreEl=hud.querySelector('.tt-score'), finalEl=hud.querySelector('.tt-final');
   var SH=[[[0,0],[1,0],[2,0],[3,0]],[[0,0],[1,0],[0,1],[1,1]],[[0,0],[1,0],[2,0],[1,1]],[[1,0],[2,0],[0,1],[1,1]],[[0,0],[1,0],[1,1],[2,1]],[[0,0],[0,1],[0,2],[1,2]],[[1,0],[1,1],[1,2],[0,2]]];
-  var W=0,H=0,DPR=1, mode='idle', cell=9, cols=0, rows=0, board=null, falling=[], lastSpawn=0, lastStep=0, score=0, pieces=[], dropMs=620, over=false, filled=0, built=false, near=false, visible=false;
+  var BW=SH.map(function(s){ var m=0; s.forEach(function(p){ if(p[0]+1>m) m=p[0]+1; }); return m; });
+  var TCOL=[3,1,4,4,2,0,2];                                    /* one colour per tetromino, so a stack of pieces still reads as separate pieces */
+  var LOCK=450, PC=15;                                         /* how long a landed piece still slides before it sets; preview tile size */
+  var W=0,H=0,DPR=1, mode='idle', cell=9, cols=0, rows=0, board=null, falling=[], lastSpawn=0, lastStep=0, score=0, dropMs=780, over=false, filled=0, built=false, near=false, visible=false;
+  var cur=null, next=[], hold=-1, holdReady=true, level=0, lines=0, lockAt=0, lockN=0, blink=null, blinkUntil=0, gc=18, gox=0, goy=0;
   function size(){ var r=cv.getBoundingClientRect(); DPR=Math.min(devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0); }
   function newBoard(){ cols=Math.max(4,Math.floor(W/cell)); rows=Math.max(4,Math.floor(H/cell)); board=[]; for(var r=0;r<rows;r++){ board.push(new Array(cols).fill(-1)); } filled=0; }
   function rot(cells){ var o=cells.map(function(p){ return [-p[1],p[0]]; }), mnx=Math.min.apply(null,o.map(function(p){return p[0];})), mny=Math.min.apply(null,o.map(function(p){return p[1];})); return o.map(function(p){ return [p[0]-mnx,p[1]-mny]; }); }
-  function fits(cells,x,y,self){ for(var i=0;i<cells.length;i++){ var cx=x+cells[i][0], cy=y+cells[i][1]; if(cx<0||cx>=cols||cy>=rows) return false; if(cy>=0&&board[cy][cx]>=0) return false;
-      for(var j=0;j<pieces.length;j++){ var q=pieces[j]; if(q===self||q.locked) continue; for(var k=0;k<q.c.length;k++) if(q.x+q.c[k][0]===cx&&q.y+q.c[k][1]===cy) return false; } } return true; }
+  function fits(cells,x,y){ for(var i=0;i<cells.length;i++){ var cx=x+cells[i][0], cy=y+cells[i][1]; if(cx<0||cx>=cols||cy>=rows) return false; if(cy>=0&&board[cy][cx]>=0) return false; } return true; }   /* board-only: with one piece in the air there is nobody left to collide with */
   /* ---- ambient skyline: the pre-build simulation is deferred until the footer is near (it used to run on page load) ---- */
   function idleInit(){ cell=9; size(); newBoard(); falling=[]; built=false; if(near) build(); }
   function build(){ if(built||mode!=='idle') return; built=true; var ft=0; for(var k=0;k<1400;k++){ ft+=35; idleTick(ft); } lastSpawn=0; lastStep=0; render(); }
@@ -1359,50 +1364,99 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
       /* running filled-cell counter (was a full board scan every step) */
       if(filled>cols*rows*.3){ var gone=board.pop(); for(var g=0;g<gone.length;g++) if(gone[g]>=0) filled--; board.unshift(new Array(cols).fill(-1)); } } }
   function fitsB(c,x,y){ for(var i=0;i<c.length;i++){ var cx=x+c[i][0], cy=y+c[i][1]; if(cx<0||cx>=cols||cy>=rows) return false; if(cy>=0&&board[cy][cx]>=0) return false; } return true; }
-  /* ---- play mode: a batch of pieces falls at once, steered together ---- */
-  function spawnBatch(){ var n=Math.max(1,Math.round(cols/14)); pieces=[];
-    for(var i=0;i<n;i++){ var c=SH[Math.floor(Math.random()*7)]; var x=Math.floor((i+.5)*cols/n)-1; var p={c:c,x:x,y:-1,col:Math.floor(Math.random()*5),locked:false}; if(!fits(p.c,p.x,p.y,p)){ gameOver(); return; } pieces.push(p); } }
-  function lockPiece(p){ p.locked=true; p.c.forEach(function(q){ var yy=p.y+q[1]; if(yy<0){ over=true; return; } board[yy][p.x+q[0]]=p.col; }); score+=10; if(over){ gameOver(); return; } clearLines(); }
-  function clearLines(){ var n=0; for(var r=rows-1;r>=0;r--){ if(board[r].every(function(v){ return v>=0; })){ board.splice(r,1); board.unshift(new Array(cols).fill(-1)); n++; r++; } } if(n){ score+=[0,100,300,500,800][Math.min(4,n)]; dropMs=Math.max(160,dropMs-25); } }
-  function act(k){ if(mode!=='play'||over) return; var live=pieces.filter(function(p){ return !p.locked; });
-    if(k==='left'||k==='right'){ var dx=k==='left'?-1:1; live.sort(function(a,b){ return dx*(b.x-a.x); }).forEach(function(p){ if(fits(p.c,p.x+dx,p.y,p)) p.x+=dx; }); }
-    else if(k==='rot'){ live.forEach(function(p){ var rc=rot(p.c); if(fits(rc,p.x,p.y,p)) p.c=rc; else if(fits(rc,p.x-1,p.y,p)){ p.c=rc; p.x--; } }); }
-    else if(k==='down'){ gravity(); }
-    else if(k==='drop'){ live.sort(function(a,b){ return b.y-a.y; }).forEach(function(p){ while(fits(p.c,p.x,p.y+1,p)) p.y++; lockPiece(p); }); afterLock(); }
-    render(); }
-  function gravity(){ pieces.filter(function(p){ return !p.locked; }).sort(function(a,b){ return b.y-a.y; }).forEach(function(p){ if(fits(p.c,p.x,p.y+1,p)) p.y++; else lockPiece(p); }); afterLock(); }
+  /* ---- play mode: a ten-column well, one piece in the air, a queue you can read ---- */
+  function well(){ var mob=innerWidth<680, padT=mob?0:64, padB=mob?152:0;     /* on a phone the pad sits under the well, so the well stops above it */
+    gc=mob?16:18; cols=10; rows=Math.max(8,Math.floor((H-padT-padB)/gc)); cell=gc;
+    board=[]; for(var r=0;r<rows;r++){ board.push(new Array(cols).fill(-1)); } filled=0; center(); goy=padT+Math.floor((H-padT-padB-rows*cell)/2); }
+  function center(){ gox=Math.floor((W-cols*cell)/2); }
+  function queue(){ while(next.length<7){ var bag=[0,1,2,3,4,5,6];            /* a 7-bag, so the straight piece can't hide for twenty turns */
+      for(var i=6;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=bag[i]; bag[i]=bag[j]; bag[j]=t; } next=next.concat(bag); } }
+  function place(t){ cur={t:t,c:SH[t],x:Math.floor((cols-BW[t])/2),y:0}; lockAt=0; lockN=0; holdReady=true; if(!fits(cur.c,cur.x,0)) gameOver(); }
+  function spawn(){ queue(); place(next.shift()); }
+  function rest(){ return !fits(cur.c,cur.x,cur.y+1); }
+  function land(){ var y=cur.y; while(fits(cur.c,cur.x,y+1)) y++; return y; }   /* the ghost: where the piece will stop, not where it is */
   function fmtScore(n){ var s=('0000'+n).slice(-Math.max(4,String(n).length)); return K.lang==='fa'?K.faNum(s):s; }
-  function afterLock(){ if(!over&&pieces.every(function(p){ return p.locked; })) spawnBatch(); scoreEl.textContent=fmtScore(score); }
-  function gameOver(){ over=true; hud.classList.add('over'); finalEl.textContent=(K.t?K.t('$score'):'Score')+' '+(K.lang==='fa'?K.faNum(score):score); }
-  function start(){ if(mode==='play') return; mode='play'; foot.classList.add('playing'); over=false; score=0; dropMs=620; hud.classList.remove('over'); scoreEl.textContent=fmtScore(0);
-    setTimeout(function(){ cell=innerWidth<680?16:18; size(); var padH=innerWidth<680?88:0; rows=Math.max(6,Math.floor((H-padH)/cell)); cols=Math.max(6,Math.floor(W/cell)); board=[]; for(var r=0;r<rows;r++) board.push(new Array(cols).fill(-1)); spawnBatch(); lastStep=performance.now(); render(); }, 580);
+  function gameOver(){ over=true; cur=null; hud.classList.add('over'); finalEl.textContent=(K.t?K.t('$score'):'Score')+' '+(K.lang==='fa'?K.faNum(score):score); }   /* the hand ends at once: no piece left hanging in a well you can no longer steer */
+  function touch(){ if(rest()&&lockN<12){ lockAt=performance.now()+LOCK; lockN++; } }   /* a landed piece keeps sliding for a moment, so a last-second shift still counts */
+  function move(dx){ if(fits(cur.c,cur.x+dx,cur.y)){ cur.x+=dx; touch(); } }
+  function turn(){ var rc=rot(cur.c), kick=[0,-1,1,-2,2];                       /* a nudge away from the wall beats a rotation that just refuses */
+    for(var i=0;i<kick.length;i++){ if(fits(rc,cur.x+kick[i],cur.y)){ cur.x+=kick[i]; cur.c=rc; touch(); return; } }
+    if(fits(rc,cur.x,cur.y-1)){ cur.y--; cur.c=rc; touch(); } }
+  function soft(){ if(fits(cur.c,cur.x,cur.y+1)){ cur.y++; score+=1; lastStep=performance.now(); lockAt=0; } else lock(); }
+  function hard(){ var y=land(); score+=2*(y-cur.y); cur.y=y; lock(); }
+  function stash(){ if(!holdReady) return; var t=cur.t;
+    if(hold<0){ hold=t; spawn(); }
+    else { var h=hold; hold=t; cur={t:h,c:SH[h],x:Math.floor((cols-BW[h])/2),y:0}; lockAt=0; lockN=0; if(!fits(cur.c,cur.x,0)) return gameOver(); }
+    holdReady=false; }
+  function lock(){ var top=false;
+    cur.c.forEach(function(q){ var yy=cur.y+q[1]; if(yy<0){ top=true; return; } board[yy][cur.x+q[0]]=TCOL[cur.t]; });
+    score+=10; cur=null; if(top){ return gameOver(); }                          /* anything coming to rest above the ceiling ends the hand */
+    var full=[]; for(var r=rows-1;r>=0;r--){ var done=true; for(var c=0;c<cols;c++){ if(board[r][c]<0){ done=false; break; } } if(done) full.push(r); }
+    if(full.length){ blink=full; blinkUntil=performance.now()+150; }             /* the line lights up for a beat before it collapses, so the reward is visible */
+    else { scoreEl.textContent=fmtScore(score); spawn(); } }
+  function collapse(){ var keep=[], r; for(r=0;r<rows;r++){ if(blink.indexOf(r)<0) keep.push(board[r]); }
+    var n=blink.length; board=[]; for(r=0;r<n;r++) board.push(new Array(cols).fill(-1)); keep.forEach(function(row){ board.push(row); });
+    lines+=n; score+=[0,100,300,500,800][Math.min(4,n)]*(level+1); level=Math.floor(lines/10); dropMs=Math.max(145,780-52*level);
+    blink=null; scoreEl.textContent=fmtScore(score); if(!over) spawn(); }
+  function act(k){ if(mode!=='play'||over||blink||!cur) return;
+    if(k==='left') move(-1); else if(k==='right') move(1); else if(k==='rot') turn();
+    else if(k==='down') soft(); else if(k==='drop') hard(); else if(k==='hold') stash();
+    render(); }
+  function start(){ if(mode==='play') return; mode='play'; foot.classList.add('playing');
+    over=false; blink=null; score=0; level=0; lines=0; dropMs=780; hold=-1; holdReady=true; next=[]; cur=null;
+    hud.classList.remove('over'); scoreEl.textContent=fmtScore(0);
+    setTimeout(function(){ size(); well(); spawn(); lastStep=performance.now(); render(); }, 580);   /* measured once, when the strip stops growing: a mid-game resize must not move the well under you */
     foot.scrollIntoView({behavior:'smooth', block:'end'}); }
-  function stop(){ mode='idle'; foot.classList.remove('playing'); hud.classList.remove('over'); setTimeout(idleInit, 600); }
+  function stop(){ mode='idle'; over=false; blink=null; cur=null; foot.classList.remove('playing'); hud.classList.remove('over'); setTimeout(idleInit, 600); }
+  function restart(){ if(mode!=='play') return; over=false; blink=null; score=0; level=0; lines=0; dropMs=780; hold=-1; holdReady=true; next=[];
+    for(var r=0;r<rows;r++) board[r].fill(-1); filled=0;
+    hud.classList.remove('over'); scoreEl.textContent=fmtScore(0); spawn(); lastStep=performance.now(); render(); }
+  function preview(px,py,t,live){ if(px<6||px+4*PC>W-6) return;                 /* next and hold sit beside the well, only if there is room */
+    ctx.globalAlpha=live; ctx.strokeStyle=K.T.grid; ctx.strokeRect(px+.5,py+.5,4*PC,4*PC);
+    if(t>=0){ ctx.fillStyle=COLORS[TCOL[t]]; for(var i=0;i<SH[t].length;i++){ var q=SH[t][i]; ctx.fillRect(px+q[0]*PC+1,py+q[1]*PC+1,PC-1,PC-1); } }
+    ctx.globalAlpha=1; }
   /* ---- draw ---- */
   function cellRect(x,y,col,cz,ox,oy){ ctx.fillStyle=COLORS[col]; ctx.fillRect(ox+x*cz+1,oy+y*cz+1,cz-1,cz-1); }
   function render(){ ctx.clearRect(0,0,W,H); if(!board) return;
-    var ox=mode==='play'?Math.floor((W-cols*cell)/2):0, oy=mode==='play'?0:H-rows*cell;
-    if(mode==='play'){ ctx.strokeStyle=K.T.grid; ctx.beginPath(); for(var x=0;x<=cols;x++){ ctx.moveTo(ox+x*cell+.5,0); ctx.lineTo(ox+x*cell+.5,rows*cell); } for(var y=0;y<=rows;y++){ ctx.moveTo(ox,y*cell+.5); ctx.lineTo(ox+cols*cell,y*cell+.5); } ctx.stroke(); }
-    for(var r=0;r<rows;r++){ var row=board[r]; for(var c=0;c<cols;c++) if(row[c]>=0) cellRect(c,r,row[c],cell,ox,oy); }
-    var list=mode==='play'?pieces.filter(function(p){ return !p.locked; }):falling;
-    list.forEach(function(p){ p.c.forEach(function(q){ if(p.y+q[1]>=0) cellRect(p.x+q[0],p.y+q[1],p.col,cell,ox,oy); }); }); }
+    var play=mode==='play', cz=cell, ox=play?gox:0, oy=play?goy:H-rows*cz, i,x,y;
+    if(play){ ctx.fillStyle=K.T.paper; ctx.fillRect(ox-2,oy-2,cols*cz+4,rows*cz+4);
+      ctx.strokeStyle=K.T.grid; ctx.beginPath();
+      for(i=0;i<=cols;i++){ ctx.moveTo(ox+i*cz+.5,oy); ctx.lineTo(ox+i*cz+.5,oy+rows*cz); }
+      for(i=0;i<=rows;i++){ ctx.moveTo(ox,oy+i*cz+.5); ctx.lineTo(ox+cols*cz,oy+i*cz+.5); } ctx.stroke();
+      ctx.strokeStyle=K.T.ink; ctx.lineWidth=1.5; ctx.strokeRect(ox-1.5,oy-1.5,cols*cz+3,rows*cz+3); ctx.lineWidth=1;
+      preview(ox+cols*cz+Math.round(cz*.7),oy,next.length?next[0]:-1,1); preview(ox-Math.round(cz*.7)-4*PC,oy,hold,holdReady?1:.35); }
+    for(var r=0;r<rows;r++){ var row=board[r]; for(i=0;i<cols;i++) if(row[i]>=0) cellRect(i,r,row[i],cz,ox,oy); }
+    if(play&&blink){ ctx.fillStyle=K.T.ink; for(i=0;i<blink.length;i++) ctx.fillRect(ox,oy+blink[i]*cz,cols*cz,cz); }
+    if(play&&cur){ for(i=0;i<cur.c.length;i++){ x=cur.x+cur.c[i][0]; y=cur.y+cur.c[i][1]; if(y>=0) cellRect(x,y,TCOL[cur.t],cz,ox,oy); }
+      var g=land(); if(g!==cur.y){   /* the ghost: ink for the shape so it reads on either theme, a wash of the piece colour so it reads as *this* piece */
+        ctx.globalAlpha=.14; ctx.fillStyle=COLORS[TCOL[cur.t]];
+        for(i=0;i<cur.c.length;i++){ y=g+cur.c[i][1]; if(y<0) continue; ctx.fillRect(ox+(cur.x+cur.c[i][0])*cz+1,oy+y*cz+1,cz-2,cz-2); }
+        ctx.globalAlpha=.5; ctx.strokeStyle=K.T.ink;
+        for(i=0;i<cur.c.length;i++){ y=g+cur.c[i][1]; if(y<0) continue; ctx.strokeRect(ox+(cur.x+cur.c[i][0])*cz+1.5,oy+y*cz+1.5,cz-3,cz-3); } ctx.globalAlpha=1; } }
+    else if(!play){ falling.forEach(function(p){ p.c.forEach(function(q){ if(p.y+q[1]>=0) cellRect(p.x+q[0],p.y+q[1],p.col,cz,ox,oy); }); }); } }   /* the skyline only: its leftover drifters must not haunt the well */
   /* visibility from an observer instead of measuring the footer every frame */
   new IntersectionObserver(function(es){ visible=es[0].isIntersecting; },{threshold:0}).observe(foot);
   new IntersectionObserver(function(es){ if(es[0].isIntersecting){ near=true; build(); } },{rootMargin:'1200px 0px'}).observe(foot);
   if('requestIdleCallback' in window) requestIdleCallback(function(){ near=true; build(); },{timeout:4000});
   function loop(ts){ requestAnimationFrame(loop); if(!visible||document.hidden) return;
     if(mode==='idle'&&board){ if(!built) build(); idleTick(ts); render(); }
-    else if(mode==='play'&&!over&&board&&pieces.length&&ts-lastStep>dropMs){ lastStep=ts; gravity(); render(); } }
+    else if(mode==='play'&&board){ if(!over){ if(blink){ if(ts>=blinkUntil) collapse(); }
+        else if(cur){ if(rest()&&lockAt&&ts>=lockAt) lock(); else if(ts-lastStep>dropMs){ lastStep=ts; if(rest()){ if(!lockAt) lockAt=ts+LOCK; } else { cur.y++; lockAt=0; } } } }
+      render(); } }
   idleInit(); requestAnimationFrame(loop);
-  addEventListener('resize', function(){ if(mode==='idle') idleInit(); else { size(); render(); } });
+  addEventListener('resize', function(){ if(mode==='idle') idleInit(); else { size(); center(); render(); } });
   K.on('theme', function(){ render(); });
   K.on('lang', function(){ scoreEl.textContent=fmtScore(score); if(over) gameOver(); });
   foot.addEventListener('click', function(e){ if(mode==='idle') start(); });
   hud.querySelector('.tt-close').addEventListener('click', function(e){ e.stopPropagation(); stop(); });
-  hud.querySelector('.tt-again').addEventListener('click', function(e){ e.stopPropagation(); mode='idle'; start(); });
-  [].forEach.call(hud.querySelectorAll('.tt-pad button'), function(b){ b.addEventListener('click', function(e){ e.stopPropagation(); act(b.dataset.k); }); });
-  addEventListener('keydown', function(e){ if(mode!=='play') return; var m={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'rot',ArrowDown:'down',' ':'drop'};
-    if(e.key==='Escape'){ stop(); return; } if(m[e.key]){ e.preventDefault(); act(m[e.key]); } });
+  hud.querySelector('.tt-again').addEventListener('click', function(e){ e.stopPropagation(); stop(); start(); });
+  [].forEach.call(hud.querySelectorAll('.tt-pad button'), function(b){ b.addEventListener('click', function(e){ e.stopPropagation(); act(b.dataset.k); b.blur(); }); });   /* blur, so the space bar drops a piece instead of re-pressing the button you last touched */
+  addEventListener('keydown', function(e){ if(mode!=='play') return;
+    if(e.target&&/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;   /* typing your name in the form above is not a left arrow */
+    var m={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'rot',ArrowDown:'down',' ':'drop',c:'hold',C:'hold',h:'hold',H:'hold'};
+    if(e.key==='Escape'){ stop(); return; } if(e.key==='r'||e.key==='R'){ e.preventDefault(); restart(); return; }
+    if(m[e.key]){ e.preventDefault(); act(m[e.key]); } });
+  K.game={ state:function(){ return {mode:mode,over:over,blink:blink?blink.length:0,live:cur?1:0,type:cur?cur.t:-1,score:score,level:level,lines:lines,cols:cols,rows:rows,queue:next.length,next:next.slice(0,6),hold:hold,ready:holdReady?1:0,dropMs:dropMs}; } };   /* for tests and for poking at it in a console, same shape as KA.guard.stats() */
   /* teaser piece in the play button */
   var tp=document.getElementById('ttpiece'), tx=tp.getContext('2d'), ti=0;
   setInterval(function(){ if(document.hidden||!visible) return; tx.clearRect(0,0,20,16); var s=SH[ti%7]; tx.fillStyle=COLORS[ti%5]; s.forEach(function(p){ tx.fillRect(p[0]*4+1,p[1]*4+1,3,3); }); ti++; }, 650);
