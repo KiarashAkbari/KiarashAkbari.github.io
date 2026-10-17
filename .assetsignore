@@ -1,0 +1,16 @@
+# Workers uploads everything in assets.directory unless it is named here — unlike
+# Pages, which quietly skipped .git, node_modules and .DS_Store.
+.git
+.github
+.gitignore
+node_modules
+.wrangler
+.dev.vars
+.DS_Store
+*.map
+
+# Repo files that would otherwise be downloadable off the live site.
+README.md
+wrangler.jsonc
+.assetsignore
+.nojekyll

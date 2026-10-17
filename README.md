@@ -65,6 +65,41 @@ hidden `access_key` instead of an address in the URL (250/month free), Formspree
 `action="https://formspree.io/f/ID"` (50/month, attachments paid). Drop the `/ajax/` rewrite if the new
 relay already answers JSON.
 
+## Deploying (Cloudflare Workers, and GitHub Pages)
+
+`main` is the only branch that publishes. The repo is connected to a Cloudflare **Workers** service
+(`kiarashakbari-website`) with Git integration, and GitHub Pages still builds the same branch — both
+serve the folder as-is, no build step on either side.
+
+New projects go to Workers rather than Pages: Cloudflare's own guidance since 2025 is to use Workers
+static assets, and for a folder of files the two behave the same. Workers Builds reads
+`wrangler.jsonc` from the repo instead of dashboard fields, so that file *is* the deploy config:
+
+- `assets.directory = "./"` — the repo root is the site.
+- `not_found_handling = "none"` — a junk URL gets a real 404, not `index.html` with a 200 (SPA mode
+  would poison the search index with soft 404s).
+- No `main` script and no `assets.binding` — nothing invokes Worker code, so the 100,000 requests/day
+  free quota never applies: requests for static assets are free and unlimited on every plan, with
+  20,000 files and 25 MiB per file as the ceilings. This site is 5 files and 162 KB.
+
+`.assetsignore` keeps repo-only files (`README.md`, `wrangler.jsonc`, `.nojekyll`, `.git`) out of the
+upload — Workers does not exclude them the way Pages did. `_headers` adds `nosniff`/referrer/permissions
+policy to every response and a year of immutable caching to the two font files and the PDF. There is no
+CSP on purpose: the page is one file of inline `<script>` and `<style>`, which any sane policy would
+block, so a `Content-Security-Policy` here would be decorative at best.
+
+Custom domain, Workers-specific gotcha: **a Workers custom domain has to live in a Cloudflare zone on
+this account with Cloudflare nameservers** (Pages accepted an external DNS for subdomains; Workers does
+not, and CNAME/partial setup needs a Business plan). So: add the domain to Cloudflare → point the
+registrar at the two Cloudflare nameservers → Workers → your service → **Settings → Domains & Routes →
+Add → Custom domain**. Cloudflare creates the DNS records and the certificate; `workers.dev` stays up
+either way. Do not turn on **Access** for this site — that puts the whole page behind a Cloudflare
+login, which is for private dashboards, not portfolios.
+
+Local loop, if you want it: `npx wrangler dev` serves the assets directory at `localhost:8787` and
+`npx wrangler deploy` publishes from your machine instead of from a push (needs `npx wrangler login`).
+Neither is required, and neither adds a dependency to the repo.
+
 ## Notes
 
 - Chrome's Auto Dark Mode skips the page because `<meta name="color-scheme" content="light dark">`

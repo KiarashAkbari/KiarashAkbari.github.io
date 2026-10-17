@@ -1,0 +1,32 @@
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+
+  // Must match the Workers project name in the dashboard, or the build creates a
+  // second service next to the one you already have.
+  "name": "kiarashakbari-website",
+  "compatibility_date": "2026-10-17",
+
+  // Keep the free *.workers.dev hostname, which is also what preview deploys use.
+  "workers_dev": true,
+
+  "assets": {
+    // The repo root *is* the site: index.html + fonts/ + assets/. No build step.
+    "directory": "./",
+
+    // Deliberately "none" rather than "single-page-application": this is one page.
+    // SPA mode answers every junk URL with index.html and a 200, which search
+    // engines log as soft 404s. A miss should be a real 404.
+    "not_found_handling": "none",
+
+    // /index.html resolves to / — the same shape GitHub Pages gives you.
+    "html_handling": "auto-trailing-slash"
+  }
+
+  // No "main" and no "assets.binding": with no Worker script, requests never leave
+  // Cloudflare's asset fast path. That means zero Worker invocations, so nothing
+  // here can consume the 100,000 requests/day free quota (asset requests are free
+  // and unlimited on every plan), no cold starts, and no npm install at build time.
+  //
+  // When a domain is attached, put it here so routing lives in git as well:
+  // "routes": [{ "pattern": "kiarashakbari.com", "custom_domain": true }]
+}
