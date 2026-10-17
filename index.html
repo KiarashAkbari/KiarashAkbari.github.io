@@ -17,10 +17,9 @@ d.setAttribute('data-theme',t);d.setAttribute('data-lang',l);if(l==='fa'){d.lang
 <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)" />
 <meta name="description" content="Kiarash Akbari, AI software engineer. Backend systems and AI-integrated applications: RAG pipelines, graph/vector backends, and ML systems that hold up in production." />
 <meta name="author" content="Kiarash Akbari" />
-<!-- One repo, more than one host (github.io is primary, a Cloudflare Worker mirrors it). The
-     canonical tag is what keeps the mirror from competing with the real URL in search results;
-     _headers adds X-Robots-Tag: noindex on the mirror for the same reason. If the Worker ever
-     becomes primary, flip both. -->
+<!-- Self-referencing canonical: one repo, one URL. It also future-proofs the share cards — if a
+     custom domain is ever attached, these two lines are the only thing to change so the old
+     hostname stops competing with the new one. -->
 <link rel="canonical" href="https://kiarashakbari.github.io/" />
 <meta property="og:url" content="https://kiarashakbari.github.io/" />
 <meta property="og:type" content="profile" />
@@ -1418,7 +1417,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
       btn=f.querySelector('button[type="submit"]'), lb=btn&&btn.querySelector('.lbl'), st=document.getElementById('f-state');
   var last='', kind='', done=false;
   if(NX) NX.value=location.href.split('#')[0];               /* the relay bounces back here, whatever host we are on */
-  if(SB) SB.value='New message from '+(location.hostname||'kiarashakbari.github.io');   /* pages.dev, workers.dev, the domain: name the one that sent it */
+  if(SB) SB.value='New message from '+(location.hostname||'kiarashakbari.github.io');   /* localhost, github.io, a future domain: name whichever one sent it */
   try{ var mem=JSON.parse(localStorage.getItem('ka-who')||'null');   /* a returning visitor retypes nothing */
     if(mem){ if(mem.n&&!N.value) N.value=mem.n; if(mem.e&&!E.value) E.value=mem.e; } }catch(e){}
   function say(k,s){ last=k; kind=s||''; if(st){ st.setAttribute('data-s',kind); st.textContent=k?K.t(k):''; } }

@@ -65,52 +65,29 @@ hidden `access_key` instead of an address in the URL (250/month free), Formspree
 `action="https://formspree.io/f/ID"` (50/month, attachments paid). Drop the `/ajax/` rewrite if the new
 relay already answers JSON.
 
-## Deploying (GitHub Pages primary, Cloudflare as mirror)
+## Deploying
 
-`main` is the only branch that publishes, and both hosts serve the folder as-is with no build step:
+One host: **GitHub Pages**, deploying the `main` branch from the repository root. The repo has to stay
+public for the free plan, and `github.io` is the hostname that keeps resolving for the audience this
+page is written for — Cloudflare's free hostnames (`*.pages.dev`, `*.workers.dev`) are filtered in Iran
+as a class, and putting the site behind Cloudflare's edge inherits the IP-range blocking that happens
+whenever filtering tightens. During a total blackout no hosting choice helps, so the résumé PDF is sent
+directly rather than linked.
 
-- **GitHub Pages is the primary.** It requires a public repo (this one is), and `github.io` is the
-  hostname that keeps resolving for the audience this site is written for.
-- **The Cloudflare Workers service (`kiarashakbari-website`) is a mirror and a preview rig.** Every
-  branch pushed to GitHub gets a `https://<hash>.kiarashakbari-website.<subdomain>.workers.dev` build,
-  which is the comfortable way to review a change before merging it.
+- Push to `main` and Pages publishes in under a minute; a push that fails to trigger a build silently
+  keeps serving the previous version, so check *Settings → Pages* after anything structural.
+- `.nojekyll` is what makes Pages serve this folder verbatim — no Jekyll pass, so nothing rewrites the
+  front matter-free HTML or the underscore-free asset paths. Keep the file.
+- The `<link rel="canonical">` and `og:url` in the head name the live host. If a custom domain is ever
+  attached, those two lines are the edit, plus the domain field in Settings → Pages.
+- GitHub Pages does not read `_headers`, so there is no cache-header lever here — and none is needed:
+  the whole site is one 162 KB HTML file, two woff2 faces and a PDF, all self-hosted.
+- A domain can be bought anywhere and simply pointed at `KiarashAkbari.github.io` with an apex
+  `ALIAS`/flattened record and a `www CNAME`; GitHub issues the certificate once the domain is saved in
+  Settings → Pages. Keeping Cloudflare out of the request path (DNS only, or another registrar
+  entirely) is deliberate.
 
-That split exists because Cloudflare's free hostnames are collateral damage from proxy abuse:
-`*.workers.dev` and `*.pages.dev` are filtered in Iran, and blocked wholesale by a lot of corporate
-proxies elsewhere, so neither is a place to point a résumé link. The `<link rel="canonical">` in the head
-plus `X-Robots-Tag: noindex` in `_headers` (which only Workers reads) keep the mirror out of the search
-index. If the Worker ever becomes primary, flip both.
-
-New projects on Cloudflare go to Workers rather than Pages — Cloudflare's own guidance since 2025 is to
-use Workers static assets — and Workers Builds reads `wrangler.jsonc` from the repo instead of dashboard
-fields, so that file *is* the deploy config for the mirror:
-
-- `assets.directory = "./"` — the repo root is the site.
-- `not_found_handling = "none"` — a junk URL gets a real 404, not `index.html` with a 200 (SPA mode
-  would poison the search index with soft 404s).
-- No `main` script and no `assets.binding` — nothing invokes Worker code, so the 100,000 requests/day
-  free quota never applies: requests for static assets are free and unlimited on every plan, with
-  20,000 files and 25 MiB per file as the ceilings. This site is 5 files and 162 KB.
-
-`.assetsignore` keeps repo-only files (`README.md`, `wrangler.jsonc`, `.nojekyll`, `.git`) out of the
-upload — Workers does not exclude them the way Pages did. `_headers` adds `nosniff`, a referrer policy, a
-permissions policy and the `noindex` above to every response, plus a year of immutable caching on the two
-font files and the PDF. There is no CSP on purpose: the page is one file of inline `<script>` and
-`<style>` blocks, which any sane `script-src`/`style-src` policy would block.
-
-A custom domain reads better on a CV than `kiarashakbari.github.io`, and it can go on either host. **On
-GitHub Pages, keep Cloudflare out of the request path:** point the apex (`ALIAS`/flattened `CNAME`) and
-`www` (`CNAME`) at `KiarashAkbari.github.io` with the cloud **grey — DNS only** — then save the domain in
-Settings → Pages and GitHub issues the certificate. Cloudflare then only answers DNS, so a bad day for
-Cloudflare's IP ranges does not take the site down. Proxying it (orange cloud) — or using a Workers
-*custom domain*, which requires a Cloudflare zone on the account with Cloudflare nameservers, while
-Pages tolerates external DNS — puts Cloudflare's edge in front of every visitor, which is the path that
-gets throttled during filtering episodes. Do not enable **Access**: it hides the whole page behind a
-Cloudflare login, which is for private dashboards, not portfolios.
-
-Local loop, if you want it: `npx wrangler dev` serves the assets directory at `localhost:8787`, and
-`npx wrangler deploy` publishes the mirror from your machine instead of from a push (needs
-`npx wrangler login`). Neither is required, and neither adds a dependency to the repo.
+No build step, no config files for the host, nothing to install: the repository *is* the deployment.
 
 ## Notes
 
