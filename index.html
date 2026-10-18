@@ -89,13 +89,13 @@ main{position:relative; z-index:2;}
 @media(min-width:900px){ .hgrid{grid-template-columns:1.6fr 1fr;} }
 .hl{margin:0; font-weight:400; text-transform:uppercase; font-size:clamp(40px,5.6vw,88px); line-height:.9; letter-spacing:-.04em;}
 .ln{display:block; overflow:hidden; padding-bottom:.08em; margin-bottom:-.08em;}
-.hhead .ln > span{display:block; transform:translateY(115%); animation:lineUp .95s steps(6) both;}
+.hhead .ln > span{display:block; transform:translate3d(0,115%,0); animation:lineUp .95s cubic-bezier(.22,1,.36,1) both; backface-visibility:hidden;}
 .hl .ln:nth-child(1) > span{animation-delay:.1s;} .hl .ln:nth-child(2) > span{animation-delay:.21s;}
 .hdesc .ln:nth-child(1) > span{animation-delay:.36s;} .hdesc .ln:nth-child(2) > span{animation-delay:.44s;}
-.htag{animation:fadeUp .9s steps(6) .58s both;}
-.hfoot .mark{animation:fadeUp .9s steps(6) .78s both;}
-@keyframes lineUp{from{transform:translateY(115%);} to{transform:translateY(0);}}
-@keyframes fadeUp{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+.htag{animation:fadeUp .75s cubic-bezier(.22,1,.36,1) .58s both;}
+.hfoot .mark{animation:fadeUp .75s cubic-bezier(.22,1,.36,1) .78s both;}
+@keyframes lineUp{from{transform:translate3d(0,115%,0);} to{transform:translate3d(0,0,0);}}
+@keyframes fadeUp{from{opacity:0; transform:translate3d(0,14px,0);} to{opacity:1; transform:translate3d(0,0,0);}}
 @keyframes growX{to{transform:scaleX(1);}}
 @keyframes growY{to{transform:scaleY(1);}}
 .hcol{position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:calc(var(--cell)*2);}
@@ -121,8 +121,8 @@ main{position:relative; z-index:2;}
 .lead{font-size:clamp(26px,3.4vw,46px); line-height:1.08; letter-spacing:-.025em; margin:0; opacity:0;}
 .lead.ready{opacity:1;}
 .lead .m{color:var(--muted);}
-.lead .ln > span{display:block; transform:translateY(115%); transition:transform .85s steps(6);}
-.lead.in .ln > span{transform:none;}
+.lead .ln > span{display:block; opacity:0; transform:translate3d(0,115%,0); transition:transform .8s cubic-bezier(.22,1,.36,1), opacity .45s ease-out; backface-visibility:hidden;}
+.lead.in .ln > span{opacity:1; transform:translate3d(0,0,0);}
 
 /* ===== editorial sections ===== */
 section.ed{position:relative; padding:calc(var(--cell)*9) var(--gutter);}
@@ -145,7 +145,7 @@ section.ed{position:relative; padding:calc(var(--cell)*9) var(--gutter);}
 .smiley .eyes{transition:transform .2s steps(2);}
 .smiley.blink .eyes rect{transform:scaleY(.2); transform-box:fill-box; transform-origin:center;}
 .smiley.jump{animation:smJump .62s steps(8);}
-.smiley.shy{transform:scale(.92) translateY(3px);}
+.smiley.shy{transform:scale(.92) translateY(3px); transform-origin:50% 50%;}
 @keyframes smJump{0%{transform:translateY(0)}28%{transform:translateY(-18px)}52%{transform:translateY(0)}68%{transform:translateY(-7px)}100%{transform:translateY(0)}}
 .sm-heart{position:absolute; z-index:6; pointer-events:none; width:28px; height:24px; animation:smHeart 1s steps(10) forwards;}
 @keyframes smHeart{0%{opacity:0; transform:translate(-50%,0) scale(.5)}14%{opacity:1}100%{opacity:0; transform:translate(-50%,-72px) scale(1.1)}}
@@ -326,8 +326,8 @@ footer.playing #tetris{display:block;}
 .foot-note{position:relative; z-index:2; text-align:center; padding:0 var(--gutter) 18px; color:var(--muted); font-size:10px;}
 
 /* ===== reveals ===== */
-.reveal{transform:translateY(18px); transition:transform .8s steps(6);}
-.reveal.in{transform:none;}
+.reveal{opacity:0; transform:translate3d(0,18px,0); transition:transform .7s cubic-bezier(.22,1,.36,1), opacity .45s ease-out;}
+.reveal.in{opacity:1; transform:translate3d(0,0,0);}
 
 @media(max-width:720px){
   .ed p{text-align:start;}
@@ -362,12 +362,12 @@ html[lang="fa"] .rc-clip{font-size:13.5px;}
 html[dir="rtl"] .toplink svg, html[dir="rtl"] .cta .links svg{transform:scaleX(-1);}
 
 @media(prefers-reduced-motion:reduce){
-  .hhead .ln > span, .lead .ln > span, .reveal{transform:none !important; animation:none !important; transition:none !important;}
+  .hhead .ln > span, .lead .ln > span, .reveal{opacity:1 !important; transform:none !important; animation:none !important; transition:none !important;}
   .htag, .hfoot .mark{animation:none;} .hhead::after{animation:none; transform:scaleX(1);} .hcol::before{animation:none; transform:scaleY(1);}
   .lead{opacity:1;}
 }
 </style>
-<noscript data-ka><style>.lead{opacity:1}.reveal,.lead .ln>span{transform:none}#field,.pxctl,.tt-teaser{display:none}.pips,.caro .ch .hint{display:none}</style></noscript>
+<noscript data-ka><style>.lead{opacity:1}.reveal,.lead .ln>span{opacity:1;transform:none}#field,.pxctl,.tt-teaser{display:none}.pips,.caro .ch .hint{display:none}</style></noscript>
 <style id="ka-hard" data-ka>
 /* ===== hardened layer: an injected sheet must not get a vote on how this page looks =====
    "Dark mode" / reader / style-injector extensions (Dark Reader, Night Eye, Super Dark Mode,
@@ -1140,9 +1140,12 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     for(b=0;b<5;b++){ var arr=B[b]; if(!arr.length) continue; ctx.fillStyle=COLORS[b]; for(i=0;i<arr.length;i+=2) ctx.fillRect(arr[i]+1,arr[i+1]+1,CELL-1,CELL-1); }
   }
   function smileyFill(ns,sy){ var best=null, bp=0;
-    for(var i=0;i<R.smileys.length;i++){ var r=R.smileys[i], top=r.t-sy; if(r.w<2||r.b-sy<-40||top>H+40) continue;
-      var cx=r.l+r.w/2, cy=top+r.h/2, p=1-Math.hypot(mx-cx,my-cy)/(r.w*1.9);
-      if(p>bp){ bp=p; best={cx:cx,cy:cy,rad:r.w*.47,val:smileys[i].val}; } }
+    /* Use the live rendered box, not the periodically cached document rect: the shy face scales
+       and shifts on hover, so the pixel-circle must follow that transformed face on every frame. */
+    for(var i=0;i<smileys.length;i++){ var r=smileys[i].el.getBoundingClientRect();
+      if(r.width<2||r.bottom<-40||r.top>H+40) continue;
+      var cx=r.left+r.width/2, cy=r.top+r.height/2, p=1-Math.hypot(mx-cx,my-cy)/(r.width*1.9);
+      if(p>bp){ bp=p; best={cx:cx,cy:cy,rad:r.width*.47,val:smileys[i].val}; } }
     if(best&&bp>.2) stampDisk(best.cx,best.cy,best.rad*Math.min(1,(bp-.2)*2.2),best.val,ns); }
   requestAnimationFrame(frame);
 })();
@@ -1382,17 +1385,17 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
 
 /* ===== 7. smileys: eyes follow the cursor, blink, react ===== */
 (function(){
-  var sm=[].slice.call(document.querySelectorAll('.smiley')); if(!sm.length) return; var mx=innerWidth/2, my=-200, moved=true, vis=false, raf=0;
+  var sm=[].slice.call(document.querySelectorAll('.smiley')); if(!sm.length) return; var mx=innerWidth/2, my=-200, moved=false, pointerSeen=false, vis=false, raf=0;
   var eyes=sm.map(function(s){ return s.querySelector('.eyes'); }), lastT=sm.map(function(){ return ''; });
-  addEventListener('pointermove', function(e){ mx=e.clientX; my=e.clientY; moved=true; }, {passive:true});
-  addEventListener('scroll', function(){ moved=true; }, {passive:true});
+  addEventListener('pointermove', function(e){ if(e.pointerType==='touch') return; mx=e.clientX; my=e.clientY; pointerSeen=true; moved=true; }, {passive:true});
+  addEventListener('scroll', function(){ if(pointerSeen) moved=true; }, {passive:true});
   /* only track while the smileys are on screen, and only when the pointer or page actually moved */
   function look(){ raf=vis?requestAnimationFrame(look):0; if(!moved) return; moved=false;
     sm.forEach(function(s,i){ var r=s.getBoundingClientRect(); if(r.bottom<-50||r.top>innerHeight+50) return; var cx=r.left+r.width/2, cy=r.top+r.height/2, dx=mx-cx, dy=my-cy, d=Math.hypot(dx,dy)||1;
       var k=Math.min(1,d/220), ex=Math.round(dx/d*k), ey=Math.round(dy/d*k), tr='translate('+ex+' '+ey+')'; if(tr!==lastT[i]){ lastT[i]=tr; eyes[i].setAttribute('transform',tr); }
       if(s.hasAttribute('data-shy')) s.classList.toggle('shy', d<r.width*.6); }); }
   new IntersectionObserver(function(es){ vis=es.some(function(e){ return e.isIntersecting; }) || sm.some(function(s){ var r=s.getBoundingClientRect(); return r.bottom>-150&&r.top<innerHeight+150; });
-    if(vis&&!raf){ moved=true; raf=requestAnimationFrame(look); } },{rootMargin:'150px'}).observe(sm[0].closest('.two')||sm[0]);
+    if(vis&&!raf){ raf=requestAnimationFrame(look); } },{rootMargin:'150px'}).observe(sm[0].closest('.two')||sm[0]);
   sm.forEach(function(s,i){ (function blink(){ setTimeout(function(){ s.classList.add('blink'); setTimeout(function(){ s.classList.remove('blink'); blink(); },140); }, 2200+Math.random()*3200+i*400); })();
     s.addEventListener('click', function(){ s.classList.remove('jump'); void s.getBoundingClientRect(); s.classList.add('jump');
       var h=document.createElementNS('http://www.w3.org/2000/svg','svg'); h.setAttribute('viewBox','0 0 7 6'); h.setAttribute('shape-rendering','crispEdges'); h.setAttribute('class','sm-heart');
