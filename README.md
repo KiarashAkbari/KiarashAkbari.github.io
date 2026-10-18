@@ -103,8 +103,8 @@ directly rather than linked.
 - The `<link rel="canonical">` and `og:url` in the head name the live host. If a custom domain is ever
   attached, those two lines are the edit, plus the domain field in Settings → Pages.
 - GitHub Pages does not read `_headers`, so there is no cache-header lever here — and none is needed:
-  the site is one main HTML document, a small standalone `404.html`, two woff2 faces, a résumé PDF
-  and a self-hosted social share image (`assets/og.png`).
+  the site is one main HTML document, a small standalone `404.html`, self-hosted font files,
+  a résumé PDF and a self-hosted social share image (`assets/og.png`).
 - A domain can be bought anywhere and simply pointed at `KiarashAkbari.github.io` with an apex
   `ALIAS`/flattened record and a `www CNAME`; GitHub issues the certificate once the domain is saved in
   Settings → Pages. Keeping Cloudflare out of the request path (DNS only, or another registrar
@@ -116,9 +116,12 @@ No build step, no config files for the host, nothing to install: the repository 
 
 - Chrome's Auto Dark Mode skips the page because `<meta name="color-scheme" content="light dark">`
   and `color-scheme` on the root declare that dark is already handled natively.
-- No third-party resource is *loaded* (both font faces are self-hosted), so ad/privacy blockers have no
+- No third-party resource is *loaded* (all font faces are self-hosted), so ad/privacy blockers have no
   request to cancel and no class or id name collides with common cosmetic-filter selectors. The single
   outbound request is the form submission above, fired on submit, never on page load.
+- Persian text renders in Lahzeh first, with Vazirmatn retained as the Arabic-script fallback;
+  Latin text remains Host Grotesk. The owner-supplied Lahzeh files are not open-source assets —
+  see `fonts/Lahzeh-NOTICE.md` before reusing, converting, or subsetting them.
 - Social previews use the self-hosted 1200 × 630 `assets/og.png`; unknown paths receive the branded
   standalone `404.html` from GitHub Pages.
 - No build step. Open `index.html` or serve the folder: `python3 -m http.server 8000`.

@@ -12,9 +12,10 @@ introduce any of those.
 
 | Path | What it is |
 |---|---|
-| `index.html` (~185 KB, ~1745 lines) | The whole main page: markup, CSS, JS, i18n dictionaries, and the Host Grotesk font inlined as base64 |
+| `index.html` (~188 KB, ~1760 lines) | The whole main page: markup, CSS, JS, i18n dictionaries, and the Host Grotesk font inlined as base64 |
 | `404.html` | Small standalone branded not-found page for GitHub Pages; keep asset paths root-absolute |
-| `fonts/Vazirmatn-arabic.woff2` | Persian face, loaded from disk (referenced in `index.html`) |
+| `fonts/Lahzeh-*.ttf` | Primary Persian/Arabic-script faces (100–900), owner-supplied; see `fonts/Lahzeh-NOTICE.md` before reuse/conversion |
+| `fonts/Vazirmatn-arabic.woff2` | Arabic-script fallback face, loaded from disk (referenced in `index.html`) |
 | `fonts/HostGrotesk-latin.woff2` | Source copy of the inlined Latin face — `index.html` uses the data-URI, not this file |
 | `assets/Kiarash_Akbari_Resume.pdf` | Résumé download target |
 | `assets/og.png` | 1200 × 630 social share image referenced by Open Graph/Twitter meta |
@@ -64,6 +65,11 @@ In document order:
   `data-i18n` (and `data-i18n-aria` for `aria-label`s) against the EN/FA
   dictionaries in the main script. Adding text in English only leaves the
   Persian version wrong. Persian digits go through `faNum`. Test RTL.
+- **Keep the Persian font order and ranges.** `--sans` is Host Grotesk →
+  Lahzeh → Vazirmatn; Lahzeh/Vazirmatn faces carry the Arabic-script
+  `unicode-range`, so Latin text and ASCII digits stay on Host Grotesk.
+  Lahzeh is owner-supplied and commercially licensed — read
+  `fonts/Lahzeh-NOTICE.md` before converting, subsetting, or replacing it.
 - **Canvas code reads colours from CSS.** `KA.readTheme()` pulls
   `--grid/--tile-bg/--tile-grid/--paper/--ink` via `getComputedStyle`;
   renaming tokens breaks the canvases, not the CSS.
