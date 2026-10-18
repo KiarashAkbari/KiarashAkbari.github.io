@@ -79,8 +79,12 @@ a{color:inherit;}
 :focus-visible{outline:2px solid var(--blue); outline-offset:3px;}
 html.theme-anim, html.theme-anim *{transition:background-color .36s steps(4), color .36s steps(4), border-color .36s steps(4), fill .36s steps(4) !important;}
 
-/* ===== page-wide pixel field ===== */
-#field{position:fixed; inset:0; width:100%; height:100%; display:block; z-index:0; pointer-events:none;}
+/* ===== page-wide pixel field =====
+   Fixed to the viewport, but the element is pinned in JS to the bitmap's exact size (see size()
+   in the field module). It must never be CSS-stretched to the live viewport: mobile browser
+   chrome sliding away rescales the bitmap with its own easing, and the pixels then visibly drift
+   up/down after the content while scrolling. */
+#field{position:fixed; top:0; left:0; display:block; z-index:0; pointer-events:none;}
 main{position:relative; z-index:2;}
 
 /* ===== site header: stays out of the hero masthead, then hides on scroll down and
@@ -1207,9 +1211,19 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     var g=gridCv.getContext('2d'); g.setTransform(DPR,0,0,DPR,0,0); g.clearRect(0,0,W,H+CELL*2); g.strokeStyle=K.T.grid; g.lineWidth=1; g.beginPath();
     for(var gx=0;gx<=W;gx+=CELL){ g.moveTo(gx+.5,0); g.lineTo(gx+.5,H+CELL*2); }
     for(var gy=0;gy<=H+CELL*2;gy+=CELL){ g.moveTo(0,gy+.5); g.lineTo(W,gy+.5); } g.stroke(); }
+  /* The viewport height on phones is a liar: the URL bar slides in and out while you scroll and
+     takes ~60px of innerHeight with it — on its own easing, which reads as the pixels drifting
+     up/down after the page. 100vh/100lvh is the LARGE viewport (the height the page keeps once
+     the chrome is gone), so size the bitmap to it and pin the element to the bitmap's size:
+     the field then never rescales mid-scroll and URL-bar toggles need no resize handling at all.
+     Whatever sits below the fold is simply clipped. */
+  var hProbe=document.createElement('div');
+  hProbe.setAttribute('aria-hidden','true');
+  hProbe.style.cssText='position:fixed;top:0;left:0;width:0;height:100vh;height:100lvh;visibility:hidden;pointer-events:none';
+  document.body.appendChild(hProbe);
   function size(){
-    DPR=Math.min(window.devicePixelRatio||1,2); W=innerWidth; H=innerHeight;
-    cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0);
+    DPR=Math.min(window.devicePixelRatio||1,2); W=innerWidth; H=Math.max(innerHeight, hProbe.offsetHeight||innerHeight);
+    cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); cv.style.width=W+'px'; cv.style.height=H+'px'; ctx.setTransform(DPR,0,0,DPR,0,0);
     cols=Math.ceil(W/CELL)+1; rows=Math.ceil(H/CELL)+2; heat=new Float32Array(cols*rows); r0=Math.floor(scrollY/CELL); hb1=-1;
     baseBuf=new Float32Array(cols*rows); baseR0=-1e9;
     /* the ragged lower edge of the hero clouds only depends on the column: precompute it */
@@ -1320,12 +1334,13 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
 
   var wasHeart=false, last=0, autoX=-1, autoY=-1, lastSy=-1, lastDyn=true, safes=[];
   function frame(ts){
-    requestAnimationFrame(frame);
     if(document.hidden) return;
-    /* light mode keeps the field live while scrolling (it is the page's signature effect and it is
-       document-anchored, so freezing it would make the clouds jump on every scroll stop); the 30 fps
-       cap below is what keeps the cost down. */
-    if(K.light && (ts-last<32)) return;
+    /* The art here is document-anchored: every repaint lands the pixels at the CURRENT scrollY,
+       so a frame skipped while the page moves leaves them trailing the scroll and they visibly
+       slide up/down after the content. The 30 fps cap therefore only applies while the scroll
+       position has not changed since the last paint; the moment the page moves, the field paints
+       every frame (the pacing the first deploy shipped with). */
+    if(K.light && (ts-last<32) && scrollY===lastSy) return;
     var d=Math.min(50, ts-(last||ts)); last=ts;
     t+=d; introT+=d/1000; var tt=t*.001, ns=ts/1000;
     syncRows();
@@ -1424,7 +1439,12 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
       var cx=r.left+r.width/2, cy=r.top+r.height/2, p=1-Math.hypot(mx-cx,my-cy)/(r.width*1.9);
       if(p>bp){ bp=p; best={cx:cx,cy:cy,rad:r.width*.47,val:smileys[i].val}; } }
     if(best&&bp>.2) stampDisk(best.cx,best.cy,best.rad*Math.min(1,(bp-.2)*2.2),best.val,ns); }
-  requestAnimationFrame(frame);
+  function tick(ts){ requestAnimationFrame(tick); frame(ts); }
+  requestAnimationFrame(tick);
+  /* Some mobile browsers throttle rAF during momentum scrolling; the field must not trail the
+     page even then, so scroll ticks repaint it whenever rAF has gone quiet (skipped cheaply
+     while rAF is live, so this never doubles the work). */
+  addEventListener('scroll', function(){ var n=performance.now(); if(n-last>25) frame(n); }, {passive:true});
 })();
 
 /* ===== 2. intro lead: split into rendered lines, reveal line by line ===== */

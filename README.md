@@ -40,9 +40,9 @@ at least 44 px. Persian RTL correctly formats Arabic script, form controls, proc
 
 On coarse, small-screen, or Save-Data devices (`KA.light`), a shared lightweight rendering mode
 protects mobile scrolling performance:
-- Caps canvas DPR at 1 and rendering at 30 FPS.
-- Pauses decorative canvas drawing (`#field`, project vizzes, `#flow`, footer skyline) during active page scroll.
-- Calms canvas particle counts and background splat calculations.
+- Caps decorative canvases at 30 FPS while idle and calms particle counts and background splat calculations.
+- Pauses decorative canvas drawing (project vizzes, `#flow`, footer skyline) during active page scroll — those canvases live in the page flow, so their position cannot desync from it.
+- The page-wide pixel field is the deliberate exception: its art is document-anchored inside a fixed canvas, so it repaints at full rate whenever the scroll position changes (with scroll-tick fallbacks where rAF is throttled during momentum). Skip frames while scrolling and the pixels visibly slide up/down after the content. DPR is kept (capped at 2). Its bitmap is sized to the large viewport (`100vh`/`100lvh` probe) with the canvas element pinned to that size, so sliding browser chrome (address bar) can never stretch — and thereby shift — the artwork mid-scroll.
 - Suppresses during-scroll blur and dynamic masks, and switches carousel GPU layer promotion to active gestures only (`will-change: auto` at rest).
 - Routes resize events through debounced mostly width-based handling (`KA.onResize`) to ignore vertical address-bar jitter on iOS and Android.
 
