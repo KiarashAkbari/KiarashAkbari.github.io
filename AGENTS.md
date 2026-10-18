@@ -89,14 +89,20 @@ In document order:
   without custom inertia. Tapped in-page anchors on coarse/touch pointers use
   quick managed scrolling (`KA.quickScrollTo`) that clears `#sitehead`, cancels
   instantly on native touch/scroll, and jumps instantly for reduced motion.
-  On coarse/small/Save-Data viewports (`KA.light`), FPS is capped to 30 and
-  particles are reduced, but the pixel field keeps DPR (capped to 2) and keeps
-  drawing during scroll — capping it to 1 or freezing it makes the cells blur
-  and repaint as blocks. Do not gate the field's touch-cursor, canvas sizing or
-  frame loop on `KA.light` beyond that FPS cap; that is the regression this
-  rule exists to prevent. Dynamic masks/blur are suppressed during scroll and
-  resizes use debounced width-based dispatch (`KA.onResize`) to avoid
-  URL-bar jitter.
+  On coarse/small/Save-Data viewports (`KA.light`), particles are reduced and
+  decorative canvases idle at 30 FPS — but the pixel field keeps DPR (capped to
+  2) and paints **every frame while the scroll position changes** (its art is
+  document-anchored in a fixed canvas, so a skipped frame leaves the pixels
+  visibly sliding up/down after the content), with scroll-tick repaints when
+  rAF is throttled during momentum. Do not gate the field's touch-cursor,
+  canvas sizing or frame loop on `KA.light` beyond the idle-only FPS cap, and
+  do not freeze it during scroll; those are the regressions this rule exists
+  to prevent. The field bitmap is sized to the large viewport (a
+  `100vh`/`100lvh` probe) and the canvas element is pinned to that exact size
+  in JS — never let CSS stretch the bitmap when mobile browser chrome slides
+  away; that rescale reads as the pixels drifting while scrolling. Dynamic
+  masks/blur are suppressed during scroll and resizes use debounced width-based
+  dispatch (`KA.onResize`) to ignore address-bar jitter.
 - **Mobile layout & safe areas.** Fixed header and panel use `env(safe-area-inset-*)`,
   gutters remain consistent across all sections, touch targets have at least
   44 px tap clearance, header navigation stays overflow-proof across 320–680 px,
