@@ -27,8 +27,9 @@ Native input always wins. Touch, keyboard, scrollbar dragging, find-in-page, hor
 pinch-zoom (`Ctrl` + wheel), the work carousel's horizontal gesture, and nested scrollers
 (`textarea`, `select`, `[data-noglide]`) are not intercepted. Touch scrolling is 100% native
 without custom touch inertia, keeping the real scroll position throughout. On coarse/touch
-pointers, tapped in-page anchors ride a quick managed scroll that cancels immediately on native
-touch or scroll and respects `prefers-reduced-motion` with an instant jump. The desktop wheel glide
+pointers, tapped in-page anchors are left to the browser's own jump (`scroll-margin-top` already
+clears the fixed header): a scripted scroll on a phone fights the native one and reads as lag.
+`prefers-reduced-motion` jumps instantly there as well. The desktop wheel glide
 is off for coarse pointers and `prefers-reduced-motion`. Use `?scroll=native` to disable it for a page
 load, or `KA.glideTo(y)` / `KA.quickScrollTo(y)` from the console to test programmatic scrolling.
 
@@ -40,11 +41,23 @@ at least 44 px. Persian RTL correctly formats Arabic script, form controls, proc
 
 On coarse, small-screen, or Save-Data devices (`KA.light`), a shared lightweight rendering mode
 protects mobile scrolling performance:
-- Caps decorative canvases at 30 FPS while idle and calms particle counts and background splat calculations.
+- Caps the decorative canvases (project vizzes, `#flow`, footer skyline) at 30 FPS while idle and calms particle counts and background splat calculations.
 - Pauses decorative canvas drawing (project vizzes, `#flow`, footer skyline) during active page scroll — those canvases live in the page flow, so their position cannot desync from it.
-- The page-wide pixel field is the deliberate exception: its art is document-anchored inside a fixed canvas, so it repaints at full rate whenever the scroll position changes (with scroll-tick fallbacks where rAF is throttled during momentum). Skip frames while scrolling and the pixels visibly slide up/down after the content. DPR is kept (capped at 2). Its bitmap is sized to the large viewport (`100vh`/`100lvh` probe) with the canvas element pinned to that size, so sliding browser chrome (address bar) can never stretch — and thereby shift — the artwork mid-scroll.
-- Suppresses during-scroll blur and dynamic masks, and switches carousel GPU layer promotion to active gestures only (`will-change: auto` at rest).
+- The page-wide pixel field is the deliberate exception: it is the signature of the site, so it idles at 60 FPS (never 30 — at half rate the trail, the hearts and the smileys visibly stutter on a phone) and repaints at full rate whenever the scroll position changes (with scroll-tick fallbacks where rAF is throttled during momentum). Skip frames while scrolling and the pixels visibly slide up/down after the content. DPR is kept (capped at 2) and the canvas is drawn with `image-rendering: pixelated`, so the squares stay hard-edged when the device pixel ratio is 3x. Its bitmap is sized to the large viewport (`100vh`/`100lvh` probe) with the canvas element pinned to that size, so sliding browser chrome (address bar) can never stretch — and thereby shift — the artwork mid-scroll.
+- Keeps the carousel's edge fade a pair of gradient overlays instead of a CSS mask (a mask over the strip has to be re-composited every time a tile repaints), and switches carousel GPU layer promotion to active gestures only (`will-change: auto` at rest).
 - Routes resize events through debounced mostly width-based handling (`KA.onResize`) to ignore vertical address-bar jitter on iOS and Android.
+
+## Motion: stepped, like the art
+
+Everything that moves on this page moves in **steps**, the way a sprite animation does: the hero
+lines rise in six frames, the lead reveals in six, the header slides in and out in six, the
+settings panel tucks away in four. The easing is `steps(n)`, not `cubic-bezier` — a smooth ease
+reads as floaty and slow on a phone, and the whole point of the site is that it looks like a
+pixel grid. Do not "improve" these to eased transitions.
+
+For the same reason the pixel canvases are drawn with `image-rendering: pixelated`: the bitmaps
+are painted at 2x while many phones run at 3x, and without nearest-neighbour scaling the browser
+resamples the whole field and the squares go soft.
 
 ## Render integrity: browser extensions do not restyle this page
 

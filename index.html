@@ -67,7 +67,9 @@ d.setAttribute('data-theme',t);d.setAttribute('data-lang',l);if(l==='fa'){d.lang
 @media(max-width:380px){ :root{--gutter:16px;} }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 html{overscroll-behavior:none; background:var(--paper); -webkit-text-size-adjust:100%; text-size-adjust:100%;}
-@media(prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth;} }
+/* Smooth scrolling is a desktop nicety. On touch the browser's own anchor jump is used
+   instead: a scripted scroll on a phone fights the native one and reads as lag. */
+@media(prefers-reduced-motion:no-preference) and (pointer:fine){ html{scroll-behavior:smooth;} }
 main section[id], footer[id]{scroll-margin-top:calc(var(--head-h) + 14px + env(safe-area-inset-top, 0px));}
 body{margin:0; background:var(--paper); color:var(--ink); overflow-x:hidden; width:100%; font-family:var(--sans); font-weight:400; line-height:1.5; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
 a{color:inherit;}
@@ -83,15 +85,20 @@ html.theme-anim, html.theme-anim *{transition:background-color .36s steps(4), co
    Fixed to the viewport, but the element is pinned in JS to the bitmap's exact size (see size()
    in the field module). It must never be CSS-stretched to the live viewport: mobile browser
    chrome sliding away rescales the bitmap with its own easing, and the pixels then visibly drift
-   up/down after the content while scrolling. */
-#field{position:fixed; top:0; left:0; display:block; z-index:0; pointer-events:none;}
+   up/down after the content while scrolling.
+   image-rendering:pixelated keeps the squares hard-edged: the bitmap is drawn at 2x and the
+   device pixel ratio on a phone is often 3x, so the browser would otherwise resample the whole
+   field with a blur filter and the pixel art would go soft. */
+#field{position:fixed; top:0; left:0; display:block; z-index:0; pointer-events:none; image-rendering:pixelated;}
 main{position:relative; z-index:2;}
 
 /* ===== site header: stays out of the hero masthead, then hides on scroll down and
    returns on scroll up (0c drives .hide). No backdrop blur on purpose: blurring the
    always-repainting pixel field costs frames on every scroll tick, and --paper-a is
-   opaque enough to stay readable without it. */
-.sitehead{position:fixed; top:0; left:0; right:0; z-index:120; height:calc(var(--head-h) + env(safe-area-inset-top, 0px)); padding-top:env(safe-area-inset-top, 0px); background:var(--paper-a); border-bottom:1px solid var(--line); transform:translate3d(0,0,0); transition:transform .38s cubic-bezier(.22,1,.36,1); overflow:hidden;}
+   opaque enough to stay readable without it.
+   The slide is stepped, like the rest of the motion here: a smooth ease reads as
+   floaty on a phone, a stepped one reads as a sprite moving between frames. */
+.sitehead{position:fixed; top:0; left:0; right:0; z-index:120; height:calc(var(--head-h) + env(safe-area-inset-top, 0px)); padding-top:env(safe-area-inset-top, 0px); background:var(--paper-a); border-bottom:1px solid var(--line); transform:translate3d(0,0,0); transition:transform .34s steps(6); overflow:hidden;}
 .sitehead.hide{transform:translate3d(0,-110%,0);}
 .sitehead:focus-within{transform:none;}
 .head-in{max-width:var(--maxw); height:100%; margin:0 auto; padding-inline:max(var(--gutter), env(safe-area-inset-left, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px)); display:flex; align-items:center; justify-content:space-between; gap:16px; min-width:0; box-sizing:border-box;}
@@ -123,7 +130,7 @@ main{position:relative; z-index:2;}
 }
 
 /* ===== display settings (theme + language), same chrome as the reference pixel panel ===== */
-.pxctl{position:fixed; inset-inline-start:16px; bottom:16px; z-index:200; display:flex; align-items:center; gap:5px; padding:7px 9px; background:var(--paper-a); border:1px solid var(--line); border-radius:10px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); transition:opacity .35s cubic-bezier(.22,1,.36,1), transform .35s cubic-bezier(.22,1,.36,1);}
+.pxctl{position:fixed; inset-inline-start:16px; bottom:16px; z-index:200; display:flex; align-items:center; gap:5px; padding:7px 9px; background:var(--paper-a); border:1px solid var(--line); border-radius:10px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); transition:opacity .35s steps(4), transform .35s steps(4);}
 .pxctl .lbl{color:var(--muted); margin:0 3px;}
 .pxctl .sep{width:1px; height:16px; background:var(--line); margin:0 4px;}
 .pxctl button{font:inherit; letter-spacing:0; min-width:24px; height:24px; padding:0 5px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:6px; cursor:pointer; transition:background .15s, border-color .15s, color .15s;}
@@ -142,11 +149,11 @@ main{position:relative; z-index:2;}
 @media(min-width:900px){ .hgrid{grid-template-columns:1.6fr 1fr;} }
 .hl{margin:0; font-weight:400; text-transform:uppercase; font-size:clamp(40px,5.6vw,88px); line-height:.9; letter-spacing:-.04em;}
 .ln{display:block; overflow:hidden; padding-bottom:.08em; margin-bottom:-.08em;}
-.hhead .ln > span{display:block; transform:translate3d(0,115%,0); animation:lineUp .95s cubic-bezier(.22,1,.36,1) both; backface-visibility:hidden;}
+.hhead .ln > span{display:block; transform:translate3d(0,115%,0); animation:lineUp .95s steps(6) both; backface-visibility:hidden;}
 .hl .ln:nth-child(1) > span{animation-delay:.1s;} .hl .ln:nth-child(2) > span{animation-delay:.21s;}
 .hdesc .ln:nth-child(1) > span{animation-delay:.36s;} .hdesc .ln:nth-child(2) > span{animation-delay:.44s;}
-.htag{animation:fadeUp .75s cubic-bezier(.22,1,.36,1) .58s both;}
-.hfoot .mark{animation:fadeUp .75s cubic-bezier(.22,1,.36,1) .78s both;}
+.htag{animation:fadeUp .9s steps(6) .58s both;}
+.hfoot .mark{animation:fadeUp .9s steps(6) .78s both;}
 @keyframes lineUp{from{transform:translate3d(0,115%,0);} to{transform:translate3d(0,0,0);}}
 @keyframes fadeUp{from{opacity:0; transform:translate3d(0,14px,0);} to{opacity:1; transform:translate3d(0,0,0);}}
 @keyframes growX{to{transform:scaleX(1);}}
@@ -174,7 +181,7 @@ main{position:relative; z-index:2;}
 .lead{font-size:clamp(26px,3.4vw,46px); line-height:1.08; letter-spacing:-.025em; margin:0; opacity:0;}
 .lead.ready{opacity:1;}
 .lead .m{color:var(--muted);}
-.lead .ln > span{display:block; opacity:0; transform:translate3d(0,115%,0); transition:transform .8s cubic-bezier(.22,1,.36,1), opacity .45s ease-out; backface-visibility:hidden;}
+.lead .ln > span{display:block; opacity:0; transform:translate3d(0,115%,0); transition:transform .85s steps(6), opacity .45s steps(3); backface-visibility:hidden;}
 .lead.in .ln > span{opacity:1; transform:translate3d(0,0,0);}
 
 /* ===== editorial sections ===== */
@@ -234,22 +241,28 @@ section.ed{position:relative; padding:calc(var(--cell)*9) var(--gutter);}
 .pips{display:flex; justify-content:center; align-items:center; gap:4px; margin:calc(var(--cell)*1.4) 0 0;}
 html[dir="rtl"] .pips{flex-direction:row-reverse;}
 .pips button{display:grid; place-items:center; width:26px; height:22px; padding:0; border:0; background:none; cursor:pointer;}
-.pips i{display:block; width:7px; height:7px; background:var(--line); transition:background .2s, transform .2s;}
+.pips i{display:block; width:7px; height:7px; background:var(--line); transition:background .2s steps(2), transform .2s steps(3);}
 .pips i.on{background:var(--ink); transform:scale(1.34);}
 @media(hover:none){ .reveal-cta{display:block; transform:none;} .rc-clip{display:block;} .track-wrap .slide{cursor:pointer;} }
-.track-wrap{position:relative; overflow:hidden; margin:0 calc(-1 * var(--gutter)); padding:calc(var(--cell)*3) 0; touch-action:pan-y; user-select:none; -webkit-user-select:none; cursor:grab; direction:ltr;
-  --fadeL:0px; --fadeR:0px; -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--fadeL),#000 calc(100% - var(--fadeR)),transparent 100%); mask-image:linear-gradient(90deg,transparent 0,#000 var(--fadeL),#000 calc(100% - var(--fadeR)),transparent 100%);}
-.track-wrap.nofade{-webkit-mask-image:none; mask-image:none;}
+/* The cut-off edge fades out with a paper-coloured overlay instead of a mask: a mask on the
+   strip has to be re-composited every time a tile's canvas repaints, which on a phone costs
+   a frame each time. Two gradients over the edges cost nothing per frame. */
+.track-wrap{position:relative; overflow:hidden; margin:0 calc(-1 * var(--gutter)); padding:calc(var(--cell)*3) 0; touch-action:pan-y; user-select:none; -webkit-user-select:none; cursor:grab; direction:ltr;}
+.track-wrap::before,.track-wrap::after{content:""; position:absolute; top:0; bottom:0; width:46px; z-index:4; pointer-events:none; opacity:0; transition:opacity .22s ease;}
+.track-wrap::before{left:0; background:linear-gradient(to right,var(--paper),rgba(0,0,0,0));}
+.track-wrap::after{right:0; background:linear-gradient(to left,var(--paper),rgba(0,0,0,0));}
+.track-wrap.fadeL::before,.track-wrap.fadeR::after{opacity:1;}
 .track-wrap.drag, .track-wrap.drag *{cursor:grabbing !important;}
 .track-wrap a{-webkit-user-drag:none;}
 .track{display:flex; gap:28px; width:max-content; padding:0 max(var(--gutter), calc((100vw - var(--maxw)) / 2)); will-change:auto;}
 .track-wrap.drag .track, .track-wrap.animating .track{will-change:transform;}
-html.is-scrolling *{backdrop-filter:none !important; -webkit-backdrop-filter:none !important;}
-html.is-scrolling .track-wrap{-webkit-mask-image:none !important; mask-image:none !important;}
+/* no universal selector here: a rule that matches every element forces a full-document
+   style recalculation the moment the class flips, which is exactly when the phone is
+   already busy scrolling. .is-scrolling stays as a hook, the canvases read KA.scrolling. */
 html[dir="rtl"] .slide{direction:rtl;}
 .slide{flex:0 0 auto; width:min(86vw,420px); display:flex; flex-direction:column; align-items:center; text-align:center; text-decoration:none; color:inherit; padding:0 0 26px;}
 .csm{position:relative; width:100%; height:350px; overflow:hidden; background:var(--tile-bg);}
-.csm canvas{position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none;}
+.csm canvas{position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none; image-rendering:pixelated;}
 .csm .badge{position:absolute; inset-inline-start:12px; top:12px; z-index:3; font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(10,10,10,.75); padding:6px 9px; clip-path:var(--px-sm);}
 .slide .t{font-size:clamp(22px,2.2vw,30px); font-weight:500; letter-spacing:-.02em; margin:20px 0 0; line-height:1.2;}
 .slide .d{color:var(--body); font-size:14.5px; line-height:1.5; margin:9px 26px 0; max-width:34ch;}
@@ -274,7 +287,7 @@ html[dir="rtl"] .slide{direction:rtl;}
 .proc .ph{display:flex; flex-direction:column; align-items:flex-start; gap:calc(var(--cell)*2); margin-bottom:calc(var(--cell)*3);}
 .proc .pd{color:var(--body); font-size:clamp(15px,1.15vw,18px); line-height:1.62; max-width:46ch; margin:0;}
 .procflow{width:100%; aspect-ratio:3/1; margin-bottom:clamp(14px,2.4vh,26px);}
-.procflow canvas{width:100%; height:100%; display:block;}
+.procflow canvas{width:100%; height:100%; display:block; image-rendering:pixelated;}
 .steps{display:grid; grid-template-columns:repeat(2,1fr); gap:14px 28px;}
 @media(min-width:840px){ .steps{grid-template-columns:repeat(4,1fr);} }
 .step{position:relative; display:flex; flex-direction:column; gap:13px; transition:opacity .3s steps(3);}
@@ -329,10 +342,10 @@ html[lang=fa] .sendbox [name=email]{direction:ltr;}
 /* ===== footer: tetris skyline ===== */
 footer{position:relative; z-index:2; height:calc(var(--cell)*9); overflow:hidden; cursor:pointer; transition:height .55s steps(8);}
 footer.playing{height:min(52vh,390px); cursor:default;}
-#footcity{position:absolute; left:0; bottom:0; width:100%; height:100%; display:block; pointer-events:none; z-index:2;}
+#footcity{position:absolute; left:0; bottom:0; width:100%; height:100%; display:block; pointer-events:none; z-index:2; image-rendering:pixelated;}
 .tt-teaser{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:4; padding:13px 30px; font-size:15px; transition:opacity .35s steps(4), background .2s;}
 footer.playing .tt-teaser{opacity:0; pointer-events:none;}
-.tt-teaser canvas{display:block;}
+.tt-teaser canvas{display:block; image-rendering:pixelated;}
 #tetris{position:absolute; inset:0; z-index:3; display:none; pointer-events:none; font-family:var(--mono);}
 footer.playing #tetris{display:block;}
 .tt-score{position:absolute; top:18px; inset-inline-start:22px; font-size:clamp(15px,2vw,22px); letter-spacing:.08em; background:var(--paper-a); padding:2px 6px;}
@@ -405,7 +418,7 @@ footer.playing #tetris{display:block;}
 .foot-note{position:relative; z-index:2; text-align:center; padding:0 var(--gutter) 18px; color:var(--muted); font-size:10px;}
 
 /* ===== reveals ===== */
-.reveal{opacity:0; transform:translate3d(0,12px,0); transition:transform .7s cubic-bezier(.22,1,.36,1), opacity .45s ease-out;}
+.reveal{opacity:0; transform:translate3d(0,14px,0); transition:transform .7s steps(6), opacity .35s steps(3);}
 .reveal.in{opacity:1; transform:translate3d(0,0,0);}
 
 /* ===== Persian (RTL): Arabic script must never be letter-spaced or uppercased, and needs taller lines ===== */
@@ -803,6 +816,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     <div class="wrap">
       <a class="btn ctabtn" href="mailto:Kiarash.Akbari.Contact@gmail.com"><span class="lbl" data-i18n="c.btn">Get in touch</span></a>
       <p class="meta" data-i18n="c.meta">I work remotely with teams across time zones, and I answer async. Happiest with a hard retrieval problem and a backend that has to stay up.</p>
+      <p class="meta near" id="tz"></p>
       <form class="sendbox" id="sendbox" method="POST" action="https://formsubmit.co/Kiarash.Akbari.Contact@gmail.com" data-safe novalidate>
         <div class="frow">
           <label><span class="fl" data-i18n="fm.n">Your name</span><input type="text" name="name" required maxlength="90" autocomplete="name" placeholder="Kiarash A." data-i18n-aria="fm.na" aria-label="Your name"></label>
@@ -1126,22 +1140,20 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
   addEventListener('touchstart',function(){ if(mode) halt(); cur=target=ownY=scrollY; },{passive:true});
   addEventListener('touchmove',function(){ if(mode) halt(); },{passive:true});
 
-  /* in-page anchors: glide on fine pointers; quick managed scroll on coarse pointers; instant jump for reduced motion */
+  /* in-page anchors: the glide on fine pointers. On touch (and under reduced motion) the
+     browser's own anchor jump does the work — scroll-margin-top already clears the fixed
+     header. A scripted scroll on a phone fights the native one and reads as lag, so the
+     touch path is left to the browser. */
   document.addEventListener('click',function(e){
     if(e.defaultPrevented || e.button!==0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var a=e.target.closest && e.target.closest('a[href^="#"]'); if(!a || a.target) return;
     var hash=a.getAttribute('href'); if(!hash || hash==='#') return;
     var el=document.getElementById(hash.slice(1)); if(!el) return;
+    if(!glideOn) return;                                   /* touch / reduced motion: let the browser jump */
     e.preventDefault(); measureMax();
     var m=parseFloat(getComputedStyle(el).scrollMarginTop)||0;
     var dest=el.getBoundingClientRect().top+scrollY-m;
-    if(glideOn){
-      glideTo(dest);
-    } else if(K.RM){
-      halt(); window.scrollTo(0,K.clamp(dest,0,maxY));
-    } else {
-      quickScrollTo(dest);
-    }
+    glideTo(dest);
     try{ history.pushState(null,'',hash); }catch(err){}
   });
 
@@ -1194,6 +1206,10 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
 /* ===== 1. page-wide heat field: grid, hero clouds, cursor states, CTA marquee ===== */
 (function(){
   var K=window.KA, CELL=K.CELL, hash=K.hash, clamp=K.clamp, bandIdx=K.bandIdx, COLORS=K.COLORS, TOUCH=K.TOUCH, RM=K.RM;
+  /* integer hash for the per-cell noise: Math.sin in the hot loop cost more than everything
+     else in the frame put together on a phone */
+  function ih(a,b,s){ var n=(Math.imul(a|0,374761393)+Math.imul(b|0,668265263)+Math.imul(s|0,1442695041))|0;
+    n=Math.imul(n^(n>>>13),1274126177); return ((n^(n>>>16))>>>0)/4294967296; }
   var cv=document.getElementById('field'), ctx=cv.getContext('2d'); if(!ctx) return;
   var hhead=document.querySelector('.hhead'), about=document.getElementById('about');
   var safeEls=[].slice.call(document.querySelectorAll('[data-safe]'));
@@ -1203,14 +1219,19 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
   var DPR=1, W=0, H=0, cols=0, rows=0, heat=null, r0=0, SEED=Math.random()*100;
   var mx=-1, my=-1, pmx=-1, pmy=-1, hov=false, lastMove=performance.now()/1000, t=0, introT=RM?9:0;
   var B=[[],[],[],[],[]];                        /* per-colour batches of cell coords */
-  var edgeOff=null, baseBuf=null, baseR0=-1e9, baseTick=0, gridCv=null;
+  var edgeOff=null, baseBuf=null, baseR0=-1e9, baseTick=0;
   var hb0=0, hb1=-1, hc0=0, hc1=-1;              /* bounding box (buffer rows/cols) of live heat */
 
-  /* grid pre-rendered once per size/theme, then blitted with the scroll offset (was ~260 path segments every frame) */
-  function buildGrid(){ gridCv=gridCv||document.createElement('canvas'); gridCv.width=cv.width; gridCv.height=Math.round((H+CELL*2)*DPR);
-    var g=gridCv.getContext('2d'); g.setTransform(DPR,0,0,DPR,0,0); g.clearRect(0,0,W,H+CELL*2); g.strokeStyle=K.T.grid; g.lineWidth=1; g.beginPath();
-    for(var gx=0;gx<=W;gx+=CELL){ g.moveTo(gx+.5,0); g.lineTo(gx+.5,H+CELL*2); }
-    for(var gy=0;gy<=H+CELL*2;gy+=CELL){ g.moveTo(0,gy+.5); g.lineTo(W,gy+.5); } g.stroke(); }
+  /* The grid is stroked straight onto the canvas: one path, one stroke, with the scroll
+     offset as a translate. The old version baked the whole viewport into a second full-size
+     bitmap and blitted it every frame — a full-screen resampled copy for the ~56k pixels of
+     line it actually drew, and 5 MB of extra canvas on a phone. */
+  function drawGrid(off){
+    ctx.strokeStyle=K.T.grid; ctx.lineWidth=1; ctx.beginPath();
+    for(var gx=0;gx<=W;gx+=CELL){ ctx.moveTo(gx+.5,-CELL*2); ctx.lineTo(gx+.5,H+CELL*2); }
+    for(var gy=0;gy<=H+CELL*3;gy+=CELL){ ctx.moveTo(0,gy+.5); ctx.lineTo(W,gy+.5); }
+    ctx.save(); ctx.translate(0,-off); ctx.stroke(); ctx.restore();
+  }
   /* The viewport height on phones is a liar: the URL bar slides in and out while you scroll and
      takes ~60px of innerHeight with it — on its own easing, which reads as the pixels drifting
      up/down after the page. 100vh/100lvh is the LARGE viewport (the height the page keeps once
@@ -1228,12 +1249,12 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     baseBuf=new Float32Array(cols*rows); baseR0=-1e9;
     /* the ragged lower edge of the hero clouds only depends on the column: precompute it */
     edgeOff=new Float32Array(cols); for(var c=0;c<cols;c++) edgeOff[c]=Math.sin(c*.21+SEED)*H*.05+Math.sin(c*.057+SEED*2)*H*.07+(hash(Math.floor(c/3),7,SEED)-.5)*CELL*7;
-    buildGrid(); dirty=true; force=true;
+    dirty=true; force=true;
   }
   var dirty=true, force=true;
   size();
   K.onResize(size, 120);
-  K.on('theme', function(){ buildGrid(); force=true; });
+  K.on('theme', function(){ force=true; });
   K.on('scrollStop', function(){ dirty=true; force=true; });
 
   /* element rects cached in document coordinates; refreshed on layout changes and once a second, not every frame */
@@ -1332,16 +1353,19 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     var v=Math.sin(nx*5.1+s*1.3+tt*.28)*Math.cos(ny*4.3-s*.7+tt*.2)+Math.sin((nx*1.3+ny*1.8)*3.9-s+tt*.15)+.55*Math.sin(ny*8.7+s*2.1+nx*2.9-tt*.1)+.3*Math.sin(nx*12.3-s*1.7+tt*.06);
     return .5+.5*(v/2.6); }
 
-  var wasHeart=false, last=0, autoX=-1, autoY=-1, lastSy=-1, lastDyn=true, safes=[];
+  var wasHeart=false, last=0, lastRaf=0, autoX=-1, autoY=-1, lastSy=-1, lastDyn=true, safes=[];
   function frame(ts){
     if(document.hidden) return;
     /* The art here is document-anchored: every repaint lands the pixels at the CURRENT scrollY,
        so a frame skipped while the page moves leaves them trailing the scroll and they visibly
-       slide up/down after the content. The 30 fps cap therefore only applies while the scroll
-       position has not changed since the last paint; the moment the page moves, the field paints
-       every frame (the pacing the first deploy shipped with). */
-    if(K.light && (ts-last<32) && scrollY===lastSy) return;
-    var d=Math.min(50, ts-(last||ts)); last=ts;
+       slide up/down after the content. The frame-rate cap therefore only applies while the
+       scroll position has not changed since the last paint; the moment the page moves, the
+       field paints every frame. The cap is 60 fps and not 30: at half rate the pixel trail,
+       the hearts and the smileys visibly stutter on a phone, and the field is the whole
+       signature of the site. */
+    var gap=ts-last;
+    if(K.light && gap<15.5 && gap>=0 && scrollY===lastSy) return;
+    var d=Math.min(50, ts-(last||ts)); if(d<0) d=0; if(ts>last) last=ts;
     t+=d; introT+=d/1000; var tt=t*.001, ns=ts/1000;
     syncRows();
     if(dirty||++rectAge>60) measure();
@@ -1382,11 +1406,11 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     /* ---- draw ---- */
     ctx.clearRect(0,0,W,H);
     var off=sy-Math.floor(sy/CELL)*CELL;
-    ctx.drawImage(gridCv,0,-off,W,H+CELL*2);
+    drawGrid(off);
     for(var b=0;b<5;b++) B[b].length=0;
 
     safes.length=0; for(i=0;i<R.safes.length;i++){ var s0=R.safes[i], st=s0.t-sy, sb=s0.b-sy; if(sb>0&&st<H) safes.push([s0.l-22,st-14,s0.r+22,sb+14]); }
-    var intro=introT/1.5, recompute=((baseTick++)&1)===0;
+    var intro=introT/1.5, recompute=((baseTick++)&3)===0;
     if(baseR0!==r0){ baseBuf.fill(NaN); baseR0=r0; recompute=true; }
     var SF=CELL*2.2;
 
@@ -1400,14 +1424,15 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
         if(rowField){
           var te=(hb+span+edgeOff[c]-vy)/(CELL*10), keep=false;
           if(te>=1) keep=true;
-          else if(te>=0) keep=hash(c,dRow,1)<.5+.5*te;
-          else if(te>-.7) keep=hash(c,dRow,2)<.16*(1+te/.7);
-          if(keep && intro<1) keep=hash(c,dRow,3)<intro;
+          else if(te>=0) keep=ih(c,dRow,1)<.5+.5*te;
+          else if(te>-.7) keep=ih(c,dRow,2)<.16*(1+te/.7);
+          if(keep && intro<1) keep=ih(c,dRow,3)<intro;
           if(keep){ for(var q=0;q<safes.length;q++){ var s=safes[q];
-              if(vx>s[0]-SF&&vx<s[2]+SF&&vy>s[1]-SF&&vy<s[3]+SF){ var f=hash(c,dRow,4)*SF; if(vx>s[0]-f&&vx<s[2]+f&&vy>s[1]-f&&vy<s[3]+f){ keep=false; break; } } } }
+              if(vx>s[0]-SF&&vx<s[2]+SF&&vy>s[1]-SF&&vy<s[3]+SF){ var f=ih(c,dRow,4)*SF; if(vx>s[0]-f&&vx<s[2]+f&&vy>s[1]-f&&vy<s[3]+f){ keep=false; break; } } } }
           if(keep){ var id=ro+c, bv=baseBuf[id];
-            /* cloud noise is recomputed every other frame and cached in between (it drifts far slower than 30 fps) */
-            if(recompute||bv!==bv){ bv=.2+base(c*CELL/W, dRow*CELL/H, tt)*.8+(hash(c,dRow,5)-.5)*.08; baseBuf[id]=bv; }
+            /* cloud noise is recomputed every fourth frame and cached in between (it drifts far
+               slower than the frame rate, and base() is the most expensive call in this loop) */
+            if(recompute||bv!==bv){ bv=.2+base(c*CELL/W, dRow*CELL/H, tt)*.8+(ih(c,dRow,5)-.5)*.08; baseBuf[id]=bv; }
             if(bv>v) v=bv; }
         }
         var bi=bandIdx(v); if(bi>=0) B[bi].push(vx,vy);
@@ -1417,7 +1442,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     /* CTA marquee */
     if(mqOn){ var startRow=Math.ceil(R.mq.t/CELL), shift=Math.floor(t*.007)*mq.dir, tick=Math.floor(t/650), mw=mq.w, md=mq.data;
       for(var ty=0;ty<mq.h;ty++){ var y2=(startRow+ty)*CELL-sy; if(y2<-CELL||y2>H) continue; var rowOff=ty*mw;
-        for(c=0;c<cols;c++){ var tx=((c+shift)%mw+mw)%mw; if(md[rowOff+tx]>mq.th){ var hh=hash(tx,ty,tick+(tx>>3)); var ci=hh<.42?2:hh<.62?1:hh<.76?3:hh<.9?0:4; B[ci].push(c*CELL,y2); } } } }
+        for(c=0;c<cols;c++){ var tx=((c+shift)%mw+mw)%mw; if(md[rowOff+tx]>mq.th){ var hh=ih(tx,ty,tick+(tx>>3)); var ci=hh<.42?2:hh<.62?1:hh<.76?3:hh<.9?0:4; B[ci].push(c*CELL,y2); } } } }
 
     /* hovered tile outline */
     if(hoverMedia){ var hr=hoverMedia.getBoundingClientRect(); if(hr.bottom>0&&hr.top<H){
@@ -1429,22 +1454,27 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     for(i=sparks.length-1;i>=0;i--){ var p=sparks[i]; p.x+=p.vx; p.y+=p.vy; p.vy+=.12; p.life-=.022; if(p.life<=0){ sparks.splice(i,1); continue; }
       B[p.c].push(Math.floor(p.x/CELL)*CELL, Math.floor((p.y+off)/CELL)*CELL-off); }
 
-    for(b=0;b<5;b++){ var arr=B[b]; if(!arr.length) continue; ctx.fillStyle=COLORS[b]; for(i=0;i<arr.length;i+=2) ctx.fillRect(arr[i]+1,arr[i+1]+1,CELL-1,CELL-1); }
+    /* one path per colour: a fillRect per cell meant a couple of thousand draw calls a frame */
+    for(b=0;b<5;b++){ var arr=B[b]; if(!arr.length) continue; ctx.fillStyle=COLORS[b]; ctx.beginPath();
+      for(i=0;i<arr.length;i+=2) ctx.rect(arr[i]+1,arr[i+1]+1,CELL-1,CELL-1); ctx.fill(); }
   }
   function smileyFill(ns,sy){ var best=null, bp=0;
-    /* Use the live rendered box, not the periodically cached document rect: the shy face scales
-       and shifts on hover, so the pixel-circle must follow that transformed face on every frame. */
-    for(var i=0;i<smileys.length;i++){ var r=smileys[i].el.getBoundingClientRect();
-      if(r.width<2||r.bottom<-40||r.top>H+40) continue;
-      var cx=r.left+r.width/2, cy=r.top+r.height/2, p=1-Math.hypot(mx-cx,my-cy)/(r.width*1.9);
-      if(p>bp){ bp=p; best={cx:cx,cy:cy,rad:r.width*.47,val:smileys[i].val}; } }
-    if(best&&bp>.2) stampDisk(best.cx,best.cy,best.rad*Math.min(1,(bp-.2)*2.2),best.val,ns); }
-  function tick(ts){ requestAnimationFrame(tick); frame(ts); }
+    /* The cached document rect is enough to find the face; only the face we actually draw gets
+       a live measurement, because the shy face scales and shifts on hover. Reading every face's
+       box every frame meant a forced layout on every frame. */
+    for(var i=0;i<R.smileys.length;i++){ var r=R.smileys[i], top=r.t-sy;
+      if(r.w<2||r.b-sy<-40||top>H+40) continue;
+      var cx=r.l+r.w/2, cy=top+r.h/2, p=1-Math.hypot(mx-cx,my-cy)/(r.w*1.9);
+      if(p>bp){ bp=p; best={el:smileys[i].el, cx:cx, cy:cy, rad:r.w*.47, val:smileys[i].val}; } }
+    if(best&&bp>.2){ var lr=best.el.getBoundingClientRect();
+      if(lr.width>2){ best.cx=lr.left+lr.width/2; best.cy=lr.top+lr.height/2; best.rad=lr.width*.47; }
+      stampDisk(best.cx,best.cy,best.rad*Math.min(1,(bp-.2)*2.2),best.val,ns); } }
+  function tick(ts){ lastRaf=ts; requestAnimationFrame(tick); frame(ts); }
   requestAnimationFrame(tick);
   /* Some mobile browsers throttle rAF during momentum scrolling; the field must not trail the
-     page even then, so scroll ticks repaint it whenever rAF has gone quiet (skipped cheaply
-     while rAF is live, so this never doubles the work). */
-  addEventListener('scroll', function(){ var n=performance.now(); if(n-last>25) frame(n); }, {passive:true});
+     page even then, so a scroll tick repaints it — but only when rAF has actually gone quiet,
+     otherwise the field would be painted twice for the same frame. */
+  addEventListener('scroll', function(){ var n=performance.now(); if(n-lastRaf>40) frame(n); }, {passive:true});
 })();
 
 /* ===== 2. intro lead: split into rendered lines, reveal line by line ===== */
@@ -1466,7 +1496,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     go(); if(K.lang==='fa'&&K.faFont) K.faFont.then(function(){ lastW=0; go(); },function(){}); });
 })();
 
-/* ===== 3. reveals, logo spin ===== */
+/* ===== 3. reveals, logo spin, local time ===== */
 (function(){
   var K=window.KA;
   var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); setTimeout(function(){ K.emit('layout'); },850); } }); },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
@@ -1474,6 +1504,24 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
   var mark=document.getElementById('mark');
   if(mark && !K.RM){ var svg=mark.querySelector('svg'); svg.addEventListener('animationend', function(){ mark.classList.remove('spin'); });
     setInterval(function(){ if(!document.hidden) mark.classList.add('spin'); }, 10000); }
+  /* local time in Mashhad (Asia/Tehran, UTC+3:30) — the browser's own timezone data, no request */
+  var tz=document.getElementById('tz');
+  if(tz){
+    var FW=['','یک','دو','سه','چهار','پنج','شش','هفت','هشت','نه','ده','یازده','دوازده','سیزده','چهارده'];
+    function faHours(h){ var whole=Math.floor(h+1e-6), frac=h-whole, half=Math.abs(frac-.5)<.01, quarter=Math.abs(frac-.75)<.01||Math.abs(frac-.25)<.01;
+      if(quarter) return K.faNum(whole)+' ساعت و '+K.faNum(Math.round(frac*60))+' دقیقه';
+      if(whole===0&&half) return 'نیم ساعت';
+      return (FW[whole]||K.faNum(whole))+' ساعت'+(half?' و نیم':''); }
+    function upd(){ try{ var now=new Date(), fa=K.lang==='fa', tm=now.toLocaleTimeString(fa?'fa-IR':'en-GB',{timeZone:'Asia/Tehran',hour:'2-digit',minute:'2-digit',hour12:false});
+        var diff=(210+now.getTimezoneOffset())/60, h=Math.abs(diff), txt;
+        if(fa){ txt = h<.01 ? 'الان در مشهد ساعت '+tm+' است؛ دقیقاً همان ساعتی که شما هستید.'
+                           : 'الان در مشهد ساعت '+tm+' است؛ '+faHours(h)+(diff>0?' جلوتر از شما.':' عقب‌تر از شما.'); }
+        else { var hs=(h%1===0?h:h.toFixed(1))+(h===1?' hour':' hours');
+          txt = h<.01 ? "It's "+tm+" in Mashhad right now, the same time as where you are."
+                       : "It's "+tm+" in Mashhad right now, "+hs+(diff>0?' ahead of':' behind')+" you."; }
+        if(tz.textContent!==txt) tz.textContent=txt; }catch(e){ tz.style.display='none'; } }
+    upd(); setInterval(upd,30000); K.on('lang',upd);
+  }
 })();
 
 /* ===== 4. springy momentum carousel (track stays LTR; in Persian the order flips and it starts from the right) ===== */
@@ -1495,7 +1543,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     var _fl=-1, _fr=-1;
     function fades(){ var f=min<0?Math.min(30,wrap.clientWidth*.08):0, L=x<-6?f:0, R=x>min+6?f:0;
       if(L===_fl&&R===_fr) return; _fl=L; _fr=R;
-      wrap.classList.toggle('nofade', !(L||R)); wrap.style.setProperty('--fadeL',L+'px'); wrap.style.setProperty('--fadeR',R+'px'); }
+      wrap.classList.toggle('fadeL', L>0); wrap.classList.toggle('fadeR', R>0); }
     var _pi=-1;
     function pints(){ if(!pips) return; var i=idx(); if(i===_pi) return; _pi=i;   /* a mask or a class write every frame is wasted work on a phone */
       var c=pips.children; for(var k=0;k<c.length;k++) if(c[k].firstChild) c[k].firstChild.className=k===i?'on':''; }
@@ -1731,7 +1779,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
   var BW=SH.map(function(s){ var m=0; s.forEach(function(p){ if(p[0]+1>m) m=p[0]+1; }); return m; });
   var TCOL=[3,1,4,4,2,0,2];                                    /* one colour per tetromino, so a stack of pieces still reads as separate pieces */
   var LOCK=450, PC=15;                                         /* how long a landed piece still slides before it sets; preview tile size */
-  var W=0,H=0,DPR=1, mode='idle', cell=9, cols=0, rows=0, board=null, falling=[], lastSpawn=0, lastStep=0, score=0, dropMs=780, over=false, filled=0, built=false, near=false, visible=false;
+  var W=0,H=0,DPR=1, mode='idle', cell=9, cols=0, rows=0, board=null, falling=[], lastSpawn=0, lastStep=0, last=0, score=0, dropMs=780, over=false, filled=0, built=false, near=false, visible=false;
   var cur=null, next=[], hold=-1, holdReady=true, level=0, lines=0, lockAt=0, lockN=0, blink=null, blinkUntil=0, gc=18, gox=0, goy=0;
   function size(){ var r=cv.getBoundingClientRect(); DPR=Math.min(devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0); }
   function newBoard(){ cols=Math.max(4,Math.floor(W/cell)); rows=Math.max(4,Math.floor(H/cell)); board=[]; for(var r=0;r<rows;r++){ board.push(new Array(cols).fill(-1)); } filled=0; }
