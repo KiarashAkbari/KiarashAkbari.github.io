@@ -85,6 +85,18 @@ In document order:
   where the pixel cloud starts, and `.intro` overlaps `.hero` by a fixed
   negative margin, so either change silently compresses the name → pixels →
   lead rhythm. `#sitehead` therefore stays hidden until `.hhead` has passed.
+- **Mobile scrolling & lightweight mode.** Touch scrolling stays 100% native
+  without custom inertia. Tapped in-page anchors on coarse/touch pointers use
+  quick managed scrolling (`KA.quickScrollTo`) that clears `#sitehead`, cancels
+  instantly on native touch/scroll, and jumps instantly for reduced motion.
+  On coarse/small/Save-Data viewports (`KA.light`), canvas DPR is capped to 1,
+  FPS capped to 30, decorative canvas loops pause during scroll, particles
+  are reduced, dynamic masks/blur are suppressed during scroll, and resizes
+  use debounced width-based dispatch (`KA.onResize`) to avoid URL-bar jitter.
+- **Mobile layout & safe areas.** Fixed header and panel use `env(safe-area-inset-*)`,
+  gutters remain consistent across all sections, touch targets have at least
+  44 px tap clearance, header navigation stays overflow-proof across 320–680 px,
+  and Persian RTL styling covers form labels, flow direction, and numerals.
 - **No third-party requests on load.** Fonts are self-hosted/inlined by
   design (privacy blockers, and filtered networks). The only outbound
   request is the contact form submit. Don't add CDN fonts/scripts/analytics.

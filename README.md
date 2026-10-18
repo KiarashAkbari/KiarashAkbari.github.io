@@ -25,9 +25,26 @@ anchors ride a separate eased glide and respect the fixed header through `scroll
 
 Native input always wins. Touch, keyboard, scrollbar dragging, find-in-page, horizontal wheels,
 pinch-zoom (`Ctrl` + wheel), the work carousel's horizontal gesture, and nested scrollers
-(`textarea`, `select`, `[data-noglide]`) are not intercepted. The glide is also off for coarse
-pointers and `prefers-reduced-motion`. Use `?scroll=native` to disable it for a page load, or
-`KA.glideTo(y)` from the console to test a programmatic glide.
+(`textarea`, `select`, `[data-noglide]`) are not intercepted. Touch scrolling is 100% native
+without custom touch inertia, keeping the real scroll position throughout. On coarse/touch
+pointers, tapped in-page anchors ride a quick managed scroll that cancels immediately on native
+touch or scroll and respects `prefers-reduced-motion` with an instant jump. The desktop wheel glide
+is off for coarse pointers and `prefers-reduced-motion`. Use `?scroll=native` to disable it for a page
+load, or `KA.glideTo(y)` / `KA.quickScrollTo(y)` from the console to test programmatic scrolling.
+
+## Mobile layout and lightweight rendering
+
+Mobile viewports use safe-area padding (`env(safe-area-inset-*)`), consistent gutters across all
+sections, an overflow-proof header, comfortable section/hero typography, and touch targets sized to
+at least 44 px. Persian RTL correctly formats Arabic script, form controls, process flows, and numerals.
+
+On coarse, small-screen, or Save-Data devices (`KA.light`), a shared lightweight rendering mode
+protects mobile scrolling performance:
+- Caps canvas DPR at 1 and rendering at 30 FPS.
+- Pauses decorative canvas drawing (`#field`, project vizzes, `#flow`, footer skyline) during active page scroll.
+- Calms canvas particle counts and background splat calculations.
+- Suppresses during-scroll blur and dynamic masks, and switches carousel GPU layer promotion to active gestures only (`will-change: auto` at rest).
+- Routes resize events through debounced mostly width-based handling (`KA.onResize`) to ignore vertical address-bar jitter on iOS and Android.
 
 ## Render integrity: browser extensions do not restyle this page
 
