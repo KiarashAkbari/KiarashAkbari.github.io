@@ -27,7 +27,12 @@ d.setAttribute('data-theme',t);d.setAttribute('data-lang',l);if(l==='fa'){d.lang
 <meta property="og:description" content="AI software engineer focused on backend systems and AI-integrated applications. Open to remote roles." />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="fa_IR" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://kiarashakbari.github.io/assets/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Kiarash Akbari — AI, engineered." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://kiarashakbari.github.io/assets/og.png" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20shape-rendering%3D%22crispEdges%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%230A0A0A%22/%3E%3Cg%20fill%3D%22%23d8ff00%22%3E%3Crect%20x%3D%223%22%20y%3D%226%22%20width%3D%222%22%20height%3D%2212%22/%3E%3Crect%20x%3D%225%22%20y%3D%2211%22%20width%3D%222%22%20height%3D%222%22/%3E%3Crect%20x%3D%227%22%20y%3D%229%22%20width%3D%222%22%20height%3D%222%22/%3E%3Crect%20x%3D%227%22%20y%3D%2213%22%20width%3D%222%22%20height%3D%222%22/%3E%3Crect%20x%3D%229%22%20y%3D%226%22%20width%3D%222%22%20height%3D%223%22/%3E%3Crect%20x%3D%229%22%20y%3D%2215%22%20width%3D%222%22%20height%3D%223%22/%3E%3Crect%20x%3D%2213%22%20y%3D%228%22%20width%3D%222%22%20height%3D%2210%22/%3E%3Crect%20x%3D%2219%22%20y%3D%228%22%20width%3D%222%22%20height%3D%2210%22/%3E%3Crect%20x%3D%2215%22%20y%3D%226%22%20width%3D%224%22%20height%3D%222%22/%3E%3Crect%20x%3D%2215%22%20y%3D%2212%22%20width%3D%224%22%20height%3D%222%22/%3E%3C/g%3E%3C/svg%3E" />
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Kiarash Akbari","alternateName":"کیارش اکبری","jobTitle":"AI Software Engineer","description":"AI software engineer focused on backend systems and AI-integrated applications.","email":"mailto:Kiarash.Akbari.Contact@gmail.com","alumniOf":{"@type":"CollegeOrUniversity","name":"Eqbal University"},"sameAs":["https://github.com/KiarashAkbari"],"knowsAbout":["Retrieval-augmented generation","FastAPI","Neo4j","ChromaDB","TensorFlow","Keras","Python","Docker"],"knowsLanguage":["en","fa"]}
@@ -39,7 +44,7 @@ d.setAttribute('data-theme',t);d.setAttribute('data-lang',l);if(l==='fa'){d.lang
 :root{
   /* the colour tokens live in the hardened layer at the end of head (#ka-hard): same names,
      same themes, at a weight no injected "dark mode" sheet can out-specify. Layout tokens stay here. */
-  --cell:14px; --gutter:56px; --maxw:1176px;
+  --cell:14px; --gutter:56px; --maxw:1176px; --head-h:58px;
   --sans:"Host Grotesk","Vazirmatn","Helvetica Neue",Helvetica,Arial,Tahoma,sans-serif;
   --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
   --px-lg:polygon(10px 0, calc(100% - 10px) 0, calc(100% - 10px) 5px, calc(100% - 5px) 5px, calc(100% - 5px) 10px, 100% 10px, 100% calc(100% - 10px), calc(100% - 5px) calc(100% - 10px), calc(100% - 5px) calc(100% - 5px), calc(100% - 10px) calc(100% - 5px), calc(100% - 10px) 100%, 10px 100%, 10px calc(100% - 5px), 5px calc(100% - 5px), 5px calc(100% - 10px), 0 calc(100% - 10px), 0 10px, 5px 10px, 5px 5px, 10px 5px);
@@ -49,6 +54,8 @@ d.setAttribute('data-theme',t);d.setAttribute('data-lang',l);if(l==='fa'){d.lang
 @media(max-width:680px){ :root{--gutter:28px;} }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 html{overscroll-behavior:none; background:var(--paper); -webkit-text-size-adjust:100%; text-size-adjust:100%;}
+@media(prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth;} }
+main section[id], footer[id]{scroll-margin-top:calc(var(--head-h) + 14px);}
 body{margin:0; background:var(--paper); color:var(--ink); overflow-x:hidden; font-family:var(--sans); font-weight:400; line-height:1.5; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
 a{color:inherit;}
 ::selection{background:var(--neon); color:#0A0A0A;}
@@ -63,14 +70,26 @@ html.theme-anim, html.theme-anim *{transition:background-color .36s steps(4), co
 #field{position:fixed; inset:0; width:100%; height:100%; display:block; z-index:0; pointer-events:none;}
 main{position:relative; z-index:2;}
 
-/* ===== fixed corner tab ===== */
-.toplink{position:fixed; top:0; inset-inline-end:0; z-index:60; display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 18px; font-family:var(--mono); font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink); text-decoration:none; background:var(--paper); border:1px solid var(--hair); border-top:0; border-inline-end:0; transform:translateY(-100%); pointer-events:none; transition:transform .45s steps(5), border-color .2s;}
-.toplink.show{transform:none; pointer-events:auto;}
-.toplink:hover{border-color:var(--ink);}
-.toplink svg{width:13px; height:13px;}
+/* ===== site header: hides on scroll down, returns on scroll up (0c drives .hide) =====
+   No backdrop blur on purpose: blurring the always-repainting pixel field costs frames
+   on every scroll tick, and --paper-a is opaque enough to stay readable without it. */
+.sitehead{position:fixed; top:0; left:0; right:0; z-index:120; height:var(--head-h); background:var(--paper-a); border-bottom:1px solid var(--line); transform:translate3d(0,0,0); transition:transform .38s cubic-bezier(.22,1,.36,1);}
+.sitehead.hide{transform:translate3d(0,-110%,0);}
+.sitehead:focus-within{transform:none;}
+.head-in{max-width:var(--maxw); height:100%; margin:0 auto; padding:0 var(--gutter); display:flex; align-items:center; justify-content:space-between; gap:16px;}
+.brand{display:inline-flex; align-items:center; gap:11px; text-decoration:none; color:var(--ink); font-weight:600; letter-spacing:-.01em; white-space:nowrap;}
+.brand svg{width:34px; height:auto; display:block;}
+.sitenav{display:flex; align-items:center; gap:2px;}
+.sitenav a{position:relative; padding:9px 10px; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s;}
+.sitenav a:hover{color:var(--ink);}
+.sitenav a.on{color:var(--ink);}
+.sitenav a.on::after{content:""; position:absolute; left:10px; right:10px; bottom:3px; height:2px; background:var(--neon); box-shadow:0 0 0 1px var(--ink);}
+.sitenav .ghlink{display:inline-flex; align-items:center; gap:6px; margin-inline-start:6px; padding-inline-start:14px; border-inline-start:1px solid var(--line); color:var(--ink);}
+.sitenav .ghlink svg{width:12px; height:12px;}
+@media(max-width:680px){ .brand .bname{display:none;} .sitenav a{padding:9px 6px; font-size:10px;} .sitenav .navx{display:none;} .head-in{padding-inline:var(--gutter) 6px;} }
 
 /* ===== display settings (theme + language), same chrome as the reference pixel panel ===== */
-.pxctl{position:fixed; inset-inline-start:16px; bottom:16px; z-index:200; display:flex; align-items:center; gap:5px; padding:7px 9px; background:var(--paper-a); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border:1px solid var(--line); border-radius:10px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); transition:opacity .35s steps(4), transform .35s steps(4);}
+.pxctl{position:fixed; inset-inline-start:16px; bottom:16px; z-index:200; display:flex; align-items:center; gap:5px; padding:7px 9px; background:var(--paper-a); border:1px solid var(--line); border-radius:10px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); transition:opacity .35s cubic-bezier(.22,1,.36,1), transform .35s cubic-bezier(.22,1,.36,1);}
 .pxctl .lbl{color:var(--muted); margin:0 3px;}
 .pxctl .sep{width:1px; height:16px; background:var(--line); margin:0 4px;}
 .pxctl button{font:inherit; letter-spacing:0; min-width:24px; height:24px; padding:0 5px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:6px; cursor:pointer; transition:background .15s, border-color .15s, color .15s;}
@@ -82,7 +101,7 @@ main{position:relative; z-index:2;}
 @media(max-width:680px){ .pxctl{inset-inline-start:10px; bottom:10px; padding:5px 7px;} .pxctl .lbl{display:none;} }
 
 /* ===== hero ===== */
-.hero{position:relative; min-height:100vh; min-height:100svh; z-index:1;}
+.hero{position:relative; min-height:100vh; min-height:100svh; z-index:1; padding-top:var(--head-h);}
 .hhead{position:relative; z-index:5; background:var(--paper); padding:0 var(--gutter);}
 .hhead::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:1px; background:var(--line); transform-origin:left; transform:scaleX(0); animation:growX .9s cubic-bezier(.16,1,.3,1) .5s both;}
 .hgrid{max-width:var(--maxw); margin:0 auto; padding:calc(var(--cell)*2) 0 calc(var(--cell)*2 + 2px); display:grid; grid-template-columns:1fr; gap:calc(var(--cell)*3);}
@@ -113,6 +132,8 @@ main{position:relative; z-index:2;}
 .htag{margin:0; font-size:13px; line-height:1.45; max-width:34ch; text-align:end;}
 .hstatus{display:inline-flex; align-items:center; gap:8px; margin-top:6px; color:var(--muted); font-size:10px;}
 .hstatus i{width:7px; height:7px; background:var(--neon); box-shadow:0 0 0 1px var(--ink); animation:blinkDot 1.2s steps(2) infinite;}
+.hcta{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; justify-content:flex-end; animation:fadeUp .75s cubic-bezier(.22,1,.36,1) .9s both;}
+@media(max-width:720px){ .hcta{justify-content:flex-start;} }
 @keyframes blinkDot{50%{opacity:.25;}}
 
 /* ===== intro lead ===== */
@@ -172,6 +193,7 @@ section.ed{position:relative; padding:calc(var(--cell)*9) var(--gutter);}
 .btn .lbl{position:relative; z-index:2;}
 .btn canvas.pxfx{position:absolute; inset:0; z-index:1; pointer-events:none; width:100%; height:100%;}
 .btn.ghost{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink);}
+.btn.sm{padding:11px 20px; font-size:14px; clip-path:var(--px-md);}
 
 /* ===== carousels ===== */
 .caro{position:relative; padding:calc(var(--cell)*7) var(--gutter);}
@@ -317,16 +339,16 @@ footer.playing #tetris{display:block;}
   .pxctl{bottom:calc(10px + env(safe-area-inset-bottom)); inset-inline-start:10px;}
   .pxctl button{min-width:34px; height:34px;}
   .pxctl .sep{height:20px;}
-  .toplink{height:46px; padding:0 16px;}
+  .sitenav a{padding:12px 8px;}
   .cta .links a{padding:9px 0 7px;}
   .tt-close{width:44px; height:44px; top:10px; inset-inline-end:12px;}
   .sl-arrow{width:46px; height:46px;}
-  .btn,.sl-arrow,.pxctl button,.tt-pad button,.tt-close,.pips button,.cta .links a,.toplink{touch-action:manipulation;}
+  .btn,.sl-arrow,.pxctl button,.tt-pad button,.tt-close,.pips button,.cta .links a,.sitenav a,.brand{touch-action:manipulation;}
 }
 .foot-note{position:relative; z-index:2; text-align:center; padding:0 var(--gutter) 18px; color:var(--muted); font-size:10px;}
 
 /* ===== reveals ===== */
-.reveal{opacity:0; transform:translate3d(0,18px,0); transition:transform .7s cubic-bezier(.22,1,.36,1), opacity .45s ease-out;}
+.reveal{opacity:0; transform:translate3d(0,12px,0); transition:transform .7s cubic-bezier(.22,1,.36,1), opacity .45s ease-out;}
 .reveal.in{opacity:1; transform:translate3d(0,0,0);}
 
 @media(max-width:720px){
@@ -343,10 +365,10 @@ footer.playing #tetris{display:block;}
 /* ===== Persian (RTL): Arabic script must never be letter-spaced or uppercased, and needs taller lines ===== */
 html[lang="fa"] body *{letter-spacing:0 !important;}
 html[lang="fa"] body .chip{letter-spacing:.06em !important;}
-html[lang="fa"] .mono, html[lang="fa"] .kick, html[lang="fa"] .pts .n, html[lang="fa"] .badge, html[lang="fa"] .tt-hint, html[lang="fa"] .tt-score, html[lang="fa"] .cta .links a, html[lang="fa"] .toplink, html[lang="fa"] .pxctl .lbl{font-family:"Vazirmatn",var(--sans); text-transform:none;}
+html[lang="fa"] .mono, html[lang="fa"] .kick, html[lang="fa"] .pts .n, html[lang="fa"] .badge, html[lang="fa"] .tt-hint, html[lang="fa"] .tt-score, html[lang="fa"] .cta .links a, html[lang="fa"] .sitenav a, html[lang="fa"] .pxctl .lbl{font-family:"Vazirmatn",var(--sans); text-transform:none;}
 html[lang="fa"] .kick, html[lang="fa"] .pts .n, html[lang="fa"] .hstatus, html[lang="fa"] .two .c .l{font-size:12.5px;}
 html[lang="fa"] .badge{font-size:11px;}
-html[lang="fa"] .toplink, html[lang="fa"] .cta .links a{font-size:13px;}
+html[lang="fa"] .sitenav a, html[lang="fa"] .cta .links a{font-size:13px;}
 html[lang="fa"] .hl{line-height:1.12; font-weight:500; font-size:clamp(40px,5.4vw,84px);}
 html[lang="fa"] .hhead .ln, html[lang="fa"] .lead .ln{padding-bottom:.24em; margin-bottom:-.24em;}
 html[lang="fa"] .hdesc{line-height:1.6; font-size:clamp(14px,1.4vw,19px);}
@@ -359,11 +381,12 @@ html[lang="fa"] .dd, html[lang="fa"] .slide .d, html[lang="fa"] .pts li, html[la
 html[lang="fa"] .slide .t{font-weight:600;}
 html[lang="fa"] .dt, html[lang="fa"] .pts .role{font-weight:600;}
 html[lang="fa"] .rc-clip{font-size:13.5px;}
-html[dir="rtl"] .toplink svg, html[dir="rtl"] .cta .links svg{transform:scaleX(-1);}
+html[dir="rtl"] .sitenav .ghlink svg, html[dir="rtl"] .cta .links svg{transform:scaleX(-1);}
 
 @media(prefers-reduced-motion:reduce){
   .hhead .ln > span, .lead .ln > span, .reveal{opacity:1 !important; transform:none !important; animation:none !important; transition:none !important;}
   .htag, .hfoot .mark{animation:none;} .hhead::after{animation:none; transform:scaleX(1);} .hcol::before{animation:none; transform:scaleY(1);}
+  .hcta{animation:none;} .sitehead, .pxctl{transition:none;}
   .lead{opacity:1;}
 }
 </style>
@@ -536,7 +559,18 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
 <a class="skip" href="#work" data-i18n="skip">Skip to work</a>
 <canvas id="field" aria-hidden="true"></canvas>
 
-<a class="toplink" id="toplink" href="https://github.com/KiarashAkbari" target="_blank" rel="noopener"><span data-i18n="gh">GitHub</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+<header class="sitehead" id="sitehead">
+  <div class="head-in">
+    <a class="brand" href="#top" aria-label="Kiarash Akbari — back to top" data-i18n-aria="aria.home"><svg viewBox="0 0 44 20" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="4" height="20"/><rect x="16" y="0" width="4" height="4"/><rect x="12" y="4" width="4" height="4"/><rect x="4" y="8" width="8" height="4"/><rect x="12" y="12" width="4" height="4"/><rect x="16" y="16" width="4" height="4"/><rect x="28" y="0" width="12" height="4"/><rect x="24" y="4" width="4" height="16"/><rect x="40" y="4" width="4" height="16"/><rect x="28" y="8" width="12" height="4"/></svg><span class="bname" data-i18n="nav.brand">Kiarash Akbari</span></a>
+    <nav class="sitenav" aria-label="Page sections" data-i18n-aria="aria.nav">
+      <a href="#work" data-nav="work"><span data-i18n="nav.work">Work</span></a>
+      <a href="#about" data-nav="about" class="navx"><span data-i18n="nav.about">About</span></a>
+      <a href="#experience" data-nav="experience"><span data-i18n="nav.exp">Experience</span></a>
+      <a href="#contact" data-nav="contact"><span data-i18n="nav.contact">Contact</span></a>
+      <a class="ghlink" href="https://github.com/KiarashAkbari" target="_blank" rel="noopener"><span data-i18n="gh">GitHub</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+    </nav>
+  </div>
+</header>
 
 <div class="pxctl" id="pxctl" role="group" aria-label="Display settings" data-i18n-aria="ctl.group">
   <span class="lbl" data-i18n="ctl.theme">Theme</span>
@@ -566,6 +600,10 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
             <div>
               <p class="htag" data-i18n="htag">RAG pipelines, graph/vector backends and ML systems, built to hold up in production.</p>
               <p class="htag"><span class="hstatus mono"><i></i><span data-i18n="status">Open to remote roles</span></span></p>
+              <div class="hcta">
+                <a class="btn sm" href="#work"><span class="lbl" data-i18n="h.cta1">Selected work</span></a>
+                <a class="btn sm ghost" href="#contact"><span class="lbl" data-i18n="h.cta2">Get in touch</span></a>
+              </div>
             </div>
           </div>
         </div>
@@ -799,6 +837,9 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
   var FA={
     'skip':'رفتن به نمونه‌کارها',
     'gh':'گیت‌هاب',
+    'nav.brand':'کیارش اکبری', 'nav.work':'نمونه‌کارها', 'nav.about':'درباره‌ی من', 'nav.exp':'سوابق', 'nav.contact':'تماس',
+    'aria.home':'کیارش اکبری، بازگشت به بالای صفحه', 'aria.nav':'بخش‌های صفحه',
+    'h.cta1':'دیدن نمونه‌کارها', 'h.cta2':'تماس با من',
     'ctl.group':'تنظیمات نمایش', 'ctl.theme':'پوسته', 'ctl.light':'حالت روشن', 'ctl.dark':'حالت تیره', 'ctl.lang':'زبان',
     'h1a':'کیارش', 'h1b':'اکبری.',
     'hd1':'مهندس نرم‌افزار هوش مصنوعی،', 'hd2':'متمرکز بر بک‌اند و سیستم‌های مجهز به AI',
@@ -916,6 +957,123 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
       var t=small.matches && dy>0 && y>innerHeight*.5; if(t!==tucked){ tucked=t; panel.classList.toggle('tuck',t); } }, {passive:true});
   }
   K.on('lang',paint); paint();
+})();
+
+/* ===== 0c. glide scroll + site header =====
+   The page keeps its real scroll position (no virtual/translated body): wheel deltas are
+   accumulated into a target and the actual window is eased toward it each frame, so every
+   scrollY reader below (field, reveals, observers) keeps working untouched.
+   Only fine-pointer wheel input is smoothed. Touch, keyboard, the scrollbar, find-in-page,
+   pinch-zoom (ctrl+wheel) and horizontal wheels stay 100% native, as does everything for
+   prefers-reduced-motion. ?scroll=native is the escape hatch. K.glideTo(y) is exposed. */
+(function(){
+  var K=window.KA, html=document.documentElement, head=document.getElementById('sitehead');
+  var fine=!!(window.matchMedia && matchMedia('(hover:hover) and (pointer:fine)').matches);
+  var glideOn=fine && !K.RM && !/[?&]scroll=native\b/.test(location.search);
+  var cur=scrollY, target=scrollY, ownY=scrollY, ownTol=3, maxY=0, lastMeasure=0;
+  var raf=0, lastTs=0, mode='', aFrom=0, aTo=0, aStart=0, aDur=0;
+
+  function measureMax(){ maxY=Math.max(0,(html.scrollHeight||document.body.scrollHeight||0)-innerHeight); lastMeasure=performance.now(); }
+  measureMax();
+  addEventListener('resize',measureMax);
+  K.on('layout',function(){ measureMax(); if(!mode) cur=target=ownY=scrollY; });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(measureMax);
+
+  function setY(y){ ownTol=3; ownY=y; window.scrollTo(0,y); }   /* tolerance only covers browser integer/sub-pixel rounding */
+  function start(){ if(raf) return; html.style.scrollBehavior='auto'; lastTs=0; raf=requestAnimationFrame(step); }
+  function halt(){ if(raf) cancelAnimationFrame(raf); raf=0; mode=''; ownY=scrollY; html.style.scrollBehavior=''; }
+  function finish(y){ cur=target=y; setY(y); mode=''; html.style.scrollBehavior=''; }
+  function step(ts){
+    raf=0;
+    var dt=lastTs?Math.min(50,ts-lastTs):16.7; lastTs=ts;
+    if(mode==='anchor'){
+      if(!aStart) aStart=ts;
+      var p=aDur?K.clamp((ts-aStart)/aDur,0,1):1;
+      var e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+      cur=aFrom+(aTo-aFrom)*e; setY(cur);
+      if(p>=1){ finish(aTo); return; }
+      raf=requestAnimationFrame(step); return;
+    }
+    var diff=target-cur;
+    if(Math.abs(diff)<.15){ finish(target); return; }
+    cur+=diff*(1-Math.exp(-dt/92));            /* ~92ms time constant: responsive start, a short slide to rest */
+    setY(cur);
+    raf=requestAnimationFrame(step);
+  }
+  function glideTo(dest){
+    dest=K.clamp(dest,0,maxY);
+    if(!glideOn) return false;
+    var from=scrollY;
+    if(Math.abs(dest-from)<2){ halt(); cur=target=ownY=from; return true; }
+    mode='anchor'; aFrom=cur=ownY=from; aTo=target=dest; aStart=0;
+    aDur=K.clamp(320+Math.abs(dest-from)*.28,380,980);
+    start(); return true;
+  }
+  K.glideTo=glideTo;
+
+  addEventListener('wheel',function(e){
+    if(!glideOn || e.ctrlKey || e.shiftKey || e.defaultPrevented) return;          /* zoom, sideways, already handled (the work strip) */
+    if(Math.abs(e.deltaX)>Math.abs(e.deltaY)) return;
+    var t=e.target;
+    if(t && t.closest && t.closest('textarea,select,[data-noglide]')) return;      /* nested scrollers keep their own wheel */
+    var d=e.deltaY; if(!d) return;
+    if(e.deltaMode===1) d*=16; else if(e.deltaMode===2) d*=innerHeight;
+    e.preventDefault();
+    if(performance.now()-lastMeasure>400) measureMax();
+    if(mode!=='glide'){ cur=target=ownY=scrollY; mode='glide'; }
+    target=K.clamp(target+d,0,maxY);
+    start();
+  },{passive:false});
+  addEventListener('touchstart',function(){ if(mode) halt(); cur=target=ownY=scrollY; },{passive:true});
+
+  /* in-page anchors ride the same glide; without it the CSS smooth behaviour takes them */
+  document.addEventListener('click',function(e){
+    if(e.defaultPrevented || e.button!==0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a=e.target.closest && e.target.closest('a[href^="#"]'); if(!a || a.target) return;
+    var hash=a.getAttribute('href'); if(!hash || hash==='#') return;
+    var el=document.getElementById(hash.slice(1)); if(!el || !glideOn) return;
+    e.preventDefault(); measureMax();
+    var m=parseFloat(getComputedStyle(el).scrollMarginTop)||0;
+    glideTo(el.getBoundingClientRect().top+scrollY-m);
+    try{ history.pushState(null,'',hash); }catch(err){}
+  });
+
+  /* ---- header: away while reading down, back the moment you head up ---- */
+  var hy=scrollY, headHidden=false;
+  function setHead(hidden){ if(!head || hidden===headHidden) return; headHidden=hidden; head.classList.toggle('hide',hidden); }
+  function onHead(y){
+    if(!head) return;
+    if(y<=10){ setHead(false); hy=y; return; }
+    var dy=y-hy; if(Math.abs(dy)<6) return;                 /* accumulate past trackpad jitter before deciding */
+    if(dy>0 && y>170 && !head.contains(document.activeElement)) setHead(true);
+    else if(dy<0) setHead(false);
+    hy=y;
+  }
+  addEventListener('pointermove',function(e){ if(e.clientY<=8) setHead(false); },{passive:true});
+
+  addEventListener('scroll',function(){
+    var y=scrollY;
+    onHead(y);
+    if(!glideOn){ cur=target=ownY=y; return; }
+    if(mode){
+      if(Math.abs(y-ownY)<=ownTol){ cur=y; return; }        /* our own frame landing */
+      halt();                                                /* scrollbar / keyboard / native smooth: it wins */
+    }
+    cur=target=ownY=y;
+  },{passive:true});
+
+  /* ---- which section am I in ---- */
+  if(head && 'IntersectionObserver' in window){
+    var links={}; [].forEach.call(head.querySelectorAll('[data-nav]'),function(a){ links[a.getAttribute('data-nav')]=a; });
+    var names={hero:'',intro:'work',work:'work',about:'about',focus:'about',process:'about',stack:'about',experience:'experience',contact:'contact'};
+    var active=null;
+    function setActive(key){
+      if(key===active) return; active=key;
+      for(var k in links){ var on=k===key; links[k].classList.toggle('on',on); if(on) links[k].setAttribute('aria-current','true'); else links[k].removeAttribute('aria-current'); }
+    }
+    var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting) setActive(names[en.target.id]||''); }); },{rootMargin:'-42% 0px -52% 0px'});
+    for(var id in names){ var s=document.getElementById(id); if(s) io.observe(s); }
+  }
 })();
 
 /* ===== 1. page-wide heat field: grid, hero clouds, cursor states, CTA marquee ===== */
@@ -1058,7 +1216,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     var sy=scrollY, i;
 
     /* decay, only while there is heat; recompute the live bounding box as we go */
-    if(hb1>=0){ var k=TOUCH?.86:.878, nb0=-1, nb1=-1, nc0=cols, nc1=-1;
+    if(hb1>=0){ var k=Math.pow(TOUCH?.86:.878, d/16.667), nb0=-1, nb1=-1, nc0=cols, nc1=-1;   /* dt-corrected: same decay at 60Hz and 120Hz */
       for(var r=hb0;r<=hb1;r++){ var rowAny=false, o=r*cols; for(var c=hc0;c<=hc1;c++){ var hv=heat[o+c]; if(hv){ hv*=k; if(hv<.004) hv=0; else { rowAny=true; if(c<nc0) nc0=c; if(c>nc1) nc1=c; } heat[o+c]=hv; } }
         if(rowAny){ if(nb0<0) nb0=r; nb1=r; } }
       if(nb0<0) hb1=-1; else { hb0=nb0; hb1=nb1; hc0=nc0; hc1=nc1; } }
@@ -1169,12 +1327,11 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     go(); if(K.lang==='fa'&&K.faFont) K.faFont.then(function(){ lastW=0; go(); },function(){}); });
 })();
 
-/* ===== 3. reveals, top tab, logo spin ===== */
+/* ===== 3. reveals, logo spin ===== */
 (function(){
   var K=window.KA;
   var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); setTimeout(function(){ K.emit('layout'); },850); } }); },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
   [].forEach.call(document.querySelectorAll('.reveal'), function(el){ io.observe(el); });
-  var tl=document.getElementById('toplink'), shown=null; function onS(){ var s=scrollY>220; if(s!==shown){ shown=s; tl.classList.toggle('show', s); } } addEventListener('scroll', onS, {passive:true}); onS();
   var mark=document.getElementById('mark');
   if(mark && !K.RM){ var svg=mark.querySelector('svg'); svg.addEventListener('animationend', function(){ mark.classList.remove('spin'); });
     setInterval(function(){ if(!document.hidden) mark.classList.add('spin'); }, 10000); }

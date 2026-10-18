@@ -7,6 +7,26 @@ Live: https://kiarashakbari.github.io · Persian: https://kiarashakbari.github.i
 Single static page: vanilla JS + Canvas 2D, no build step or dependencies at runtime.
 Light/dark theme, English/Persian (RTL).
 
+## Navigation and scrolling
+
+The fixed header stays out of the way while reading: it hides on a deliberate scroll down,
+returns on scroll up, at the top of the page, when keyboard focus enters it, or when the cursor
+reaches the top edge. Its links also mark the section currently in view. The header deliberately
+uses the translucent paper token without `backdrop-filter`; repeatedly blurring the full-screen
+animated canvas underneath is an easy way to lose frames while scrolling.
+
+Desktop wheel/trackpad scrolling uses a small native-position glide. It does **not** create a
+virtual scroll container or transform the body: wheel deltas update a target and the real
+`window` position eases toward it with a roughly 92 ms time constant, so every existing
+`scrollY` reader (pixel field, reveals, observers and themes) sees the same motion. In-page
+anchors ride a separate eased glide and respect the fixed header through `scroll-margin-top`.
+
+Native input always wins. Touch, keyboard, scrollbar dragging, find-in-page, horizontal wheels,
+pinch-zoom (`Ctrl` + wheel), the work carousel's horizontal gesture, and nested scrollers
+(`textarea`, `select`, `[data-noglide]`) are not intercepted. The glide is also off for coarse
+pointers and `prefers-reduced-motion`. Use `?scroll=native` to disable it for a page load, or
+`KA.glideTo(y)` from the console to test a programmatic glide.
+
 ## Render integrity: browser extensions do not restyle this page
 
 Dark-mode, reader and style-injector extensions (Dark Reader, Night Eye, Super Dark Mode, most
@@ -81,7 +101,8 @@ directly rather than linked.
 - The `<link rel="canonical">` and `og:url` in the head name the live host. If a custom domain is ever
   attached, those two lines are the edit, plus the domain field in Settings → Pages.
 - GitHub Pages does not read `_headers`, so there is no cache-header lever here — and none is needed:
-  the whole site is one 162 KB HTML file, two woff2 faces and a PDF, all self-hosted.
+  the site is one main HTML document, a small standalone `404.html`, two woff2 faces, a résumé PDF
+  and a self-hosted social share image (`assets/og.png`).
 - A domain can be bought anywhere and simply pointed at `KiarashAkbari.github.io` with an apex
   `ALIAS`/flattened record and a `www CNAME`; GitHub issues the certificate once the domain is saved in
   Settings → Pages. Keeping Cloudflare out of the request path (DNS only, or another registrar
@@ -96,4 +117,6 @@ No build step, no config files for the host, nothing to install: the repository 
 - No third-party resource is *loaded* (both font faces are self-hosted), so ad/privacy blockers have no
   request to cancel and no class or id name collides with common cosmetic-filter selectors. The single
   outbound request is the form submission above, fired on submit, never on page load.
+- Social previews use the self-hosted 1200 × 630 `assets/og.png`; unknown paths receive the branded
+  standalone `404.html` from GitHub Pages.
 - No build step. Open `index.html` or serve the folder: `python3 -m http.server 8000`.
