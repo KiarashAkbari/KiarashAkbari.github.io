@@ -74,7 +74,11 @@ In document order:
   keyboard, scrollbar/find, Ctrl-wheel zoom, horizontal carousel gestures,
   nested `[data-noglide]` scrollers), `?scroll=native`, reduced-motion bypass,
   and the section `scroll-margin-top` that clears `#sitehead`. Do not add
-  backdrop blur to the fixed header/panel over the animated field.
+  backdrop blur to the fixed header/panel over the animated field. Likewise,
+  do not add header padding or extra CTA rows inside `.hhead`: its height sets
+  where the pixel cloud starts, and `.intro` overlaps `.hero` by a fixed
+  negative margin, so either change silently compresses the name → pixels →
+  lead rhythm. `#sitehead` therefore stays hidden until `.hhead` has passed.
 - **No third-party requests on load.** Fonts are self-hosted/inlined by
   design (privacy blockers, and filtered networks). The only outbound
   request is the contact form submit. Don't add CDN fonts/scripts/analytics.
@@ -92,8 +96,9 @@ No test suite — verify in a browser after serving locally:
 - [ ] Light and dark theme (`#pxctl` toggle, and fresh load with each OS setting)
 - [ ] English LTR and Persian RTL (`?lang=fa`), including numerals
 - [ ] Narrow/mobile viewport: work carousel, panel, Tetris teaser
-- [ ] Fine-pointer trackpad/wheel glide; header hide-down/show-up with no jitter;
-      scrollbar, keyboard, touch and Ctrl-wheel zoom still native
+- [ ] Fine-pointer trackpad/wheel glide; hero masthead unobstructed at the top,
+      then header hide-down/show-up with no jitter; scrollbar, keyboard, touch
+      and Ctrl-wheel zoom still native
 - [ ] `prefers-reduced-motion`: canvas/animations should calm down and glide is off
 - [ ] JavaScript disabled: content visible (the `<noscript data-ka>` style),
       contact form still submittable

@@ -70,9 +70,10 @@ html.theme-anim, html.theme-anim *{transition:background-color .36s steps(4), co
 #field{position:fixed; inset:0; width:100%; height:100%; display:block; z-index:0; pointer-events:none;}
 main{position:relative; z-index:2;}
 
-/* ===== site header: hides on scroll down, returns on scroll up (0c drives .hide) =====
-   No backdrop blur on purpose: blurring the always-repainting pixel field costs frames
-   on every scroll tick, and --paper-a is opaque enough to stay readable without it. */
+/* ===== site header: stays out of the hero masthead, then hides on scroll down and
+   returns on scroll up (0c drives .hide). No backdrop blur on purpose: blurring the
+   always-repainting pixel field costs frames on every scroll tick, and --paper-a is
+   opaque enough to stay readable without it. */
 .sitehead{position:fixed; top:0; left:0; right:0; z-index:120; height:var(--head-h); background:var(--paper-a); border-bottom:1px solid var(--line); transform:translate3d(0,0,0); transition:transform .38s cubic-bezier(.22,1,.36,1);}
 .sitehead.hide{transform:translate3d(0,-110%,0);}
 .sitehead:focus-within{transform:none;}
@@ -101,7 +102,7 @@ main{position:relative; z-index:2;}
 @media(max-width:680px){ .pxctl{inset-inline-start:10px; bottom:10px; padding:5px 7px;} .pxctl .lbl{display:none;} }
 
 /* ===== hero ===== */
-.hero{position:relative; min-height:100vh; min-height:100svh; z-index:1; padding-top:var(--head-h);}
+.hero{position:relative; min-height:100vh; min-height:100svh; z-index:1;}
 .hhead{position:relative; z-index:5; background:var(--paper); padding:0 var(--gutter);}
 .hhead::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:1px; background:var(--line); transform-origin:left; transform:scaleX(0); animation:growX .9s cubic-bezier(.16,1,.3,1) .5s both;}
 .hgrid{max-width:var(--maxw); margin:0 auto; padding:calc(var(--cell)*2) 0 calc(var(--cell)*2 + 2px); display:grid; grid-template-columns:1fr; gap:calc(var(--cell)*3);}
@@ -132,8 +133,6 @@ main{position:relative; z-index:2;}
 .htag{margin:0; font-size:13px; line-height:1.45; max-width:34ch; text-align:end;}
 .hstatus{display:inline-flex; align-items:center; gap:8px; margin-top:6px; color:var(--muted); font-size:10px;}
 .hstatus i{width:7px; height:7px; background:var(--neon); box-shadow:0 0 0 1px var(--ink); animation:blinkDot 1.2s steps(2) infinite;}
-.hcta{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; justify-content:flex-end; animation:fadeUp .75s cubic-bezier(.22,1,.36,1) .9s both;}
-@media(max-width:720px){ .hcta{justify-content:flex-start;} }
 @keyframes blinkDot{50%{opacity:.25;}}
 
 /* ===== intro lead ===== */
@@ -193,7 +192,6 @@ section.ed{position:relative; padding:calc(var(--cell)*9) var(--gutter);}
 .btn .lbl{position:relative; z-index:2;}
 .btn canvas.pxfx{position:absolute; inset:0; z-index:1; pointer-events:none; width:100%; height:100%;}
 .btn.ghost{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink);}
-.btn.sm{padding:11px 20px; font-size:14px; clip-path:var(--px-md);}
 
 /* ===== carousels ===== */
 .caro{position:relative; padding:calc(var(--cell)*7) var(--gutter);}
@@ -386,11 +384,11 @@ html[dir="rtl"] .sitenav .ghlink svg, html[dir="rtl"] .cta .links svg{transform:
 @media(prefers-reduced-motion:reduce){
   .hhead .ln > span, .lead .ln > span, .reveal{opacity:1 !important; transform:none !important; animation:none !important; transition:none !important;}
   .htag, .hfoot .mark{animation:none;} .hhead::after{animation:none; transform:scaleX(1);} .hcol::before{animation:none; transform:scaleY(1);}
-  .hcta{animation:none;} .sitehead, .pxctl{transition:none;}
+  .sitehead, .pxctl{transition:none;}
   .lead{opacity:1;}
 }
 </style>
-<noscript data-ka><style>.lead{opacity:1}.reveal,.lead .ln>span{opacity:1;transform:none}#field,.pxctl,.tt-teaser{display:none}.pips,.caro .ch .hint{display:none}</style></noscript>
+<noscript data-ka><style>.lead{opacity:1}.reveal,.lead .ln>span{opacity:1;transform:none}#field,.pxctl,.tt-teaser{display:none}.pips,.caro .ch .hint{display:none}.sitehead{transform:none}.hero{padding-top:var(--head-h)}</style></noscript>
 <style id="ka-hard" data-ka>
 /* ===== hardened layer: an injected sheet must not get a vote on how this page looks =====
    "Dark mode" / reader / style-injector extensions (Dark Reader, Night Eye, Super Dark Mode,
@@ -559,7 +557,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
 <a class="skip" href="#work" data-i18n="skip">Skip to work</a>
 <canvas id="field" aria-hidden="true"></canvas>
 
-<header class="sitehead" id="sitehead">
+<header class="sitehead hide" id="sitehead">
   <div class="head-in">
     <a class="brand" href="#top" aria-label="Kiarash Akbari — back to top" data-i18n-aria="aria.home"><svg viewBox="0 0 44 20" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="4" height="20"/><rect x="16" y="0" width="4" height="4"/><rect x="12" y="4" width="4" height="4"/><rect x="4" y="8" width="8" height="4"/><rect x="12" y="12" width="4" height="4"/><rect x="16" y="16" width="4" height="4"/><rect x="28" y="0" width="12" height="4"/><rect x="24" y="4" width="4" height="16"/><rect x="40" y="4" width="4" height="16"/><rect x="28" y="8" width="12" height="4"/></svg><span class="bname" data-i18n="nav.brand">Kiarash Akbari</span></a>
     <nav class="sitenav" aria-label="Page sections" data-i18n-aria="aria.nav">
@@ -600,10 +598,6 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
             <div>
               <p class="htag" data-i18n="htag">RAG pipelines, graph/vector backends and ML systems, built to hold up in production.</p>
               <p class="htag"><span class="hstatus mono"><i></i><span data-i18n="status">Open to remote roles</span></span></p>
-              <div class="hcta">
-                <a class="btn sm" href="#work"><span class="lbl" data-i18n="h.cta1">Selected work</span></a>
-                <a class="btn sm ghost" href="#contact"><span class="lbl" data-i18n="h.cta2">Get in touch</span></a>
-              </div>
             </div>
           </div>
         </div>
@@ -839,7 +833,6 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     'gh':'گیت‌هاب',
     'nav.brand':'کیارش اکبری', 'nav.work':'نمونه‌کارها', 'nav.about':'درباره‌ی من', 'nav.exp':'سوابق', 'nav.contact':'تماس',
     'aria.home':'کیارش اکبری، بازگشت به بالای صفحه', 'aria.nav':'بخش‌های صفحه',
-    'h.cta1':'دیدن نمونه‌کارها', 'h.cta2':'تماس با من',
     'ctl.group':'تنظیمات نمایش', 'ctl.theme':'پوسته', 'ctl.light':'حالت روشن', 'ctl.dark':'حالت تیره', 'ctl.lang':'زبان',
     'h1a':'کیارش', 'h1b':'اکبری.',
     'hd1':'مهندس نرم‌افزار هوش مصنوعی،', 'hd2':'متمرکز بر بک‌اند و سیستم‌های مجهز به AI',
@@ -1038,18 +1031,26 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     try{ history.pushState(null,'',hash); }catch(err){}
   });
 
-  /* ---- header: away while reading down, back the moment you head up ---- */
-  var hy=scrollY, headHidden=false;
+  /* ---- header: the hero name block is the masthead, so the fixed header stays
+     tucked away until that block has scrolled past; after that it is away while
+     reading down and back the moment you head up ---- */
+  var hy=scrollY, headHidden=true, mast=document.querySelector('.hhead'), mastY=220;
+  function measureMast(){ if(mast) mastY=mast.getBoundingClientRect().bottom+scrollY; }
+  measureMast();
+  addEventListener('resize',measureMast);
+  K.on('layout',measureMast);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(measureMast);
   function setHead(hidden){ if(!head || hidden===headHidden) return; headHidden=hidden; head.classList.toggle('hide',hidden); }
   function onHead(y){
     if(!head) return;
-    if(y<=10){ setHead(false); hy=y; return; }
+    if(y<=mastY){ setHead(true); hy=y; return; }
     var dy=y-hy; if(Math.abs(dy)<6) return;                 /* accumulate past trackpad jitter before deciding */
-    if(dy>0 && y>170 && !head.contains(document.activeElement)) setHead(true);
+    if(dy>0 && !head.contains(document.activeElement)) setHead(true);
     else if(dy<0) setHead(false);
     hy=y;
   }
-  addEventListener('pointermove',function(e){ if(e.clientY<=8) setHead(false); },{passive:true});
+  if(scrollY>mastY) setHead(false);                          /* restored / anchored below the masthead */
+  addEventListener('pointermove',function(e){ if(e.clientY<=8 && scrollY>mastY) setHead(false); },{passive:true});
 
   addEventListener('scroll',function(){
     var y=scrollY;

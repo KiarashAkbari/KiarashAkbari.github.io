@@ -9,11 +9,13 @@ Light/dark theme, English/Persian (RTL).
 
 ## Navigation and scrolling
 
-The fixed header stays out of the way while reading: it hides on a deliberate scroll down,
-returns on scroll up, at the top of the page, when keyboard focus enters it, or when the cursor
-reaches the top edge. Its links also mark the section currently in view. The header deliberately
-uses the translucent paper token without `backdrop-filter`; repeatedly blurring the full-screen
-animated canvas underneath is an easy way to lose frames while scrolling.
+The hero name block remains the page's masthead, so the fixed header stays tucked away until
+that block has scrolled past and the original name → pixel-field → intro spacing is untouched.
+After that, it hides on a deliberate scroll down and returns on scroll up, when keyboard focus
+enters it, or when the cursor reaches the top edge. Its links also mark the section currently
+in view. The header deliberately uses the translucent paper token without `backdrop-filter`;
+repeatedly blurring the full-screen animated canvas underneath is an easy way to lose frames
+while scrolling.
 
 Desktop wheel/trackpad scrolling uses a small native-position glide. It does **not** create a
 virtual scroll container or transform the body: wheel deltas update a target and the real
