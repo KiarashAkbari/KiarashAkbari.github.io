@@ -7,6 +7,28 @@ Live: https://kiarashakbari.github.io · Persian: https://kiarashakbari.github.i
 Single static page: vanilla JS + Canvas 2D, no build step or dependencies at runtime.
 Light/dark theme, English/Persian (RTL).
 
+## Navigation and scrolling
+
+The hero name block remains the page's masthead, so the fixed header stays tucked away until
+that block has scrolled past and the original name → pixel-field → intro spacing is untouched.
+After that, it hides on a deliberate scroll down and returns on scroll up, when keyboard focus
+enters it, or when the cursor reaches the top edge. Its links also mark the section currently
+in view. The header deliberately uses the translucent paper token without `backdrop-filter`;
+repeatedly blurring the full-screen animated canvas underneath is an easy way to lose frames
+while scrolling.
+
+Desktop wheel/trackpad scrolling uses a small native-position glide. It does **not** create a
+virtual scroll container or transform the body: wheel deltas update a target and the real
+`window` position eases toward it with a roughly 92 ms time constant, so every existing
+`scrollY` reader (pixel field, reveals, observers and themes) sees the same motion. In-page
+anchors ride a separate eased glide and respect the fixed header through `scroll-margin-top`.
+
+Native input always wins. Touch, keyboard, scrollbar dragging, find-in-page, horizontal wheels,
+pinch-zoom (`Ctrl` + wheel), the work carousel's horizontal gesture, and nested scrollers
+(`textarea`, `select`, `[data-noglide]`) are not intercepted. The glide is also off for coarse
+pointers and `prefers-reduced-motion`. Use `?scroll=native` to disable it for a page load, or
+`KA.glideTo(y)` from the console to test a programmatic glide.
+
 ## Render integrity: browser extensions do not restyle this page
 
 Dark-mode, reader and style-injector extensions (Dark Reader, Night Eye, Super Dark Mode, most
@@ -81,7 +103,8 @@ directly rather than linked.
 - The `<link rel="canonical">` and `og:url` in the head name the live host. If a custom domain is ever
   attached, those two lines are the edit, plus the domain field in Settings → Pages.
 - GitHub Pages does not read `_headers`, so there is no cache-header lever here — and none is needed:
-  the whole site is one 162 KB HTML file, two woff2 faces and a PDF, all self-hosted.
+  the site is one main HTML document, a small standalone `404.html`, self-hosted font files,
+  a résumé PDF and a self-hosted social share image (`assets/og.png`).
 - A domain can be bought anywhere and simply pointed at `KiarashAkbari.github.io` with an apex
   `ALIAS`/flattened record and a `www CNAME`; GitHub issues the certificate once the domain is saved in
   Settings → Pages. Keeping Cloudflare out of the request path (DNS only, or another registrar
@@ -93,7 +116,12 @@ No build step, no config files for the host, nothing to install: the repository 
 
 - Chrome's Auto Dark Mode skips the page because `<meta name="color-scheme" content="light dark">`
   and `color-scheme` on the root declare that dark is already handled natively.
-- No third-party resource is *loaded* (both font faces are self-hosted), so ad/privacy blockers have no
+- No third-party resource is *loaded* (all font faces are self-hosted), so ad/privacy blockers have no
   request to cancel and no class or id name collides with common cosmetic-filter selectors. The single
   outbound request is the form submission above, fired on submit, never on page load.
+- Persian text renders in Lahzeh first, with Vazirmatn retained as the Arabic-script fallback;
+  Latin text remains Host Grotesk. The owner-supplied Lahzeh files are not open-source assets —
+  see `fonts/Lahzeh-NOTICE.md` before reusing, converting, or subsetting them.
+- Social previews use the self-hosted 1200 × 630 `assets/og.png`; unknown paths receive the branded
+  standalone `404.html` from GitHub Pages.
 - No build step. Open `index.html` or serve the folder: `python3 -m http.server 8000`.
