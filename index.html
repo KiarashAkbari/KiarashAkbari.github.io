@@ -242,9 +242,6 @@ html[dir="rtl"] .pips{flex-direction:row-reverse;}
 .track-wrap.drag .track, .track-wrap.animating .track{will-change:transform;}
 html.is-scrolling *{backdrop-filter:none !important; -webkit-backdrop-filter:none !important;}
 html.is-scrolling .track-wrap{-webkit-mask-image:none !important; mask-image:none !important;}
-@media(pointer:coarse), (max-width:680px){
-  .track-wrap{-webkit-mask-image:none !important; mask-image:none !important;}
-}
 html[dir="rtl"] .slide{direction:rtl;}
 .slide{flex:0 0 auto; width:min(86vw,420px); display:flex; flex-direction:column; align-items:center; text-align:center; text-decoration:none; color:inherit; padding:0 0 26px;}
 .csm{position:relative; width:100%; height:350px; overflow:hidden; background:var(--tile-bg);}
@@ -357,7 +354,7 @@ footer.playing #tetris{display:block;}
 }
 
 @media(max-width:680px){
-  .intro{margin-top:calc(var(--cell)*-2);}
+  .intro{margin-top:-30vh;}
   .hdesc{font-size:clamp(14px, 3.8vw, 17px); line-height:1.32;}
   .htag{font-size:13px; line-height:1.55;}
   .lead{font-size:clamp(22px, 5.6vw, 32px); line-height:1.24; letter-spacing:-.02em;}
@@ -366,11 +363,11 @@ footer.playing #tetris{display:block;}
   .caro .ch{flex-wrap:wrap; gap:6px;}
   .caro .ch .hint{white-space:normal;}
   .track{gap:14px;}
-  .slide{width:min(82vw, 320px); padding-bottom:16px;}
+  .slide{width:min(78vw, 316px); padding-bottom:16px;}
   .slide .t{font-size:19px; margin-top:14px;}
   .slide .d{font-size:13.5px; margin:7px 6px 0; max-width:none;}
   .slide .tags{margin:10px 4px 0; gap:6px;}
-  .csm{height:min(52vw, 200px);}
+  .csm{height:min(50vw, 190px);}
   .csm .badge{inset-inline-start:9px; top:9px; padding:5px 8px;}
   .slide .chip{padding:6px 10px; font-size:9.5px;}
   .pips{margin-top:calc(var(--cell)*1.1);}
@@ -1211,7 +1208,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     for(var gx=0;gx<=W;gx+=CELL){ g.moveTo(gx+.5,0); g.lineTo(gx+.5,H+CELL*2); }
     for(var gy=0;gy<=H+CELL*2;gy+=CELL){ g.moveTo(0,gy+.5); g.lineTo(W,gy+.5); } g.stroke(); }
   function size(){
-    DPR=K.light?1:Math.min(window.devicePixelRatio||1,2); W=innerWidth; H=innerHeight;
+    DPR=Math.min(window.devicePixelRatio||1,2); W=innerWidth; H=innerHeight;
     cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0);
     cols=Math.ceil(W/CELL)+1; rows=Math.ceil(H/CELL)+2; heat=new Float32Array(cols*rows); r0=Math.floor(scrollY/CELL); hb1=-1;
     baseBuf=new Float32Array(cols*rows); baseR0=-1e9;
@@ -1325,7 +1322,9 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
   function frame(ts){
     requestAnimationFrame(frame);
     if(document.hidden) return;
-    if(K.light && K.scrolling) return;
+    /* light mode keeps the field live while scrolling (it is the page's signature effect and it is
+       document-anchored, so freezing it would make the clouds jump on every scroll stop); the 30 fps
+       cap below is what keeps the cost down. */
     if(K.light && (ts-last<32)) return;
     var d=Math.min(50, ts-(last||ts)); last=ts;
     t+=d; introT+=d/1000; var tt=t*.001, ns=ts/1000;
@@ -1341,12 +1340,12 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
 
     /* ---- cursor brain ---- */
     if(TOUCH){
-      if(!K.light){
-        var sp=sy, bx=W*.5+Math.sin(sp*.0026+.6)*W*.33, by=H*.55+Math.sin(sp*.0052)*H*.18;
-        if(autoX<0){autoX=bx; autoY=by;} autoX+=(bx-autoX)*.1; autoY+=(by-autoY)*.1; mx=autoX; my=autoY;
-        if(inRect(R.about,mx,my,sy)){ if(!wasHeart) boom(mx,my); stampHeart(mx,my,ns); wasHeart=true; pmx=mx; pmy=my; }
-        else { wasHeart=false; smileyFill(ns,sy); follow(mx,my,4); }
-      }
+      /* no pointer on a phone, so a slow wandering one keeps the field alive: it drags the
+         pixel trail, stamps the hearts over #about and lights up the smileys. */
+      var sp=sy, bx=W*.5+Math.sin(sp*.0026+.6)*W*.33, by=H*.55+Math.sin(sp*.0052)*H*.18;
+      if(autoX<0){autoX=bx; autoY=by;} autoX+=(bx-autoX)*.1; autoY+=(by-autoY)*.1; mx=autoX; my=autoY;
+      if(inRect(R.about,mx,my,sy)){ if(!wasHeart) boom(mx,my); stampHeart(mx,my,ns); wasHeart=true; pmx=mx; pmy=my; }
+      else { wasHeart=false; smileyFill(ns,sy); follow(mx,my,4); }
     } else {
       var idle=ns-lastMove;
       if(idle>4.5){ wander(ns); pmx=-1; }
@@ -1597,7 +1596,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     /* background + 7px grid baked into an offscreen canvas once per size/theme (was ~110 fillRects per tile per frame) */
     o.bake=function(){ if(!o.w) return; var d=o.d, b=o.bg||(o.bg=document.createElement('canvas')); b.width=o.cv.width; b.height=o.cv.height; var x=b.getContext('2d'); x.setTransform(d,0,0,d,0,0);
       x.fillStyle=K.T.tileBg; x.fillRect(0,0,o.w,o.h); x.fillStyle=K.T.tileGrid; for(var c=0;c<=o.cw;c++) x.fillRect(c*PC-1,0,1,o.h); for(var r=0;r<=o.ch;r++) x.fillRect(0,r*PC-1,o.w,1); };
-    o.size=function(){ var r=cv.getBoundingClientRect(), d=K.light?1:Math.min(devicePixelRatio||1,2); o.d=d; o.w=r.width; o.h=r.height; cv.width=Math.round(r.width*d); cv.height=Math.round(r.height*d); o.ctx.setTransform(d,0,0,d,0,0); o.cw=Math.floor(o.w/PC); o.ch=Math.floor(o.h/PC); o.g=null; o.bake(); o.acc=99; };
+    o.size=function(){ var r=cv.getBoundingClientRect(), d=Math.min(devicePixelRatio||1,2); o.d=d; o.w=r.width; o.h=r.height; cv.width=Math.round(r.width*d); cv.height=Math.round(r.height*d); o.ctx.setTransform(d,0,0,d,0,0); o.cw=Math.floor(o.w/PC); o.ch=Math.floor(o.h/PC); o.g=null; o.bake(); o.acc=99; };
     items.push(o);
   });
   var io=new IntersectionObserver(function(es){ es.forEach(function(e){ items.forEach(function(o){ if(o.cv===e.target) o.vis=e.isIntersecting; }); }); },{rootMargin:'100px'});
@@ -1631,7 +1630,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
     var line=s.querySelector('.pxline i'); s.addEventListener('mousemove', function(e){ if(!line) return; var r=s.getBoundingClientRect(), lx=Math.round((e.clientX-r.left-31)/9)*9; line.style.setProperty('--lx', Math.max(0,Math.min(r.width-62,lx))+'px'); }); });
   var W=0,H=0, P=[], N=K.light?100:300, mx=-999, my=-999, inf=0, hovering=false, gcols=0, grows=0, occ=null, ox=0, oy=0, rectAge=99;
   for(var i=0;i<N;i++) P.push({u:Math.random(), s:i%2?1:-1, j:Math.random()*2-1, k:Math.random(), sp:.00005+Math.random()*.00004});
-  function size(){ var r=cv.getBoundingClientRect(), d=K.light?1:Math.min(devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=Math.round(W*d); cv.height=Math.round(H*d); ctx.setTransform(d,0,0,d,0,0);
+  function size(){ var r=cv.getBoundingClientRect(), d=Math.min(devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=Math.round(W*d); cv.height=Math.round(H*d); ctx.setTransform(d,0,0,d,0,0);
     gcols=Math.ceil(W/CELL)+2; grows=Math.ceil(H/CELL)+2; occ=new Float32Array(gcols*grows); rectAge=99; }
   size(); K.onResize(size, 120); K.on('layout', function(){ rectAge=99; });
   cv.parentNode.addEventListener('pointermove', function(e){ var r=cv.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top; hovering=true; });
@@ -1714,7 +1713,7 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
   var LOCK=450, PC=15;                                         /* how long a landed piece still slides before it sets; preview tile size */
   var W=0,H=0,DPR=1, mode='idle', cell=9, cols=0, rows=0, board=null, falling=[], lastSpawn=0, lastStep=0, score=0, dropMs=780, over=false, filled=0, built=false, near=false, visible=false;
   var cur=null, next=[], hold=-1, holdReady=true, level=0, lines=0, lockAt=0, lockN=0, blink=null, blinkUntil=0, gc=18, gox=0, goy=0;
-  function size(){ var r=cv.getBoundingClientRect(); DPR=K.light?1:Math.min(devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0); }
+  function size(){ var r=cv.getBoundingClientRect(); DPR=Math.min(devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0); }
   function newBoard(){ cols=Math.max(4,Math.floor(W/cell)); rows=Math.max(4,Math.floor(H/cell)); board=[]; for(var r=0;r<rows;r++){ board.push(new Array(cols).fill(-1)); } filled=0; }
   function rot(cells){ var o=cells.map(function(p){ return [-p[1],p[0]]; }), mnx=Math.min.apply(null,o.map(function(p){return p[0];})), mny=Math.min.apply(null,o.map(function(p){return p[1];})); return o.map(function(p){ return [p[0]-mnx,p[1]-mny]; }); }
   function fits(cells,x,y){ for(var i=0;i<cells.length;i++){ var cx=x+cells[i][0], cy=y+cells[i][1]; if(cx<0||cx>=cols||cy>=rows) return false; if(cy>=0&&board[cy][cx]>=0) return false; } return true; }   /* board-only: with one piece in the air there is nobody left to collide with */
