@@ -86,13 +86,17 @@ In document order:
   negative margin, so either change silently compresses the name → pixels →
   lead rhythm. `#sitehead` therefore stays hidden until `.hhead` has passed.
 - **Mobile scrolling & lightweight mode.** Touch scrolling stays 100% native
-  without custom inertia. Tapped in-page anchors on coarse/touch pointers use
-  quick managed scrolling (`KA.quickScrollTo`) that clears `#sitehead`, cancels
-  instantly on native touch/scroll, and jumps instantly for reduced motion.
+  without custom inertia. Tapped in-page anchors on coarse/touch pointers are
+  left to the browser's own jump (`scroll-margin-top` already clears
+  `#sitehead`): a scripted scroll on a phone fights the native one and reads
+  as lag, so do not re-introduce `KA.quickScrollTo` for anchors. Under
+  reduced motion the jump is instant. The glide stays fine-pointer only.
   On coarse/small/Save-Data viewports (`KA.light`), particles are reduced and
-  decorative canvases idle at 30 FPS — but the pixel field keeps DPR (capped to
-  2) and paints **every frame while the scroll position changes** (its art is
-  document-anchored in a fixed canvas, so a skipped frame leaves the pixels
+  the decorative canvases (vizzes, `#flow`, footer skyline) idle at 30 FPS —
+  but the pixel field keeps DPR (capped to 2) and idles at **60 FPS** (never
+  30: at half rate the trail, the hearts and the smileys visibly stutter on a
+  phone) and paints **every frame while the scroll position changes** (its art
+  is document-anchored in a fixed canvas, so a skipped frame leaves the pixels
   visibly sliding up/down after the content), with scroll-tick repaints when
   rAF is throttled during momentum. Do not gate the field's touch-cursor,
   canvas sizing or frame loop on `KA.light` beyond the idle-only FPS cap, and
@@ -100,9 +104,23 @@ In document order:
   to prevent. The field bitmap is sized to the large viewport (a
   `100vh`/`100lvh` probe) and the canvas element is pinned to that exact size
   in JS — never let CSS stretch the bitmap when mobile browser chrome slides
-  away; that rescale reads as the pixels drifting while scrolling. Dynamic
-  masks/blur are suppressed during scroll and resizes use debounced width-based
-  dispatch (`KA.onResize`) to ignore address-bar jitter.
+  away; that rescale reads as the pixels drifting while scrolling. Resizes use
+  debounced width-based dispatch (`KA.onResize`) to ignore address-bar jitter.
+- **Motion is stepped, not eased.** The site's motion language is `steps(n)`:
+  hero lines, the lead reveal, the header slide, the settings panel. A
+  `cubic-bezier` version of the same animation reads as floaty on a phone.
+  Keep `image-rendering: pixelated` on the pixel canvases (the bitmap is 2x,
+  many phones are 3x, and without nearest-neighbour scaling the art goes
+  soft). The field's hot loop is budgeted: the grid is stroked (not blitted
+  from a second full-size bitmap), the cells are filled as one path per
+  colour (not one `fillRect` each), and the per-cell noise uses the integer
+  hash `ih()` — do not put `Math.sin` back in that loop. The smileys are
+  located from the cached document rects; only the face actually drawn gets a
+  live `getBoundingClientRect()`, because a per-frame read is a forced
+  layout. The carousel's edge fade is a pair of gradient overlays, not a CSS
+  mask: a mask over the strip is re-composited whenever a tile repaints.
+  Never add a universal-selector rule (e.g. `html.is-scrolling *`) — it forces
+  a full-document style recalc exactly when the phone is busy scrolling.
 - **Mobile layout & safe areas.** Fixed header and panel use `env(safe-area-inset-*)`,
   gutters remain consistent across all sections, touch targets have at least
   44 px tap clearance, header navigation stays overflow-proof across 320–680 px,
