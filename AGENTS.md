@@ -106,9 +106,12 @@ In document order:
   in JS — never let CSS stretch the bitmap when mobile browser chrome slides
   away; that rescale reads as the pixels drifting while scrolling. Resizes use
   debounced width-based dispatch (`KA.onResize`) to ignore address-bar jitter.
-- **Motion is stepped, not eased.** The site's motion language is `steps(n)`:
-  hero lines, the lead reveal, the header slide, the settings panel. A
-  `cubic-bezier` version of the same animation reads as floaty on a phone.
+- **Chrome motion is stepped; text reveals are eased.** UI chrome (header
+  slide, settings panel, pips, hover CTAs, footer) keeps the `steps(n)` sprite
+  look. The text-appearing animations — hero lines, `.htag`/`.mark` fade, the
+  lead reveal, `.reveal` — are `cubic-bezier(.16,1,.3,1)` by owner request:
+  the stepped version read as lag/jank, not as a style. Don't move them back
+  to `steps(n)`.
   Keep `image-rendering: pixelated` on the pixel canvases (the bitmap is 2x,
   many phones are 3x, and without nearest-neighbour scaling the art goes
   soft). The field's hot loop is budgeted: the grid is stroked (not blitted
