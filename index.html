@@ -1511,24 +1511,6 @@ html:not(#ka-sentinel):not(#ka-sentinel2) ::selection, html:not(#ka-sentinel):no
   var mark=document.getElementById('mark');
   if(mark && !K.RM){ var svg=mark.querySelector('svg'); svg.addEventListener('animationend', function(){ mark.classList.remove('spin'); });
     setInterval(function(){ if(!document.hidden) mark.classList.add('spin'); }, 10000); }
-  /* local time in Mashhad (Asia/Tehran, UTC+3:30) — the browser's own timezone data, no request */
-  var tz=document.getElementById('tz');
-  if(tz){
-    var FW=['','یک','دو','سه','چهار','پنج','شش','هفت','هشت','نه','ده','یازده','دوازده','سیزده','چهارده'];
-    function faHours(h){ var whole=Math.floor(h+1e-6), frac=h-whole, half=Math.abs(frac-.5)<.01, quarter=Math.abs(frac-.75)<.01||Math.abs(frac-.25)<.01;
-      if(quarter) return K.faNum(whole)+' ساعت و '+K.faNum(Math.round(frac*60))+' دقیقه';
-      if(whole===0&&half) return 'نیم ساعت';
-      return (FW[whole]||K.faNum(whole))+' ساعت'+(half?' و نیم':''); }
-    function upd(){ try{ var now=new Date(), fa=K.lang==='fa', tm=now.toLocaleTimeString(fa?'fa-IR':'en-GB',{timeZone:'Asia/Tehran',hour:'2-digit',minute:'2-digit',hour12:false});
-        var diff=(210+now.getTimezoneOffset())/60, h=Math.abs(diff), txt;
-        if(fa){ txt = h<.01 ? 'الان در مشهد ساعت '+tm+' است؛ دقیقاً همان ساعتی که شما هستید.'
-                           : 'الان در مشهد ساعت '+tm+' است؛ '+faHours(h)+(diff>0?' جلوتر از شما.':' عقب‌تر از شما.'); }
-        else { var hs=(h%1===0?h:h.toFixed(1))+(h===1?' hour':' hours');
-          txt = h<.01 ? "It's "+tm+" in Mashhad right now, the same time as where you are."
-                       : "It's "+tm+" in Mashhad right now, "+hs+(diff>0?' ahead of':' behind')+" you."; }
-        if(tz.textContent!==txt) tz.textContent=txt; }catch(e){ tz.style.display='none'; } }
-    upd(); setInterval(upd,30000); K.on('lang',upd);
-  }
 })();
 
 /* ===== 4. springy momentum carousel (track stays LTR; in Persian the order flips and it starts from the right) ===== */
