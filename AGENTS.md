@@ -12,12 +12,14 @@ introduce any of those.
 
 | Path | What it is |
 |---|---|
-| `index.html` (~188 KB, ~1760 lines) | The whole main page: markup, CSS, JS, i18n dictionaries, and the Host Grotesk font inlined as base64 |
+| `index.html` (~170 KB, ~1940 lines) | The whole main page: markup, CSS, JS and i18n dictionaries (fonts load from `fonts/`) |
 | `404.html` | Small standalone branded not-found page for GitHub Pages; keep asset paths root-absolute |
-| `fonts/Lahzeh-*.ttf` | Primary Persian/Arabic-script faces (100–900), owner-supplied; see `fonts/Lahzeh-NOTICE.md` before reuse/conversion |
+| `fonts/Lahzeh-*.ttf` | Primary Persian/Arabic-script faces, only the weights the page uses (400/500/600/700), owner-supplied; see `fonts/Lahzeh-NOTICE.md` before reuse/conversion |
 | `fonts/Vazirmatn-arabic.woff2` | Arabic-script fallback face, loaded from disk (referenced in `index.html`) |
-| `fonts/HostGrotesk-latin.woff2` | Source copy of the inlined Latin face — `index.html` uses the data-URI, not this file |
-| `assets/Kiarash_Akbari_Resume.pdf` | Résumé download target |
+| `fonts/HostGrotesk-latin.woff2` | Latin face, preloaded by `index.html` and shared with `404.html` (one cached download) |
+| `assets/Kiarash_Akbari_Resume_TE.pdf` | Résumé download target (linked twice in `index.html`; rename = update both, CI link check will fail otherwise) |
+| `sitemap.xml`, `robots.txt` | EN + `?lang=fa` URLs with hreflang pairs |
+| `.github/workflows/check.yml` | Offline link/asset check (lychee) on every push and PR |
 | `assets/og.png` | 1200 × 630 social share image referenced by Open Graph/Twitter meta |
 | `.nojekyll` | Makes Pages serve the folder verbatim. Keep it. |
 | `README.md` | Long-form rationale for the guard, contact form, and hosting choices — read it before touching those areas |

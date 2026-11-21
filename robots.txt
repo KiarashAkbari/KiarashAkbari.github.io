@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /AGENTS.md
+Disallow: /README.md
+
+Sitemap: https://kiarashakbari.github.io/sitemap.xml
