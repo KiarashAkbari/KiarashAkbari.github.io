@@ -9,7 +9,7 @@
 
 ```text
 SYSTEM_STATUS:    OPERATIONAL
-ENTRY_POINT:      index.html (ONE FILE, ~188 KB)
+ENTRY_POINT:      index.html (ONE FILE, ~170 KB)
 LANGUAGES:        ENGLISH (LTR) + PERSIAN (RTL)
 THEMES:           LIGHT / DARK / FOLLOW-SYSTEM
 BACKEND:          NONE (CONTACT FORM VIA FORMSUBMIT RELAY)
@@ -70,7 +70,7 @@ interface chrome moves in sprite-style steps instead of floaty easing.
 | Backend services you run | **0** |
 | Analytics / trackers | **0** |
 | Third-party requests on page load | **0** |
-| Main document | **1 file, ~188 KB** |
+| Main document | **1 file, ~170 KB** |
 | Monthly hosting cost | **$0** |
 
 ---
@@ -235,16 +235,16 @@ That is accessibility, on purpose.
 
 ```text
 /ROOT
-├── index.html      # [KERNEL]  Markup, CSS, JS, i18n dictionaries, inlined Latin font
+├── index.html      # [KERNEL]  Markup, CSS, JS, i18n dictionaries
 ├── 404.html        # [FALLBACK] Branded standalone not-found page (root-absolute paths)
 ├── assets/
 │   ├── og.png                       # 1200x630 Open Graph / Twitter image
 │   └── Kiarash_Akbari_Resume_TE.pdf # Resume download target
 ├── fonts/
-│   ├── Lahzeh-*.ttf        # Persian/Arabic-script faces (100-900), owner-supplied
+│   ├── Lahzeh-*.ttf        # Persian/Arabic-script faces (400-700), owner-supplied
 │   ├── Lahzeh-NOTICE.md    # READ BEFORE REUSE
 │   ├── Vazirmatn-arabic.woff2   # Arabic-script fallback
-│   └── HostGrotesk-latin.woff2  # Source copy of the inlined Latin face
+│   └── HostGrotesk-latin.woff2  # Latin face, preloaded
 ├── .nojekyll       # Makes Pages serve the folder verbatim. Keep it.
 ├── AGENTS.md       # Contributor + AI-agent contract (read before editing)
 └── README.md       # This document
